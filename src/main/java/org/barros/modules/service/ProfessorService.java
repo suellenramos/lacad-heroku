@@ -1,6 +1,5 @@
 package org.barros.modules.service;
 
-import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.barros.modules.dto.response.ProfessorDTO;
 import org.barros.modules.mapper.ProfessorMapper;
 import org.barros.modules.repository.ProfessorRepository;
@@ -22,4 +21,7 @@ public class ProfessorService {
         professorRepository.persist(professor);
         return ProfessorMapper.INSTANCE.modelToDTO(professor);
     }
+
 }
+
+
