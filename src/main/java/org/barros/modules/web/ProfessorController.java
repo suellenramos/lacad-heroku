@@ -1,36 +1,141 @@
 package org.barros.modules.web;
 
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.barros.modules.dto.response.ProfessorDTO;
+import org.barros.modules.exception.ServiceException;
 import org.barros.modules.service.ProfessorService;
-import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.security.PermitAll;
-import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
+import java.net.URI;
+import java.util.Objects;
 
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@Tag(ref = "professor")
+@Tag(name = "professor", description = "Operacoes Professores" )
 //@RolesAllowed("LacadAdmin")
 //@SecurityRequirement(name = "jwt")
+@AllArgsConstructor
+@Slf4j
 @Path("/v1/professores")
 public class ProfessorController {
 
-    @Inject
-    ProfessorService professorService;
+    private final ProfessorService professorService;
 
-    @Operation(summary = "Cadastra uma novo Professor")
-    @PermitAll
-    @POST
-    public Response salvar(ProfessorDTO professorDTO){
-        var professor = professorService.salvar(professorDTO);
-        return Response.created(null).entity(professor).build();
+    @GET
+    @APIResponse(
+            responseCode = "200",
+            description = "Obtem todos os Professores",
+            content = @Content(
+                    mediaType = MediaType.APPLICATION_JSON,
+                    schema = @Schema(type = SchemaType.ARRAY, implementation = ProfessorDTO.class)
+            )
+    )
+    public Response get() {
+        return Response.ok(professorService.findAll()).build();
     }
-}
+
+    @GET
+    @Path("/{professorId}")
+    @APIResponse(
+            responseCode = "200",
+            description = "Obtem Professor pelo Id",
+            content = @Content(
+                    mediaType = MediaType.APPLICATION_JSON,
+                    schema = @Schema(type = SchemaType.OBJECT, implementation = ProfessorDTO.class)
+            )
+    )
+    @APIResponse(
+            responseCode = "404",
+            description = "Professor não encontrado pelo Id",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON)
+    )
+    public Response getById(@Parameter(name = "ProfId", required = true) @PathParam("profId") Long profId ) {
+        return professorService.findById(profId)
+                .map(professorDTO -> Response.ok(professorDTO).build())
+                .orElse(Response.status(Response.Status.NOT_FOUND).build());
+    }
+
+    @POST
+    @APIResponse(
+            responseCode = "201",
+            description = "Criar Professores",
+            content = @Content(
+                    mediaType = MediaType.APPLICATION_JSON,
+                    schema = @Schema(type = SchemaType.OBJECT, implementation = ProfessorDTO.class)
+            )
+    )
+    @APIResponse(
+            responseCode = "400",
+            description = "Professor Invalido",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON)
+    )
+    @APIResponse(
+            responseCode = "400",
+            description = "Já existe um Professor com esse Id",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON)
+    )
+    public Response post(@NotNull @Valid ProfessorDTO professorDTO, @Context UriInfo uriInfo) {
+        professorService.save(professorDTO);
+        URI uri = uriInfo.getAbsolutePathBuilder().path(Long.toString(professorDTO.getProfId())).build();
+        return Response.created(uri).entity(professorDTO).build();
+    }
+        @PUT
+        @Path("/{professorId}")
+        @APIResponse(
+                responseCode = "204",
+                description = "Professor Atualizado",
+                content = @Content(
+                        mediaType = MediaType.APPLICATION_JSON,
+                        schema = @Schema(type = SchemaType.OBJECT, implementation = ProfessorDTO.class)
+                )
+        )
+        @APIResponse(
+                responseCode = "400",
+                description = "Professor Invalido",
+                content = @Content(mediaType = MediaType.APPLICATION_JSON)
+        )
+        @APIResponse(
+                responseCode = "400",
+                description = "Não foi encontrado Id para o Professor requerido",
+                content = @Content(mediaType = MediaType.APPLICATION_JSON)
+        )
+        @APIResponse(
+                responseCode = "400",
+                description = "O id não corresponde ao Professor requerido",
+                content = @Content(mediaType = MediaType.APPLICATION_JSON)
+        )
+        @APIResponse(
+                responseCode = "404",
+                description = "Nenhum professor encontrado pelo id indicado",
+                content = @Content(mediaType = MediaType.APPLICATION_JSON)
+        )
+        public Response put(@Parameter(name = "profId", required = true) @PathParam("profId") Long profId, @NotNull @Valid ProfessorDTO professorDTO) {
+            if (!Objects.equals(profId, professorDTO.getProfId())) {
+                throw new ServiceException("O id não corresponde ao ProfessorId.");
+            }
+            professorService.update(professorDTO);
+            return Response.status(Response.Status.NO_CONTENT).build();
+        }
+
+    @DELETE
+    @Path("/{id}")
+    public void delete(@PathParam("id") Long id){
+        professorService.excluir(id);
+    }
+    }
+
+
+

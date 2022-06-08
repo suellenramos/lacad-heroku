@@ -4,14 +4,10 @@ import lombok.*;
 
 import java.io.Serializable;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
+@Data
 public class ProfessorDTO implements Serializable {
 
-    private Long id;
+    private Long profId;
 
     private String nome;
 
