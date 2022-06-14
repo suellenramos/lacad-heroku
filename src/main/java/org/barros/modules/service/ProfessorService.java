@@ -10,7 +10,6 @@ import org.barros.modules.model.Professor;
 import org.barros.modules.repository.ProfessorRepository;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.ws.rs.NotFoundException;
@@ -23,16 +22,18 @@ import java.util.Optional;
 @ApplicationScoped
 public class ProfessorService {
 
+    private static final String PROFESSOR_NAO_ENCONTRADO = "Professor não encontrado";
 
     private final ProfessorRepository professorRepository;
+
     private final ProfessorMapper professorMapper;
 
     public List<ProfessorDTO> findAll() {
         return this.professorMapper.toDTOList(professorRepository.findAll().list());
     }
 
-    public Optional<ProfessorDTO> findById(Long profId) {
-        return professorRepository.findByIdOptional(profId)
+    public Optional<ProfessorDTO> findById(@NonNull Long id) {
+        return professorRepository.findByIdOptional(id)
                 .map(professorMapper::toDTO);
     }
 
@@ -58,10 +59,10 @@ public class ProfessorService {
         professorMapper.updateDTOFromModel(professor, professorDTO);
     }
 
-     @Transactional
+    @Transactional
     public void excluir(Long id){
         var professor  = professorRepository.findByIdOptional(id)
-                .orElseThrow(()-> new ServiceException("Professor não econtrado pelo Id[%s]"));;
+                .orElseThrow(()-> new NotFoundException(PROFESSOR_NAO_ENCONTRADO));
         professorRepository.delete(professor);
     }
 }

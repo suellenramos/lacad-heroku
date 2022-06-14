@@ -13,6 +13,7 @@ public interface ProfessorMapper {
 
     ProfessorDTO toDTO(Professor professor);
 
+    @Mapping(target = "profId", ignore = true)
     @InheritInverseConfiguration(name = "toDTO")
     Professor toModel(ProfessorDTO professorDTO);
 

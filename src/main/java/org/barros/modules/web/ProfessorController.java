@@ -24,7 +24,7 @@ import java.util.Objects;
 
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@Tag(name = "professor", description = "Operacoes Professores" )
+@Tag(name = "professor", description = "Operacoes Professores")
 //@RolesAllowed("LacadAdmin")
 //@SecurityRequirement(name = "jwt")
 @AllArgsConstructor
@@ -48,7 +48,7 @@ public class ProfessorController {
     }
 
     @GET
-    @Path("/{professorId}")
+    @Path("/{id}")
     @APIResponse(
             responseCode = "200",
             description = "Obtem Professor pelo Id",
@@ -57,13 +57,15 @@ public class ProfessorController {
                     schema = @Schema(type = SchemaType.OBJECT, implementation = ProfessorDTO.class)
             )
     )
+
+
     @APIResponse(
             responseCode = "404",
             description = "Professor não encontrado pelo Id",
             content = @Content(mediaType = MediaType.APPLICATION_JSON)
     )
-    public Response getById(@Parameter(name = "ProfId", required = true) @PathParam("profId") Long profId ) {
-        return professorService.findById(profId)
+    public Response getById(@Parameter(name = "id", required = true) @PathParam("id") Long id) {
+        return professorService.findById(id)
                 .map(professorDTO -> Response.ok(professorDTO).build())
                 .orElse(Response.status(Response.Status.NOT_FOUND).build());
     }
@@ -92,50 +94,48 @@ public class ProfessorController {
         URI uri = uriInfo.getAbsolutePathBuilder().path(Long.toString(professorDTO.getProfId())).build();
         return Response.created(uri).entity(professorDTO).build();
     }
-        @PUT
-        @Path("/{professorId}")
-        @APIResponse(
-                responseCode = "204",
-                description = "Professor Atualizado",
-                content = @Content(
-                        mediaType = MediaType.APPLICATION_JSON,
-                        schema = @Schema(type = SchemaType.OBJECT, implementation = ProfessorDTO.class)
-                )
-        )
-        @APIResponse(
-                responseCode = "400",
-                description = "Professor Invalido",
-                content = @Content(mediaType = MediaType.APPLICATION_JSON)
-        )
-        @APIResponse(
-                responseCode = "400",
-                description = "Não foi encontrado Id para o Professor requerido",
-                content = @Content(mediaType = MediaType.APPLICATION_JSON)
-        )
-        @APIResponse(
-                responseCode = "400",
-                description = "O id não corresponde ao Professor requerido",
-                content = @Content(mediaType = MediaType.APPLICATION_JSON)
-        )
-        @APIResponse(
-                responseCode = "404",
-                description = "Nenhum professor encontrado pelo id indicado",
-                content = @Content(mediaType = MediaType.APPLICATION_JSON)
-        )
-        public Response put(@Parameter(name = "profId", required = true) @PathParam("profId") Long profId, @NotNull @Valid ProfessorDTO professorDTO) {
-            if (!Objects.equals(profId, professorDTO.getProfId())) {
-                throw new ServiceException("O id não corresponde ao ProfessorId.");
-            }
-            professorService.update(professorDTO);
-            return Response.status(Response.Status.NO_CONTENT).build();
+
+    @PUT
+    @Path("{id}")
+    @APIResponse(
+            responseCode = "204",
+            description = "Professor Atualizado",
+            content = @Content(
+                    mediaType = MediaType.APPLICATION_JSON,
+                    schema = @Schema(type = SchemaType.OBJECT, implementation = ProfessorDTO.class)
+            )
+    )
+
+    @APIResponse(
+            responseCode = "400",
+            description = "Não foi encontrado Id para o Professor requerido",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON)
+    )
+    @APIResponse(
+            responseCode = "400",
+            description = "O id não corresponde ao Professor requerido",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON)
+    )
+    @APIResponse(
+            responseCode = "404",
+            description = "Nenhum professor encontrado pelo id indicado",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON)
+    )
+
+    public Response put(@Parameter(name = "id", required = true) @PathParam("id") Long id, @NotNull @Valid ProfessorDTO professorDTO) {
+        if (!Objects.equals(id, professorDTO.getProfId())) {
+            throw new ServiceException("O id não corresponde ao Professor.ProfessorDTO.profId");
         }
+        professorService.update(professorDTO);
+        return Response.status(Response.Status.NO_CONTENT).build();
+    }
 
     @DELETE
     @Path("/{id}")
-    public void delete(@PathParam("id") Long id){
+    public void delete(@PathParam("id") Long id) {
         professorService.excluir(id);
     }
-    }
+}
 
 
 
