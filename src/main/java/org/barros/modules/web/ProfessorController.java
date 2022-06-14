@@ -127,7 +127,8 @@ public class ProfessorController {
             throw new ServiceException("O id não corresponde ao Professor.ProfessorDTO.profId");
         }
         professorService.update(professorDTO);
-        return Response.status(Response.Status.NO_CONTENT).build();
+        return Response.ok(professorDTO).build();
+       // return Response.status(Response.Status.NO_CONTENT).build();
     }
 
     @DELETE
