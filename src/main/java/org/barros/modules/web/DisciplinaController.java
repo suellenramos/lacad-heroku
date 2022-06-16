@@ -75,7 +75,7 @@ public class DisciplinaController {
     @POST
     @APIResponse(
             responseCode = "201",
-            description = "Criar Professores",
+            description = "Criar Disciplinas",
             content = @Content(
                     mediaType = MediaType.APPLICATION_JSON,
                     schema = @Schema(type = SchemaType.OBJECT, implementation = DisciplinaDTO.class)

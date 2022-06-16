@@ -10,10 +10,12 @@ import org.barros.modules.mapper.DisciplinaMapper;
 import org.barros.modules.mapper.ProfessorMapper;
 import org.barros.modules.model.Disciplina;
 import org.barros.modules.model.Professor;
+import org.barros.modules.repository.CursoRepository;
 import org.barros.modules.repository.DisciplinaRepository;
 import org.barros.modules.repository.ProfessorRepository;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.ws.rs.NotFoundException;
@@ -32,6 +34,12 @@ public class DisciplinaService {
 
     private final DisciplinaMapper disciplinaMapper;
 
+    @Inject
+    private ProfessorRepository professorRepository;
+
+    @Inject
+    CursoRepository cursoRepository;
+
     public List<DisciplinaDTO> findAll() {
         return this.disciplinaMapper.toDTOList(disciplinaRepository.findAll().list());
     }
@@ -41,10 +49,14 @@ public class DisciplinaService {
                 .map(disciplinaMapper::toDTO);
     }
 
+
+
     @Transactional
     public void save(@Valid DisciplinaDTO disciplinaDTO) {
         log.debug("Saving DisciplinaDTO: {}", disciplinaDTO);
         Disciplina disciplina = disciplinaMapper.toModel(disciplinaDTO);
+        disciplina.setProfessor(professorRepository.findById(disciplinaDTO.getProfId()));
+       // disciplina.setCursos(cursoRepository.findById(disciplinaDTO.));
         disciplinaRepository.persist(disciplina);
         disciplinaMapper.updateDTOFromModel (disciplina, disciplinaDTO);
     }
