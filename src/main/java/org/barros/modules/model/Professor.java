@@ -27,8 +27,8 @@ public class Professor implements Serializable {
     @Column(name = "prof_senha")
     private String senha;
 
-//    @OneToMany(mappedBy = "professor")
-//    private List<Disciplina> disciplinas;
+    @OneToMany(mappedBy = "professor")
+    private List<Disciplina> disciplinas;
 
 
 }

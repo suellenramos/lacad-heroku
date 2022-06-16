@@ -39,7 +39,7 @@ public class CursoController {
     @GET
     @APIResponse(
             responseCode = "200",
-            description = "Obtem todos os Professores",
+            description = "Obtem todos os Cursos",
             content = @Content(
                     mediaType = MediaType.APPLICATION_JSON,
                     schema = @Schema(type = SchemaType.ARRAY, implementation = CursoDTO.class)
@@ -63,7 +63,7 @@ public class CursoController {
 
     @APIResponse(
             responseCode = "404",
-            description = "Professor não encontrado pelo Id",
+            description = "Curso não encontrado pelo Id",
             content = @Content(mediaType = MediaType.APPLICATION_JSON)
     )
     public Response getById(@Parameter(name = "id", required = true) @PathParam("id") Long id) {
