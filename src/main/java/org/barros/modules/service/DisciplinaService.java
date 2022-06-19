@@ -8,6 +8,7 @@ import org.barros.modules.dto.response.ProfessorDTO;
 import org.barros.modules.exception.ServiceException;
 import org.barros.modules.mapper.DisciplinaMapper;
 import org.barros.modules.mapper.ProfessorMapper;
+import org.barros.modules.model.Curso;
 import org.barros.modules.model.Disciplina;
 import org.barros.modules.model.Professor;
 import org.barros.modules.repository.CursoRepository;
@@ -56,7 +57,7 @@ public class DisciplinaService {
         log.debug("Saving DisciplinaDTO: {}", disciplinaDTO);
         Disciplina disciplina = disciplinaMapper.toModel(disciplinaDTO);
         disciplina.setProfessor(professorRepository.findById(disciplinaDTO.getProfId()));
-       // disciplina.setCursos(cursoRepository.findById(disciplinaDTO.));
+       // disciplina.setCursos ((List<Curso>) cursoRepository.findById(disciplinaDTO.getCurId()));
         disciplinaRepository.persist(disciplina);
         disciplinaMapper.updateDTOFromModel (disciplina, disciplinaDTO);
     }

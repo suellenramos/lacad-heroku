@@ -4,17 +4,16 @@ import lombok.Data;
 import lombok.Getter;
 
 import java.io.Serializable;
+
 @Getter
 @Data
-public class DisciplinaDTO implements Serializable {
+public class AplicativoDTO implements Serializable {
 
-    private Long discId;
-
-    private Long profId;
-
-    private Long curId;
+    private Long apliId;
 
     private Long conteId;
+
+    private String link;
 
     private String descricao;
 }

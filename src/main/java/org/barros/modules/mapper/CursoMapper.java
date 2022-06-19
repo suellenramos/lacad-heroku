@@ -16,6 +16,7 @@ public interface CursoMapper {
 
     List<CursoDTO> toDTOList(List<Curso> curssos);
 
+   // @Mapping(target = "discId", expression = "java(curso.getDisciplina().getDiscId())")
     CursoDTO toDTO(Curso curso);
 
     @Mapping(target = "curId", ignore = true)

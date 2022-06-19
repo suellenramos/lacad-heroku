@@ -22,7 +22,11 @@ public class Curso implements Serializable {
     @Column(name = "cur_descricao")
     private String descricao;
 
-    @ManyToMany(mappedBy = "cursos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany
+    @JoinTable(name = "curso_disciplina",
+            joinColumns = @JoinColumn(name = "cur_id"),
+            inverseJoinColumns = @JoinColumn(name = "disc_id"))
+   // @ManyToMany(mappedBy = "cursos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Disciplina> disciplinas;
 
 

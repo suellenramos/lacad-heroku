@@ -9,6 +9,7 @@ import org.barros.modules.exception.ServiceException;
 import org.barros.modules.mapper.CursoMapper;
 import org.barros.modules.mapper.ProfessorMapper;
 import org.barros.modules.model.Curso;
+import org.barros.modules.model.Disciplina;
 import org.barros.modules.model.Professor;
 import org.barros.modules.repository.CursoRepository;
 import org.barros.modules.repository.ProfessorRepository;
@@ -45,6 +46,7 @@ public class CursoService {
     public void save(@Valid CursoDTO cursoDTO) {
         log.debug("Saving CursoDTO: {}", cursoDTO);
         Curso curso = cursoMapper.toModel(cursoDTO);
+       // curso.setDisciplinas ((List<Disciplina>) cursoRepository.findById(cursoDTO.getDiscId()));
         cursoRepository.persist(curso);
         cursoMapper.updateDTOFromModel (curso, cursoDTO);
     }
