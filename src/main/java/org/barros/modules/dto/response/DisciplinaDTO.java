@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.Getter;
 
 import java.io.Serializable;
+import java.util.List;
+
 @Getter
 @Data
 public class DisciplinaDTO implements Serializable {
@@ -12,7 +14,7 @@ public class DisciplinaDTO implements Serializable {
 
     private Long profId;
 
-    private Long curId;
+    private String cursos;
 
     private Long conteId;
 

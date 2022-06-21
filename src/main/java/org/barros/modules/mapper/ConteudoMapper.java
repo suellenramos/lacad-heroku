@@ -1,9 +1,7 @@
 package org.barros.modules.mapper;
 
 import org.barros.modules.dto.response.ConteudoDTO;
-import org.barros.modules.dto.response.DisciplinaDTO;
 import org.barros.modules.model.Conteudo;
-import org.barros.modules.model.Disciplina;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

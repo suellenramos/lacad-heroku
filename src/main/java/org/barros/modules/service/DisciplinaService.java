@@ -4,13 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.barros.modules.dto.response.DisciplinaDTO;
-import org.barros.modules.dto.response.ProfessorDTO;
 import org.barros.modules.exception.ServiceException;
 import org.barros.modules.mapper.DisciplinaMapper;
-import org.barros.modules.mapper.ProfessorMapper;
 import org.barros.modules.model.Curso;
 import org.barros.modules.model.Disciplina;
-import org.barros.modules.model.Professor;
 import org.barros.modules.repository.CursoRepository;
 import org.barros.modules.repository.DisciplinaRepository;
 import org.barros.modules.repository.ProfessorRepository;
@@ -23,6 +20,8 @@ import javax.ws.rs.NotFoundException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @AllArgsConstructor
 @Slf4j
@@ -57,7 +56,10 @@ public class DisciplinaService {
         log.debug("Saving DisciplinaDTO: {}", disciplinaDTO);
         Disciplina disciplina = disciplinaMapper.toModel(disciplinaDTO);
         disciplina.setProfessor(professorRepository.findById(disciplinaDTO.getProfId()));
-       // disciplina.setCursos ((List<Curso>) cursoRepository.findById(disciplinaDTO.getCurId()));
+        var ids = Stream.of(disciplinaDTO.getCursos().split(",")).map(ass -> Long.valueOf(ass.trim())).collect(Collectors.toList());
+        var cursos = disciplinaRepository.getEntityManager().createQuery("select c from Curso c where curId in(?1)", Curso.class).setParameter(1, ids).getResultStream().collect(Collectors.toList());
+        disciplina.setCursos(cursos);
+       // disciplina. cursoRepository.findById(disciplinaDTO.getCurId()));
         disciplinaRepository.persist(disciplina);
         disciplinaMapper.updateDTOFromModel (disciplina, disciplinaDTO);
     }
