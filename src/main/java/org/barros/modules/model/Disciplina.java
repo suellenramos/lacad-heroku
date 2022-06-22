@@ -1,13 +1,16 @@
 package org.barros.modules.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "disciplina", schema = "public")
 public class Disciplina implements Serializable {
@@ -32,7 +35,7 @@ public class Disciplina implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "cur_id"))
     private List<Curso> cursos;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "disciplina_conteudo",
             joinColumns = @JoinColumn(name = "disc_id"),
             inverseJoinColumns = @JoinColumn(name = "conte_id"))

@@ -11,7 +11,9 @@ public class ConteudoDTO implements Serializable {
 
     private Long conteId;
 
-    private Long discId;
+    private String  disciplinas;
+
+    private String  aplicativos;
 
     private String descricao;
 }

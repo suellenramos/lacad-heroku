@@ -2,10 +2,10 @@ package org.barros.modules.web;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.barros.modules.dto.response.DisciplinaDTO;
+import org.barros.modules.dto.response.ConteudoDTO;
 import org.barros.modules.dto.response.ProfessorDTO;
 import org.barros.modules.exception.ServiceException;
-import org.barros.modules.service.DisciplinaService;
+import org.barros.modules.service.ConteudoService;
 import org.barros.modules.service.ProfessorService;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
@@ -26,117 +26,117 @@ import java.util.Objects;
 
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@Tag(name = "disciplina", description = "Operacoes Disciplinas")
+@Tag(name = "professor", description = "Operacoes Professores")
 //@RolesAllowed("LacadAdmin")
 //@SecurityRequirement(name = "jwt")
 @AllArgsConstructor
 @Slf4j
-@Path("/v1/disciplinas")
-public class DisciplinaController {
+@Path("/v1/conteudos")
+public class ConteudoController {
 
-    private final DisciplinaService disciplinaService;
+    private final ConteudoService conteudoService;
 
     @GET
     @APIResponse(
             responseCode = "200",
-            description = "Obtem todas as Disciplinas",
+            description = "Obtem todos os Conteudos",
             content = @Content(
                     mediaType = MediaType.APPLICATION_JSON,
-                    schema = @Schema(type = SchemaType.ARRAY, implementation = DisciplinaDTO.class)
+                    schema = @Schema(type = SchemaType.ARRAY, implementation = ConteudoDTO.class)
             )
     )
     public Response get() {
-        return Response.ok(disciplinaService.findAll()).build();
+        return Response.ok(conteudoService.findAll()).build();
     }
 
     @GET
     @Path("/{id}")
-//    @APIResponse(
-//            responseCode = "200",
-//            description = "Obtem Disciplina pelo Id",
-//            content = @Content(
-//                    mediaType = MediaType.APPLICATION_JSON,
-//                    schema = @Schema(type = SchemaType.OBJECT, implementation = DisciplinaDTO.class)
-//            )
-//    )
+    @APIResponse(
+            responseCode = "200",
+            description = "Obtem Conteudo pelo Id",
+            content = @Content(
+                    mediaType = MediaType.APPLICATION_JSON,
+                    schema = @Schema(type = SchemaType.OBJECT, implementation = ConteudoDTO.class)
+            )
+    )
 
 
     @APIResponse(
             responseCode = "404",
-            description = "Disciplina não encontrada pelo Id",
+            description = "Conteudo não encontrado pelo Id",
             content = @Content(mediaType = MediaType.APPLICATION_JSON)
     )
     public Response getById(@Parameter(name = "id", required = true) @PathParam("id") Long id) {
-        return disciplinaService.findById(id)
-                .map(disciplinaDTO -> Response.ok(disciplinaDTO).build())
+        return conteudoService.findById(id)
+                .map(conteudoDTO -> Response.ok(conteudoDTO).build())
                 .orElse(Response.status(Response.Status.NOT_FOUND).build());
     }
 
     @POST
     @APIResponse(
             responseCode = "201",
-            description = "Criar Disciplinas",
+            description = "Criar Conteudos",
             content = @Content(
                     mediaType = MediaType.APPLICATION_JSON,
-                    schema = @Schema(type = SchemaType.OBJECT, implementation = DisciplinaDTO.class)
+                    schema = @Schema(type = SchemaType.OBJECT, implementation = ConteudoDTO.class)
             )
     )
     @APIResponse(
             responseCode = "400",
-            description = "Disciplina Inválida",
+            description = "Conteudo Invalido",
             content = @Content(mediaType = MediaType.APPLICATION_JSON)
     )
     @APIResponse(
             responseCode = "400",
-            description = "Já existe um Professor com esse Id",
+            description = "Já existe um Conteudo com esse Id",
             content = @Content(mediaType = MediaType.APPLICATION_JSON)
     )
-    public Response post(@NotNull @Valid DisciplinaDTO disciplinaDTO, @Context UriInfo uriInfo) {
-        disciplinaService.save(disciplinaDTO);
-        URI uri = uriInfo.getAbsolutePathBuilder().path(Long.toString(disciplinaDTO.getDiscId())).build();
-        return Response.created(uri).entity(disciplinaDTO).build();
+    public Response post(@NotNull @Valid ConteudoDTO conteudoDTO, @Context UriInfo uriInfo) {
+        conteudoService.save(conteudoDTO);
+        URI uri = uriInfo.getAbsolutePathBuilder().path(Long.toString(conteudoDTO.getConteId())).build();
+        return Response.created(uri).entity(conteudoDTO).build();
     }
 
     @PUT
     @Path("{id}")
     @APIResponse(
             responseCode = "204",
-            description = "Disciplina Atualizada",
+            description = "Conteudo Atualizado",
             content = @Content(
                     mediaType = MediaType.APPLICATION_JSON,
-                    schema = @Schema(type = SchemaType.OBJECT, implementation = DisciplinaDTO.class)
+                    schema = @Schema(type = SchemaType.OBJECT, implementation = ConteudoDTO.class)
             )
     )
 
     @APIResponse(
             responseCode = "400",
-            description = "Não foi encontrado Id para a Disciplina requerida",
+            description = "Não foi encontrado Id para o Conteudo requerido",
             content = @Content(mediaType = MediaType.APPLICATION_JSON)
     )
     @APIResponse(
             responseCode = "400",
-            description = "O id não corresponde a Disciplina requerida",
+            description = "O id não corresponde ao Conteudo requerido",
             content = @Content(mediaType = MediaType.APPLICATION_JSON)
     )
     @APIResponse(
             responseCode = "404",
-            description = "Nenhuma Disciplina encontrada pelo id indicado",
+            description = "Nenhum conteudo encontrado pelo id indicado",
             content = @Content(mediaType = MediaType.APPLICATION_JSON)
     )
 
-    public Response put(@Parameter(name = "id", required = true) @PathParam("id") Long id, @NotNull @Valid DisciplinaDTO disciplinaDTO) {
-        if (!Objects.equals(id, disciplinaDTO.getDiscId())) {
-            throw new ServiceException("O id não corresponde a Disciplina");
+    public Response put(@Parameter(name = "id", required = true) @PathParam("id") Long id, @NotNull @Valid ConteudoDTO conteudoDTO) {
+        if (!Objects.equals(id, conteudoDTO.getConteId())) {
+            throw new ServiceException("O id não corresponde ao Conteudo");
         }
-        disciplinaService.update(disciplinaDTO);
-        return Response.ok(disciplinaDTO).build();
+        conteudoService.update(conteudoDTO);
+        return Response.ok(conteudoDTO).build();
        // return Response.status(Response.Status.NO_CONTENT).build();
     }
 
     @DELETE
     @Path("/{id}")
     public void delete(@PathParam("id") Long id) {
-        disciplinaService.excluir(id);
+        conteudoService.excluir(id);
     }
 }
 

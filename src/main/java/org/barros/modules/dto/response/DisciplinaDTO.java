@@ -16,7 +16,9 @@ public class DisciplinaDTO implements Serializable {
 
     private String cursos;
 
-    private Long conteId;
+    private String conteudos;
+
+    //private Long conteId;
 
     private String descricao;
 }

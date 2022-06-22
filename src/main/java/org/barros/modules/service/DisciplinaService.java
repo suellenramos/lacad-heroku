@@ -8,6 +8,7 @@ import org.barros.modules.exception.ServiceException;
 import org.barros.modules.mapper.DisciplinaMapper;
 import org.barros.modules.model.Curso;
 import org.barros.modules.model.Disciplina;
+import org.barros.modules.repository.ConteudoRepository;
 import org.barros.modules.repository.CursoRepository;
 import org.barros.modules.repository.DisciplinaRepository;
 import org.barros.modules.repository.ProfessorRepository;
@@ -39,6 +40,9 @@ public class DisciplinaService {
 
     @Inject
     CursoRepository cursoRepository;
+
+    @Inject
+    ConteudoRepository conteudoRepository;
 
     public List<DisciplinaDTO> findAll() {
         return this.disciplinaMapper.toDTOList(disciplinaRepository.findAll().list());

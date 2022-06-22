@@ -16,17 +16,21 @@ public interface DisciplinaMapper {
 
    // @Mapping(target = "curId", expression = "java(disciplina.getCurso().getCurId())")
     @Mapping(target = "profId", expression = "java(disciplina.getProfessor().getProfId())")
+    @Mapping(target = "conteudos", ignore = true)
     @Mapping(target = "cursos", ignore = true)
     DisciplinaDTO toDTO(Disciplina disciplina);
 
     @Mapping(target = "discId", ignore = true)
     @InheritInverseConfiguration(name = "toDTO")
+    @Mapping(target = "conteudos", ignore = true)
     @Mapping(target = "cursos", ignore = true)
     Disciplina toModel(DisciplinaDTO disciplinaDTO);
 
+    @Mapping(target = "conteudos", ignore = true)
     @Mapping(target = "cursos", ignore = true)
     void updateModelFromDTO(DisciplinaDTO disciplinaDTO, @MappingTarget Disciplina disciplina);
 
+    @Mapping(target = "conteudos", ignore = true)
     @Mapping(target = "cursos", ignore = true)
     void updateDTOFromModel(Disciplina disciplina, @MappingTarget DisciplinaDTO disciplinaDTO);
 }

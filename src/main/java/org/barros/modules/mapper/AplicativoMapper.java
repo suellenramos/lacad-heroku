@@ -16,15 +16,18 @@ public interface AplicativoMapper {
 
     List<AplicativoDTO> toDTOList(List<Aplicativo> aplicativos);
 
-
+    @Mapping(target = "conteudos", ignore = true)
     AplicativoDTO toDTO(Aplicativo aplicativo);
 
     @Mapping(target = "apliId", ignore = true)
+    @Mapping(target = "conteudos", ignore = true)
     @InheritInverseConfiguration(name = "toDTO")
     Aplicativo toModel(AplicativoDTO aplicativoDTO);
 
+    @Mapping(target = "conteudos", ignore = true)
     void updateModelFromDTO(AplicativoDTO aplicativoDTO, @MappingTarget Aplicativo aplicativo);
 
+    @Mapping(target = "conteudos", ignore = true)
     void updateDTOFromModel(Aplicativo aplicativo, @MappingTarget AplicativoDTO aplicativoDTO);
 }
 

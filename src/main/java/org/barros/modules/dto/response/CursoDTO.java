@@ -9,7 +9,9 @@ public class CursoDTO implements Serializable {
 
     private Long curId;
 
-    private Long discId;
+    private String disciplinas;
+
+    private String aplicativos;
 
     private String descricao;
 }

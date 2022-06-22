@@ -11,7 +11,7 @@ public class AplicativoDTO implements Serializable {
 
     private Long apliId;
 
-    private Long conteId;
+    private String conteudos;
 
     private String link;
 
