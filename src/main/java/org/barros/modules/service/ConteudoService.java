@@ -7,6 +7,7 @@ import org.barros.modules.dto.response.ConteudoDTO;
 import org.barros.modules.dto.response.DisciplinaDTO;
 import org.barros.modules.exception.ServiceException;
 import org.barros.modules.mapper.ConteudoMapper;
+import org.barros.modules.model.Aplicativo;
 import org.barros.modules.model.Conteudo;
 import org.barros.modules.model.Curso;
 import org.barros.modules.model.Disciplina;
@@ -30,9 +31,9 @@ public class ConteudoService {
 
     private static final String CONTEUDO_NAO_ENCONTRADO = "Conteudo não encontrado";
 
-    private final ConteudoRepository conteudoRepository;
-
     private final ConteudoMapper conteudoMapper;
+
+    private final ConteudoRepository conteudoRepository;
 
     @Inject
     private DisciplinaRepository disciplinaRepository;
@@ -50,16 +51,16 @@ public class ConteudoService {
                 .map(conteudoMapper::toDTO);
     }
 
-
-
     @Transactional
     public void save(@Valid ConteudoDTO conteudoDTO) {
         log.debug("Saving ConteudoDTO: {}", conteudoDTO);
         Conteudo conteudo = conteudoMapper.toModel(conteudoDTO);
-        var ids = Stream.of(conteudoDTO.getDisciplinas().split(",")).map(ass -> Long.valueOf(ass.trim())).collect(Collectors.toList());
-        var disciplinas = conteudoRepository.getEntityManager().createQuery("select c from Disciplina c where discId in(?1)", Disciplina.class).setParameter(1, ids).getResultStream().collect(Collectors.toList());
-        conteudo.setDisciplinas(disciplinas);
-       // disciplina. cursoRepository.findById(disciplinaDTO.getCurId()));
+//        var ids = Stream.of(conteudoDTO.getDisciplinas().split(",")).map(ass -> Long.valueOf(ass.trim())).collect(Collectors.toList());
+//        var disciplinas = conteudoRepository.getEntityManager().createQuery("select s from Disciplina s where discId in(?1)", Disciplina.class).setParameter(1, ids).getResultStream().collect(Collectors.toList());
+//        conteudo.setDisciplinas(disciplinas);
+        var idsAplicativos = Stream.of(conteudoDTO.getAplicativos().split(",")).map(ass -> Long.valueOf(ass.trim())).collect(Collectors.toList());
+        var aplicativos = disciplinaRepository.getEntityManager().createQuery("select a from Aplicativo a where apliId in(?1)", Aplicativo.class).setParameter(1, idsAplicativos).getResultStream().collect(Collectors.toList());
+        conteudo.setAplicativos(aplicativos);
         conteudoRepository.persist(conteudo);
         conteudoMapper.updateDTOFromModel (conteudo, conteudoDTO);
     }

@@ -19,9 +19,9 @@ public interface AplicativoMapper {
     @Mapping(target = "conteudos", ignore = true)
     AplicativoDTO toDTO(Aplicativo aplicativo);
 
-    @Mapping(target = "apliId", ignore = true)
-    @Mapping(target = "conteudos", ignore = true)
     @InheritInverseConfiguration(name = "toDTO")
+    @Mapping(target = "conteudos", ignore = true)
+    @Mapping(target = "apliId", ignore = true)
     Aplicativo toModel(AplicativoDTO aplicativoDTO);
 
     @Mapping(target = "conteudos", ignore = true)

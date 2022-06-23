@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.barros.modules.dto.response.DisciplinaDTO;
 import org.barros.modules.exception.ServiceException;
 import org.barros.modules.mapper.DisciplinaMapper;
+import org.barros.modules.model.Conteudo;
 import org.barros.modules.model.Curso;
 import org.barros.modules.model.Disciplina;
 import org.barros.modules.repository.ConteudoRepository;
@@ -60,10 +61,12 @@ public class DisciplinaService {
         log.debug("Saving DisciplinaDTO: {}", disciplinaDTO);
         Disciplina disciplina = disciplinaMapper.toModel(disciplinaDTO);
         disciplina.setProfessor(professorRepository.findById(disciplinaDTO.getProfId()));
-        var ids = Stream.of(disciplinaDTO.getCursos().split(",")).map(ass -> Long.valueOf(ass.trim())).collect(Collectors.toList());
-        var cursos = disciplinaRepository.getEntityManager().createQuery("select c from Curso c where curId in(?1)", Curso.class).setParameter(1, ids).getResultStream().collect(Collectors.toList());
-        disciplina.setCursos(cursos);
-       // disciplina. cursoRepository.findById(disciplinaDTO.getCurId()));
+        //var ids = Stream.of(disciplinaDTO.getCursos().split(",")).map(ass -> Long.valueOf(ass.trim())).collect(Collectors.toList());
+//        var cursos = disciplinaRepository.getEntityManager().createQuery("select c from Curso c where curId in(?1)", Curso.class).setParameter(1, ids).getResultStream().collect(Collectors.toList());
+//        disciplina.setCursos(cursos);
+        var idsConteudos = Stream.of(disciplinaDTO.getConteudos().split(",")).map(ass -> Long.valueOf(ass.trim())).collect(Collectors.toList());
+        var conteudos = disciplinaRepository.getEntityManager().createQuery("select c from Conteudo c where conteId in(?1)", Conteudo.class).setParameter(1, idsConteudos).getResultStream().collect(Collectors.toList());
+        disciplina.setConteudos(conteudos);
         disciplinaRepository.persist(disciplina);
         disciplinaMapper.updateDTOFromModel (disciplina, disciplinaDTO);
     }

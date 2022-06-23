@@ -21,6 +21,8 @@ import javax.ws.rs.NotFoundException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @AllArgsConstructor
 @Slf4j
@@ -46,9 +48,11 @@ public class CursoService {
     public void save(@Valid CursoDTO cursoDTO) {
         log.debug("Saving CursoDTO: {}", cursoDTO);
         Curso curso = cursoMapper.toModel(cursoDTO);
-       // curso.setDisciplinas ((List<Disciplina>) cursoRepository.findById(cursoDTO.getDiscId()));
+        var ids = Stream.of(cursoDTO.getDisciplinas().split(",")).map(ass -> Long.valueOf(ass.trim())).collect(Collectors.toList());
+        var disciplinas = cursoRepository.getEntityManager().createQuery("select d from Disciplina d where discId in(?1)", Disciplina.class).setParameter(1, ids).getResultStream().collect(Collectors.toList());
+        curso.setDisciplinas(disciplinas);
         cursoRepository.persist(curso);
-        cursoMapper.updateDTOFromModel (curso, cursoDTO);
+        cursoMapper.updateDTOFromModel(curso, cursoDTO);
     }
 
     @Transactional

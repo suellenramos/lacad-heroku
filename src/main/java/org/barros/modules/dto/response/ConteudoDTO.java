@@ -1,5 +1,6 @@
 package org.barros.modules.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.Getter;
 
@@ -11,6 +12,7 @@ public class ConteudoDTO implements Serializable {
 
     private Long conteId;
 
+    @JsonIgnore
     private String  disciplinas;
 
     private String  aplicativos;

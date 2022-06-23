@@ -21,7 +21,7 @@ public class Aplicativo implements Serializable {
     @Column(name = "apli_link")
     private String link;
 
-    @Column(name = "disc_descricao")
+    @Column(name = "apli_descricao")
     private String descricao;
 
     @ManyToMany(mappedBy = "aplicativos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

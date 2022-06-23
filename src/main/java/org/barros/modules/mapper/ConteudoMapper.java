@@ -18,7 +18,7 @@ public interface ConteudoMapper {
     @Mapping(target = "aplicativos", ignore = true)
     ConteudoDTO toDTO(Conteudo conteudo);
 
-   @Mapping(target = "conteId", ignore = true)
+    @Mapping(target = "conteId", ignore = true)
     @InheritInverseConfiguration(name = "toDTO")
     @Mapping(target = "aplicativos", ignore = true)
     @Mapping(target = "disciplinas", ignore = true)
