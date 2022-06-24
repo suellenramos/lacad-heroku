@@ -24,10 +24,10 @@ public class Aplicativo implements Serializable {
     @Column(name = "apli_descricao")
     private String descricao;
 
-    @ManyToMany(mappedBy = "aplicativos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "aplicativos")
     private List<Conteudo> conteudos;
 
-    @ManyToMany(mappedBy = "aplicativos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "aplicativos")
     private List<Professor> professores;
 
     @OneToMany(mappedBy = "aplicativo")

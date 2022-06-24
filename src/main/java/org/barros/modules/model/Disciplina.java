@@ -7,10 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 @Entity
 @Table(name = "disciplina", schema = "public")
 public class Disciplina implements Serializable {

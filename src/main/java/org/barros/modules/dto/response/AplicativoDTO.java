@@ -6,7 +6,7 @@ import lombok.Getter;
 
 import java.io.Serializable;
 
-@Getter
+
 @Data
 public class AplicativoDTO implements Serializable {
 

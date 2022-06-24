@@ -7,7 +7,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-@Getter
 @Data
 @Entity
 @Table(name = "conteudo", schema = "public")
