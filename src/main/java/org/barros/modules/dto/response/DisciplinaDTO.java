@@ -13,13 +13,11 @@ public class DisciplinaDTO implements Serializable {
     private Long discId;
 
     private Long profId;
-    @JsonIgnore
+   // @JsonIgnore
     /* String esta referenciando a lista de cursos*/
     private String cursos;
 
     private String conteudos;
-
-    //private Long conteId;
 
     private String descricao;
 }

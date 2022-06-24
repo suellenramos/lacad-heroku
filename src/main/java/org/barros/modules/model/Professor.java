@@ -6,7 +6,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "professor", schema = "public")
 public class Professor implements Serializable {
@@ -30,5 +33,13 @@ public class Professor implements Serializable {
     @OneToMany(mappedBy = "professor")
     private List<Disciplina> disciplinas;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "professor_aplicativo",
+            joinColumns = @JoinColumn(name = "prof_id"),
+            inverseJoinColumns = @JoinColumn(name = "apli_id"))
+    private List<Aplicativo> aplicativos;
+
+    @OneToMany(mappedBy = "professor")
+    private List<Avaliacao> avaliacoes;
 
 }

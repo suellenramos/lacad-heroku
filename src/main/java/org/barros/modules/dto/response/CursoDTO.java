@@ -12,8 +12,5 @@ public class CursoDTO implements Serializable {
 
     private String disciplinas;
 
-    @JsonIgnore
-    private String aplicativos;
-
     private String descricao;
 }

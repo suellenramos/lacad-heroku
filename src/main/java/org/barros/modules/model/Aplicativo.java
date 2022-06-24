@@ -27,4 +27,9 @@ public class Aplicativo implements Serializable {
     @ManyToMany(mappedBy = "aplicativos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Conteudo> conteudos;
 
+    @ManyToMany(mappedBy = "aplicativos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Professor> professores;
+
+    @OneToMany(mappedBy = "aplicativo")
+    private List<Avaliacao> avaliacoes;
 }

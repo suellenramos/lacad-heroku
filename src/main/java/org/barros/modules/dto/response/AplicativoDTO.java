@@ -12,8 +12,10 @@ public class AplicativoDTO implements Serializable {
 
     private Long apliId;
 
-    @JsonIgnore
+   // @JsonIgnore
     private String conteudos;
+
+    private String professores;
 
     private String link;
 

@@ -9,6 +9,8 @@ public class ProfessorDTO implements Serializable {
 
     private Long profId;
 
+    private String aplicativos;
+
     private String nome;
 
     private String email;

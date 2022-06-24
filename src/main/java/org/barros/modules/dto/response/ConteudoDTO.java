@@ -12,7 +12,7 @@ public class ConteudoDTO implements Serializable {
 
     private Long conteId;
 
-    @JsonIgnore
+   // @JsonIgnore
     private String  disciplinas;
 
     private String  aplicativos;
