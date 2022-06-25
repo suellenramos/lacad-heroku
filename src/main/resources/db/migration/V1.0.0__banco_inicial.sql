@@ -30,20 +30,6 @@ CREATE TABLE public.aplicativo(
 	apli_descricao varchar(500) NOT NULL
 );
 
-CREATE TABLE public.curso_disciplina(
-    cur_id integer NOT NULL,
-    disc_id integer NOT NULL
-);
-
-CREATE TABLE public.disciplina_conteudo(
-    disc_id integer not null,
-    conte_id integer not null
-);
-
-CREATE TABLE public.conteudo_aplicativo(
-	conte_id integer not null,
-	apli_id integer NOT NULL
-);
 
 CREATE TABLE public.avaliacao(
     ava_id serial primary key,
@@ -53,40 +39,10 @@ CREATE TABLE public.avaliacao(
     prof_id integer not null
 );
 
-ALTER TABLE public.curso_disciplina ADD CONSTRAINT curso_disciplina_fk0 FOREIGN KEY (cur_id) REFERENCES public.curso(cur_id);
-ALTER TABLE public.curso_disciplina ADD CONSTRAINT curso_disciplina_fk1 FOREIGN KEY (disc_id) REFERENCES disciplina(disc_id);
-
-ALTER TABLE public.disciplina_conteudo ADD CONSTRAINT disciplina_conteudo_fk0 FOREIGN KEY (disc_id) REFERENCES public.disciplina(disc_id);
-ALTER TABLE public.disciplina_conteudo ADD CONSTRAINT disciplina_conteudo_fk1 FOREIGN KEY (conte_id) REFERENCES public.conteudo(conte_id);
-
-ALTER TABLE public.conteudo_aplicativo ADD CONSTRAINT conteudo_aplicativo_fk0 FOREIGN KEY (conte_id) REFERENCES public.conteudo(conte_id);
-ALTER TABLE public.conteudo_aplicativo ADD CONSTRAINT conteudo_aplicativo_fk1 FOREIGN KEY (apli_id) REFERENCES public.aplicativo(apli_id);
-
 ALTER TABLE public.avaliacao ADD CONSTRAINT avaliacao_fk0 FOREIGN KEY (prof_id) REFERENCES public.professor(prof_id);
 ALTER TABLE public.avaliacao ADD CONSTRAINT avaliacao_fk1 FOREIGN KEY (apli_id) REFERENCES public.aplicativo(apli_id);
 
 ALTER TABLE public.disciplina ADD CONSTRAINT disciplina_fk0 FOREIGN KEY (prof_id) REFERENCES public.professor(prof_id);
 
-CREATE TABLE public.professor_aplicativo(
-	prof_id integer not null,
-	apli_id integer NOT NULL
-);
 
-ALTER TABLE public.professor_aplicativo ADD CONSTRAINT professor_aplicativo_fk0 FOREIGN KEY (prof_id) REFERENCES public.professor(prof_id);
-ALTER TABLE public.professor_aplicativo ADD CONSTRAINT professor_aplicativo_fk1 FOREIGN KEY (apli_id) REFERENCES public.aplicativo(apli_id);
 
-ALTER TABLE public.curso_disciplina ADD CONSTRAINT curso_disciplina_pk PRIMARY KEY (cur_id,disc_id);
-
-ALTER TABLE public.disciplina_conteudo ADD CONSTRAINT disciplina_conteudo_pk PRIMARY KEY (disc_id,conte_id);
-
-ALTER TABLE public.conteudo_aplicativo ADD CONSTRAINT conteudo_aplicativo_pk PRIMARY KEY (conte_id,apli_id);
-
-ALTER TABLE public.professor_aplicativo ADD CONSTRAINT professor_aplicativo_pk PRIMARY KEY (prof_id,apli_id);
-
-ALTER TABLE public.curso_disciplina ADD cd_id serial NOT NULL;
-
-ALTER TABLE public.disciplina_conteudo ADD dc_id serial NOT NULL;
-
-ALTER TABLE public.conteudo_aplicativo ADD ca_id serial NOT NULL;
-
-ALTER TABLE public.professor_aplicativo ADD pa_id serial NOT NULL;
