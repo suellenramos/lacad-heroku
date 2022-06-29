@@ -14,21 +14,17 @@ import java.util.List;
 @Mapper(componentModel = "cdi")
 public interface CursoMapper {
 
-    List<CursoDTO> toDTOList(List<Curso> curssos);
+    List<CursoDTO> toDTOList(List<Curso> cursos);
 
-   // @Mapping(target = "discId", expression = "java(curso.getDisciplina().getDiscId())")
-   @Mapping(target = "disciplinas", ignore = true)
-   CursoDTO toDTO(Curso curso);
+   // @Mapping(target = "discId", expression = "java(curso.getCursoDisciplinas().getDiscId())")
+    CursoDTO toDTO(Curso curso);
 
     @Mapping(target = "curId", ignore = true)
     @InheritInverseConfiguration(name = "toDTO")
-    @Mapping(target = "disciplinas", ignore = true)
     Curso toModel(CursoDTO cursoDTO);
 
-    @Mapping(target = "disciplinas", ignore = true)
     void updateModelFromDTO(CursoDTO cursoDTO, @MappingTarget Curso curso);
 
-    @Mapping(target = "disciplinas", ignore = true)
     void updateDTOFromModel(Curso curso, @MappingTarget CursoDTO cursoDTO);
 }
 

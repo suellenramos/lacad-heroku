@@ -51,14 +51,14 @@ public class DisciplinaController {
 
     @GET
     @Path("/{id}")
-//    @APIResponse(
-//            responseCode = "200",
-//            description = "Obtem Disciplina pelo Id",
-//            content = @Content(
-//                    mediaType = MediaType.APPLICATION_JSON,
-//                    schema = @Schema(type = SchemaType.OBJECT, implementation = DisciplinaDTO.class)
-//            )
-//    )
+    @APIResponse(
+            responseCode = "200",
+            description = "Obtem Disciplina pelo Id",
+            content = @Content(
+                    mediaType = MediaType.APPLICATION_JSON,
+                    schema = @Schema(type = SchemaType.OBJECT, implementation = DisciplinaDTO.class)
+            )
+    )
 
 
     @APIResponse(

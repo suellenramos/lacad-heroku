@@ -6,8 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.barros.modules.dto.response.ProfessorDTO;
 import org.barros.modules.exception.ServiceException;
 import org.barros.modules.mapper.ProfessorMapper;
-import org.barros.modules.model.Aplicativo;
-import org.barros.modules.model.Conteudo;
 import org.barros.modules.model.Professor;
 import org.barros.modules.repository.ProfessorRepository;
 
@@ -18,8 +16,6 @@ import javax.ws.rs.NotFoundException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @AllArgsConstructor
 @Slf4j
@@ -45,9 +41,6 @@ public class ProfessorService {
     public void save(@Valid ProfessorDTO professorDTO) {
         log.debug("Saving ProfessorDTO: {}", professorDTO);
         Professor professor = professorMapper.toModel(professorDTO);
-        var ids = Stream.of(professorDTO.getAplicativos().split(",")).map(ass -> Long.valueOf(ass.trim())).collect(Collectors.toList());
-        var aplicativos = professorRepository.getEntityManager().createQuery("select a from Aplicativo a where apliId in(?1)", Aplicativo.class).setParameter(1, ids).getResultStream().collect(Collectors.toList());
-        professor.setAplicativos(aplicativos);
         professorRepository.persist(professor);
         professorMapper.updateDTOFromModel (professor, professorDTO);
     }

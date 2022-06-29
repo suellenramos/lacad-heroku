@@ -2,8 +2,10 @@ package org.barros.modules.web;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.barros.modules.dto.response.CursoDisciplinaDTO;
 import org.barros.modules.dto.response.ProfessorDTO;
 import org.barros.modules.exception.ServiceException;
+import org.barros.modules.service.CursoDisciplinaService;
 import org.barros.modules.service.ProfessorService;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
@@ -30,51 +32,51 @@ import java.util.Objects;
 @AllArgsConstructor
 @Slf4j
 @Path("/v1/professores")
-public class ProfessorController {
+public class CursoDisciplinaController {
 
-    private final ProfessorService professorService;
+    private final CursoDisciplinaService cursoDisciplinaService;
 
     @GET
     @APIResponse(
             responseCode = "200",
-            description = "Obtem todos os Professores",
+            description = "Obtem todos os Cursos Disciplinas",
             content = @Content(
                     mediaType = MediaType.APPLICATION_JSON,
-                    schema = @Schema(type = SchemaType.ARRAY, implementation = ProfessorDTO.class)
+                    schema = @Schema(type = SchemaType.ARRAY, implementation = CursoDisciplinaDTO.class)
             )
     )
     public Response get() {
-        return Response.ok(professorService.findAll()).build();
+        return Response.ok(cursoDisciplinaService.findAll()).build();
     }
 
     @GET
     @Path("/{id}")
     @APIResponse(
             responseCode = "200",
-            description = "Obtem Professor pelo Id",
+            description = "Obtem Curso e Disciplinas pelo Id",
             content = @Content(
                     mediaType = MediaType.APPLICATION_JSON,
-                    schema = @Schema(type = SchemaType.OBJECT, implementation = ProfessorDTO.class)
+                    schema = @Schema(type = SchemaType.OBJECT, implementation = CursoDisciplinaDTO.class)
             )
     )
 
     @APIResponse(
             responseCode = "404",
-            description = "Professor não encontrado pelo Id",
+            description = "Curso e Disciplina não encontrada pelo Id",
             content = @Content(mediaType = MediaType.APPLICATION_JSON)
     )
     public Response getById(@Parameter(name = "id", required = true) @PathParam("id") Long id) {
-        return professorService.findById(id)
-                .map(professorDTO -> Response.ok(professorDTO).build())
+        return cursoDisciplinaService.findById(id)
+                .map(cursoDisciplinaDTO -> Response.ok(cursoDisciplinaDTO).build())
                 .orElse(Response.status(Response.Status.NOT_FOUND).build());
     }
     @POST
     @APIResponse(
             responseCode = "201",
-            description = "Criar Professores",
+            description = "Criar Curso e Disciplinas",
             content = @Content(
                     mediaType = MediaType.APPLICATION_JSON,
-                    schema = @Schema(type = SchemaType.OBJECT, implementation = ProfessorDTO.class)
+                    schema = @Schema(type = SchemaType.OBJECT, implementation = CursoDisciplinaDTO.class)
             )
     )
     @APIResponse(

@@ -21,9 +21,9 @@ public class Conteudo implements Serializable {
 
     @Column(name = "conte_descricao")
     private String descricao;
-
-    @ManyToMany(mappedBy = "conteudos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Disciplina> disciplinas;
+//
+//    @ManyToMany(mappedBy = "conteudos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    private List<Disciplina> disciplinas;
 
     @ManyToMany
     @JoinTable(name = "conteudo_aplicativo",

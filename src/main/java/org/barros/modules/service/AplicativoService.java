@@ -52,9 +52,9 @@ public class AplicativoService {
         var ids = Stream.of(aplicativoDTO.getConteudos().split(",")).map(ass -> Long.valueOf(ass.trim())).collect(Collectors.toList());
         var conteudos = aplicativoRepository.getEntityManager().createQuery("select c from Conteudo c where conteId in(?1)", Conteudo.class).setParameter(1, ids).getResultStream().collect(Collectors.toList());
         aplicativo.setConteudos(conteudos);
-        var idsProfessores = Stream.of(aplicativoDTO.getProfessores().split(",")).map(ass -> Long.valueOf(ass.trim())).collect(Collectors.toList());
-        var professores = aplicativoRepository.getEntityManager().createQuery("select p from Aplicativo p where profId in(?1)", Professor.class).setParameter(1, idsProfessores).getResultStream().collect(Collectors.toList());
-        aplicativo.setProfessores(professores);
+//        var idsProfessores = Stream.of(aplicativoDTO.getProfessores().split(",")).map(ass -> Long.valueOf(ass.trim())).collect(Collectors.toList());
+//        var professores = aplicativoRepository.getEntityManager().createQuery("select p from Aplicativo p where profId in(?1)", Professor.class).setParameter(1, idsProfessores).getResultStream().collect(Collectors.toList());
+//        aplicativo.setProfessores(professores);
         aplicativoRepository.persist(aplicativo);
         aplicativoMapper.updateDTOFromModel (aplicativo, aplicativoDTO);
     }

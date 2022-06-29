@@ -3,10 +3,8 @@ package org.barros.modules.web;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.barros.modules.dto.response.CursoDTO;
-import org.barros.modules.dto.response.ProfessorDTO;
 import org.barros.modules.exception.ServiceException;
 import org.barros.modules.service.CursoService;
-import org.barros.modules.service.ProfessorService;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -92,7 +90,7 @@ public class CursoController {
             content = @Content(mediaType = MediaType.APPLICATION_JSON)
     )
     public Response post(@NotNull @Valid CursoDTO cursoDTO, @Context UriInfo uriInfo) {
-        cursoService.save(cursoDTO);
+        cursoService.saveCurso(cursoDTO);
         URI uri = uriInfo.getAbsolutePathBuilder().path(Long.toString(cursoDTO.getCurId())).build();
         return Response.created(uri).entity(cursoDTO).build();
     }

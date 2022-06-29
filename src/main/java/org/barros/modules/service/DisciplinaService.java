@@ -39,12 +39,6 @@ public class DisciplinaService {
     @Inject
     private ProfessorRepository professorRepository;
 
-    @Inject
-    CursoRepository cursoRepository;
-
-    @Inject
-    ConteudoRepository conteudoRepository;
-
     public List<DisciplinaDTO> findAll() {
         return this.disciplinaMapper.toDTOList(disciplinaRepository.findAll().list());
     }
@@ -54,19 +48,11 @@ public class DisciplinaService {
                 .map(disciplinaMapper::toDTO);
     }
 
-
-
     @Transactional
     public void save(@Valid DisciplinaDTO disciplinaDTO) {
         log.debug("Saving DisciplinaDTO: {}", disciplinaDTO);
         Disciplina disciplina = disciplinaMapper.toModel(disciplinaDTO);
         disciplina.setProfessor(professorRepository.findById(disciplinaDTO.getProfId()));
-        var ids = Stream.of(disciplinaDTO.getCursos().split(",")).map(ass -> Long.valueOf(ass.trim())).collect(Collectors.toList());
-        var cursos = disciplinaRepository.getEntityManager().createQuery("select c from Curso c where curId in(?1)", Curso.class).setParameter(1, ids).getResultStream().collect(Collectors.toList());
-        disciplina.setCursos(cursos);
-        var idsConteudos = Stream.of(disciplinaDTO.getConteudos().split(",")).map(ass -> Long.valueOf(ass.trim())).collect(Collectors.toList());
-        var conteudos = disciplinaRepository.getEntityManager().createQuery("select c from Conteudo c where conteId in(?1)", Conteudo.class).setParameter(1, idsConteudos).getResultStream().collect(Collectors.toList());
-        disciplina.setConteudos(conteudos);
         disciplinaRepository.persist(disciplina);
         disciplinaMapper.updateDTOFromModel (disciplina, disciplinaDTO);
     }

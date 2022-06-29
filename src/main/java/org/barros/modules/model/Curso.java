@@ -22,10 +22,6 @@ public class Curso implements Serializable {
     @Column(name = "cur_descricao")
     private String descricao;
 
-    //@ManyToMany(mappedBy = "cursos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @ManyToMany (cascade = CascadeType.ALL)
-    @JoinTable(name = "curso_disciplina",
-            joinColumns = @JoinColumn(name = "cur_id"),
-            inverseJoinColumns = @JoinColumn(name = "disc_id"))
-    private List<Disciplina> disciplinas;
+    @OneToMany(mappedBy = "curso")
+    private List<CursoDisciplina> cursoDisciplinas;
 }

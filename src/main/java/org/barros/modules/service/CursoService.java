@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.barros.modules.dto.response.CursoDTO;
+import org.barros.modules.dto.response.DisciplinaDTO;
 import org.barros.modules.dto.response.ProfessorDTO;
 import org.barros.modules.exception.ServiceException;
 import org.barros.modules.mapper.CursoMapper;
@@ -45,12 +46,9 @@ public class CursoService {
     }
 
     @Transactional
-    public void save(@Valid CursoDTO cursoDTO) {
+    public void saveCurso(@Valid CursoDTO cursoDTO) {
         log.debug("Saving CursoDTO: {}", cursoDTO);
         Curso curso = cursoMapper.toModel(cursoDTO);
-        var ids = Stream.of(cursoDTO.getDisciplinas().split(",")).map(ass -> Long.valueOf(ass.trim())).collect(Collectors.toList());
-        var disciplinas = cursoRepository.getEntityManager().createQuery("select d from Disciplina d where discId in(?1)", Disciplina.class).setParameter(1, ids).getResultStream().collect(Collectors.toList());
-        curso.setDisciplinas(disciplinas);
         cursoRepository.persist(curso);
         cursoMapper.updateDTOFromModel(curso, cursoDTO);
     }

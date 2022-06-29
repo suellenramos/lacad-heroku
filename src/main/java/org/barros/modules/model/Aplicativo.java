@@ -27,8 +27,8 @@ public class Aplicativo implements Serializable {
     @ManyToMany(mappedBy = "aplicativos")
     private List<Conteudo> conteudos;
 
-    @ManyToMany(mappedBy = "aplicativos")
-    private List<Professor> professores;
+//    @ManyToMany(mappedBy = "aplicativos")
+//    private List<Professor> professores;
 
     @OneToMany(mappedBy = "aplicativo")
     private List<Avaliacao> avaliacoes;
