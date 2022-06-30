@@ -28,8 +28,8 @@ public class Professor implements Serializable {
     private String senha;
 
     @OneToMany(mappedBy = "professor")
-    private List<Disciplina> disciplinas;
+    private List<Avaliacao> avaliacoes;
 
     @OneToMany(mappedBy = "professor")
-    private List<Avaliacao> avaliacoes;
+    private List<CursoDisciplina> cursoDisciplinas;
 }

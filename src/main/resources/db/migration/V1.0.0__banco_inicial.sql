@@ -15,8 +15,7 @@ CREATE TABLE public.curso(
 
 CREATE TABLE public.disciplina(
 	disc_id serial primary key,
-	disc_descricao varchar(50) NOT NULL,
-	prof_id integer NOT NULL
+	disc_descricao varchar(50) NOT NULL
 );
 
 CREATE TABLE public.conteudo(
@@ -42,7 +41,6 @@ CREATE TABLE public.avaliacao(
 ALTER TABLE public.avaliacao ADD CONSTRAINT avaliacao_fk0 FOREIGN KEY (prof_id) REFERENCES public.professor(prof_id);
 ALTER TABLE public.avaliacao ADD CONSTRAINT avaliacao_fk1 FOREIGN KEY (apli_id) REFERENCES public.aplicativo(apli_id);
 
-ALTER TABLE public.disciplina ADD CONSTRAINT disciplina_fk0 FOREIGN KEY (prof_id) REFERENCES public.professor(prof_id);
 
 
 

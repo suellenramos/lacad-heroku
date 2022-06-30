@@ -52,7 +52,6 @@ public class DisciplinaService {
     public void save(@Valid DisciplinaDTO disciplinaDTO) {
         log.debug("Saving DisciplinaDTO: {}", disciplinaDTO);
         Disciplina disciplina = disciplinaMapper.toModel(disciplinaDTO);
-        disciplina.setProfessor(professorRepository.findById(disciplinaDTO.getProfId()));
         disciplinaRepository.persist(disciplina);
         disciplinaMapper.updateDTOFromModel (disciplina, disciplinaDTO);
     }

@@ -14,4 +14,6 @@ public class CursoDisciplinaDTO implements Serializable {
     private Long curId;
 
     private  Long discId;
+
+    private Long profId;
 }

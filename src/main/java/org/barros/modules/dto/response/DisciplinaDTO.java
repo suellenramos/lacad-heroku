@@ -9,7 +9,5 @@ public class DisciplinaDTO implements Serializable {
 
     private Long discId;
 
-    private Long profId;
-
     private String descricao;
 }

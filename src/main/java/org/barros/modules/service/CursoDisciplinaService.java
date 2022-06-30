@@ -12,6 +12,7 @@ import org.barros.modules.model.Disciplina;
 import org.barros.modules.repository.CursoDisciplinaRepository;
 import org.barros.modules.repository.CursoRepository;
 import org.barros.modules.repository.DisciplinaRepository;
+import org.barros.modules.repository.ProfessorRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -40,6 +41,9 @@ public class CursoDisciplinaService {
     private CursoRepository cursoRepository;
 
     @Inject
+    private ProfessorRepository professorRepository;
+
+    @Inject
     private DisciplinaRepository disciplinaRepository;
 
     public List<CursoDisciplinaDTO> findAll() {
@@ -57,6 +61,7 @@ public class CursoDisciplinaService {
         CursoDisciplina cursoDisciplina = cursoDisciplinaMapper.toModel(cursoDisciplinaDTO);
         cursoDisciplina.setCurso(cursoRepository.findById(cursoDisciplinaDTO.getCurId()));
         cursoDisciplina.setDisciplina(disciplinaRepository.findById(cursoDisciplinaDTO.getDiscId()));
+        cursoDisciplina.setProfessor(professorRepository.findById(cursoDisciplinaDTO.getProfId()));
         cursoDisciplinaRepository.persist(cursoDisciplina);
         cursoDisciplinaMapper.updateDTOFromModel (cursoDisciplina, cursoDisciplinaDTO);
     }

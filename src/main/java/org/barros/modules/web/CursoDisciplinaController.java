@@ -6,7 +6,6 @@ import org.barros.modules.dto.response.CursoDisciplinaDTO;
 import org.barros.modules.dto.response.ProfessorDTO;
 import org.barros.modules.exception.ServiceException;
 import org.barros.modules.service.CursoDisciplinaService;
-import org.barros.modules.service.ProfessorService;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;

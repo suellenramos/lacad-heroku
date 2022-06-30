@@ -21,10 +21,6 @@ public class Disciplina implements Serializable {
     @Column(name = "disc_descricao")
     private String descricao;
 
-    @ManyToOne
-    @JoinColumn(name = "prof_id")
-    private  Professor professor;
-
     @OneToMany(mappedBy = "disciplina")
     private List<CursoDisciplina> cursoDisciplinas;
 

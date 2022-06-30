@@ -2,8 +2,10 @@ CREATE TABLE public.curso_disciplina (
 	cd_id serial primary key NOT NULL,
 	cur_id integer NOT NULL,
 	disc_id integer NOT NULL,
+	prof_id integer NOT NULL,
 	CONSTRAINT curso_disciplina_fk FOREIGN KEY (cur_id) REFERENCES public.curso(cur_id),
-	CONSTRAINT curso_disciplina_fk_1 FOREIGN KEY (disc_id) REFERENCES public.disciplina(disc_id)
+	CONSTRAINT curso_disciplina_fk_1 FOREIGN KEY (disc_id) REFERENCES public.disciplina(disc_id),
+	CONSTRAINT curso_disciplina_fk_2 FOREIGN KEY (prof_id) REFERENCES public.professor(prof_id)
 );
 
 CREATE TABLE public.disciplina_conteudo (

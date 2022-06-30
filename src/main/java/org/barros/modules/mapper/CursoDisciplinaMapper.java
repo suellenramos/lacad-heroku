@@ -16,6 +16,7 @@ public interface CursoDisciplinaMapper {
 
     @Mapping(target = "curId", expression = "java(cursoDisciplina.getCurso().getCurId())")
     @Mapping(target = "discId", expression = "java(cursoDisciplina.getDisciplina().getDiscId())")
+    @Mapping(target = "profId", expression = "java(cursoDisciplina.getProfessor().getProfId())")
     CursoDisciplinaDTO toDTO(CursoDisciplina cursoDisciplina);
 
     @Mapping(target = "id", ignore = true)

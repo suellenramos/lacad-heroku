@@ -14,7 +14,7 @@ public interface DisciplinaMapper {
 
     List<DisciplinaDTO> toDTOList(List<Disciplina> disciplinas);
     //@Mapping(target = "CDid", expression = "java(disciplina.getCursoDisciplinas().getCDId())")
-    @Mapping(target = "profId", expression = "java(disciplina.getProfessor().getProfId())")
+   // @Mapping(target = "profId", expression = "java(disciplina.getProfessor().getProfId())")
     DisciplinaDTO toDTO(Disciplina disciplina);
     @Mapping(target = "discId", ignore = true)
     @InheritInverseConfiguration(name = "toDTO")
