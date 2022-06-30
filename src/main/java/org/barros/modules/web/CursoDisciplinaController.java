@@ -26,12 +26,12 @@ import java.util.Objects;
 
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@Tag(name = "professor", description = "Operacoes Professores")
+@Tag(name = "cursoDisciplina", description = "Operacoes de Cursos e Disicplinas")
 //@RolesAllowed("LacadAdmin")
 //@SecurityRequirement(name = "jwt")
 @AllArgsConstructor
 @Slf4j
-@Path("/v1/professores")
+@Path("/v1/cursosDisciplinas")
 public class CursoDisciplinaController {
 
     private final CursoDisciplinaService cursoDisciplinaService;
@@ -73,7 +73,7 @@ public class CursoDisciplinaController {
     @POST
     @APIResponse(
             responseCode = "201",
-            description = "Criar Curso e Disciplinas",
+            description = "Criação de vínculo entre Curso e Disciplina",
             content = @Content(
                     mediaType = MediaType.APPLICATION_JSON,
                     schema = @Schema(type = SchemaType.OBJECT, implementation = CursoDisciplinaDTO.class)
@@ -81,7 +81,7 @@ public class CursoDisciplinaController {
     )
     @APIResponse(
             responseCode = "400",
-            description = "Professor Invalido",
+            description = "Curso e Disciplina Inválida",
             content = @Content(mediaType = MediaType.APPLICATION_JSON)
     )
     @APIResponse(
@@ -89,16 +89,16 @@ public class CursoDisciplinaController {
             description = "Já existe um Professor com esse Id",
             content = @Content(mediaType = MediaType.APPLICATION_JSON)
     )
-    public Response post(@NotNull @Valid ProfessorDTO professorDTO, @Context UriInfo uriInfo) {
-        professorService.save(professorDTO);
-        URI uri = uriInfo.getAbsolutePathBuilder().path(Long.toString(professorDTO.getProfId())).build();
-        return Response.created(uri).entity(professorDTO).build();
+    public Response post(@NotNull @Valid CursoDisciplinaDTO cursoDisciplinaDTO, @Context UriInfo uriInfo) {
+        cursoDisciplinaService.save(cursoDisciplinaDTO);
+        URI uri = uriInfo.getAbsolutePathBuilder().path(Long.toString(cursoDisciplinaDTO.getId())).build();
+        return Response.created(uri).entity(cursoDisciplinaDTO).build();
     }
     @PUT
     @Path("{id}")
     @APIResponse(
             responseCode = "204",
-            description = "Professor Atualizado",
+            description = "Curso e Disciplina Atualizada",
             content = @Content(
                     mediaType = MediaType.APPLICATION_JSON,
                     schema = @Schema(type = SchemaType.OBJECT, implementation = ProfessorDTO.class)
@@ -107,32 +107,32 @@ public class CursoDisciplinaController {
 
     @APIResponse(
             responseCode = "400",
-            description = "Não foi encontrado Id para o Professor requerido",
+            description = "Não foi encontrado Id para o Curso e a Disciplina requerida",
             content = @Content(mediaType = MediaType.APPLICATION_JSON)
     )
     @APIResponse(
             responseCode = "400",
-            description = "O id não corresponde ao Professor requerido",
+            description = "O id não corresponde ao Curso e a Disciplina requerida",
             content = @Content(mediaType = MediaType.APPLICATION_JSON)
     )
     @APIResponse(
             responseCode = "404",
-            description = "Nenhum professor encontrado pelo id indicado",
+            description = "Nenhum Curso e Disciplina encontrado pelo id indicado",
             content = @Content(mediaType = MediaType.APPLICATION_JSON)
     )
 
-    public Response put(@Parameter(name = "id", required = true) @PathParam("id") Long id, @NotNull @Valid ProfessorDTO professorDTO) {
-        if (!Objects.equals(id, professorDTO.getProfId())) {
-            throw new ServiceException("O id não corresponde ao Professor");
+    public Response put(@Parameter(name = "id", required = true) @PathParam("id") Long id, @NotNull @Valid CursoDisciplinaDTO cursoDisciplinaDTO) {
+        if (!Objects.equals(id, cursoDisciplinaDTO.getId())) {
+            throw new ServiceException("O id não corresponde ao Curso e a Disciplina");
         }
-        professorService.update(professorDTO);
-        return Response.ok(professorDTO).build();
+        cursoDisciplinaService.update(cursoDisciplinaDTO);
+        return Response.ok(cursoDisciplinaDTO).build();
        // return Response.status(Response.Status.NO_CONTENT).build();
     }
     @DELETE
     @Path("/{id}")
     public void delete(@PathParam("id") Long id) {
-        professorService.excluir(id);
+        cursoDisciplinaService.excluir(id);
     }
 }
 

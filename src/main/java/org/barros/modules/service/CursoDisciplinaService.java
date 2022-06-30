@@ -27,7 +27,7 @@ import java.util.Optional;
 @ApplicationScoped
 public class CursoDisciplinaService {
 
-    private static final String CURSO_DISCIPLINA_NAO_ENCONTRADA = "Curso e Disciplina não encontrado";
+    private static final String CURSO_DISCIPLINA_NAO_ENCONTRADA = "Curso e Disciplina não encontrada";
 
     private final CursoDisciplinaService cursoDisciplinaService;
 
@@ -61,26 +61,26 @@ public class CursoDisciplinaService {
         cursoDisciplinaMapper.updateDTOFromModel (cursoDisciplina, cursoDisciplinaDTO);
     }
 
-//    @Transactional
-//    public void update(@Valid DisciplinaDTO disciplinaDTO  ) {
-//        log.debug("Updating DisciplinaDTO: {}", disciplinaDTO);
-//        if (Objects.isNull(disciplinaDTO.getDiscId())) {
-//            throw new ServiceException("Id não encontrado");
-//        }
-//        Disciplina disciplina =
-//                disciplinaRepository.findByIdOptional(disciplinaDTO.getDiscId())
-//                .orElseThrow(() -> new ServiceException(" Disciplina  não econtrada pelo Id[%s]", disciplinaDTO.getDiscId()));
-//        disciplinaMapper.updateModelFromDTO(disciplinaDTO, disciplina);
-//        disciplinaRepository.persist(disciplina);
-//        disciplinaMapper.updateDTOFromModel(disciplina, disciplinaDTO);
-//    }
-//
-//    @Transactional
-//    public void excluir(Long id){
-//        var disciplina  = disciplinaRepository.findByIdOptional(id)
-//                .orElseThrow(()-> new NotFoundException(DISCIPLINA_NAO_ENCONTRADA));
-//        disciplinaRepository.delete(disciplina);
-//    }
+    @Transactional
+    public void update(@Valid CursoDisciplinaDTO cursoDisciplinaDTO) {
+        log.debug("Updating CursoDisciplinaDTO: {}", cursoDisciplinaDTO);
+        if (Objects.isNull(cursoDisciplinaDTO.getId())) {
+            throw new ServiceException("Id não encontrado");
+        }
+        CursoDisciplina cursoDisciplina =
+                cursoDisciplinaRepository.findByIdOptional(cursoDisciplinaDTO.getId())
+                .orElseThrow(() -> new ServiceException(" Não foram encontrados Cursos e Disciplinas correspondente ao Id[%s]", cursoDisciplinaDTO.getId()));
+        cursoDisciplinaMapper.updateModelFromDTO(cursoDisciplinaDTO, cursoDisciplina);
+        cursoDisciplinaRepository.persist(cursoDisciplina);
+        cursoDisciplinaMapper.updateDTOFromModel(cursoDisciplina, cursoDisciplinaDTO);
+    }
+
+    @Transactional
+    public void excluir(Long id){
+        var cursoDisciplina  = cursoDisciplinaRepository.findByIdOptional(id)
+                .orElseThrow(()-> new NotFoundException(CURSO_DISCIPLINA_NAO_ENCONTRADA));
+        cursoDisciplinaRepository.delete(cursoDisciplina);
+    }
 }
 
 

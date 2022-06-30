@@ -14,11 +14,11 @@ public interface CursoDisciplinaMapper {
 
     List<CursoDisciplinaDTO> toDTOList(List<CursoDisciplina> cursoDisciplinas);
 
-    @Mapping(target = "discId", expression = "java(cursoDisciplina.getDisciplina().getDiscId())")
     @Mapping(target = "curId", expression = "java(cursoDisciplina.getCurso().getCurId())")
+    @Mapping(target = "discId", expression = "java(cursoDisciplina.getDisciplina().getDiscId())")
     CursoDisciplinaDTO toDTO(CursoDisciplina cursoDisciplina);
 
-    @Mapping(target = "cDid", ignore = true)
+    @Mapping(target = "id", ignore = true)
     @InheritInverseConfiguration(name = "toDTO")
     CursoDisciplina toModel(CursoDisciplinaDTO cursoDisciplinaDTO);
 
