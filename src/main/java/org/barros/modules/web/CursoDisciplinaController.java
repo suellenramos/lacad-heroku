@@ -85,7 +85,7 @@ public class CursoDisciplinaController {
     )
     @APIResponse(
             responseCode = "400",
-            description = "Já existe um Professor com esse Id",
+            description = "Já existe um Curso e Disciplina com esse Id",
             content = @Content(mediaType = MediaType.APPLICATION_JSON)
     )
     public Response post(@NotNull @Valid CursoDisciplinaDTO cursoDisciplinaDTO, @Context UriInfo uriInfo) {

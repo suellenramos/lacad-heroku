@@ -32,4 +32,7 @@ public class Professor implements Serializable {
 
     @OneToMany(mappedBy = "professor")
     private List<CursoDisciplina> cursoDisciplinas;
+
+    @OneToMany(mappedBy = "professor")
+    private List<ProfessorAplicativo> professorAplicativos;
 }

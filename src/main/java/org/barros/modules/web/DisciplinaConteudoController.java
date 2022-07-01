@@ -37,105 +37,105 @@ import java.util.Objects;
 @Path("/v1/disciplinasConteudos")
 public class DisciplinaConteudoController {
 
-    private final ConteudoAplicativoService conteudoAplicativoService;
+    private final DisciplinaConteudoService disciplinaConteudoService;
 
     @GET
     @APIResponse(
             responseCode = "200",
-            description = "Obtem todos os Conteudos e Aplicativos",
+            description = "Obtem todos as Disciplinas e Conteúdos",
             content = @Content(
                     mediaType = MediaType.APPLICATION_JSON,
-                    schema = @Schema(type = SchemaType.ARRAY, implementation = ConteudoAplicativoDTO.class)
+                    schema = @Schema(type = SchemaType.ARRAY, implementation = DisciplinaConteudoDTO.class)
             )
     )
     public Response get() {
-        return Response.ok(conteudoAplicativoService.findAll()).build();
+        return Response.ok(disciplinaConteudoService.findAll()).build();
     }
 
     @GET
     @Path("/{id}")
     @APIResponse(
             responseCode = "200",
-            description = "Obtem Conteúdo e APlicativo pelo Id",
+            description = "Obtem Disciplina e Conteúdos pelo Id",
             content = @Content(
                     mediaType = MediaType.APPLICATION_JSON,
-                    schema = @Schema(type = SchemaType.OBJECT, implementation = ConteudoAplicativoDTO.class)
+                    schema = @Schema(type = SchemaType.OBJECT, implementation = DisciplinaConteudoDTO.class)
             )
     )
 
     @APIResponse(
             responseCode = "404",
-            description = "Conteúdo e Aplicativo não encontrado pelo Id",
+            description = "Disciplina e Conteúdo não encontrado pelo Id",
             content = @Content(mediaType = MediaType.APPLICATION_JSON)
     )
     public Response getById(@Parameter(name = "id", required = true) @PathParam("id") Long id) {
-        return conteudoAplicativoService.findById(id)
-                .map(conteudoAplicativoDTO -> Response.ok(conteudoAplicativoDTO).build())
+        return disciplinaConteudoService.findById(id)
+                .map(disciplinaConteudoDTO -> Response.ok(disciplinaConteudoDTO).build())
                 .orElse(Response.status(Response.Status.NOT_FOUND).build());
     }
     @POST
     @APIResponse(
             responseCode = "201",
-            description = "Criação de vínculo entre Conteúdo e Aplicativo",
+            description = "Criação de vínculo entre Disciplina e Conteúdo",
             content = @Content(
                     mediaType = MediaType.APPLICATION_JSON,
-                    schema = @Schema(type = SchemaType.OBJECT, implementation = ConteudoAplicativoDTO.class)
+                    schema = @Schema(type = SchemaType.OBJECT, implementation = DisciplinaConteudoDTO.class)
             )
     )
     @APIResponse(
             responseCode = "400",
-            description = "Conteúdo e Aplicativo Inválido",
+            description = "Disciplina e Conteúdo Inválido",
             content = @Content(mediaType = MediaType.APPLICATION_JSON)
     )
     @APIResponse(
             responseCode = "400",
-            description = "Já existe um Conteúdo e Aplicativo com esse Id",
+            description = "Já existe uma Disciplima e Conteúdo com esse Id",
             content = @Content(mediaType = MediaType.APPLICATION_JSON)
     )
-    public Response post(@NotNull @Valid ConteudoAplicativoDTO conteudoAplicativoDTO, @Context UriInfo uriInfo) {
-        conteudoAplicativoService.save(conteudoAplicativoDTO);
-        URI uri = uriInfo.getAbsolutePathBuilder().path(Long.toString(conteudoAplicativoDTO.getId())).build();
-        return Response.created(uri).entity(conteudoAplicativoDTO).build();
+    public Response post(@NotNull @Valid DisciplinaConteudoDTO disciplinaConteudoDTO, @Context UriInfo uriInfo) {
+        disciplinaConteudoService.save(disciplinaConteudoDTO);
+        URI uri = uriInfo.getAbsolutePathBuilder().path(Long.toString(disciplinaConteudoDTO.getId())).build();
+        return Response.created(uri).entity(disciplinaConteudoDTO).build();
     }
     @PUT
     @Path("{id}")
     @APIResponse(
             responseCode = "204",
-            description = "Conteúdo e Aplicativo Atualizado",
+            description = " Disciplina e Conteúdo Atualizado",
             content = @Content(
                     mediaType = MediaType.APPLICATION_JSON,
-                    schema = @Schema(type = SchemaType.OBJECT, implementation = ConteudoAplicativoDTO.class)
+                    schema = @Schema(type = SchemaType.OBJECT, implementation = DisciplinaConteudoDTO.class)
             )
     )
 
     @APIResponse(
             responseCode = "400",
-            description = "Não foi encontrado Id para o Conteúdo e Aplicativo requerido",
+            description = "Não foi encontrado Id para a Disciplina e ao Conteúdo requerido",
             content = @Content(mediaType = MediaType.APPLICATION_JSON)
     )
     @APIResponse(
             responseCode = "400",
-            description = "O id não corresponde ao Conteúdo e ao Aplicativo requerido",
+            description = "O id não corresponde a Disciplina e ao Conteúdo requerido",
             content = @Content(mediaType = MediaType.APPLICATION_JSON)
     )
     @APIResponse(
             responseCode = "404",
-            description = "Nenhum Conteúdo e Aplicativo encontrado pelo id indicado",
+            description = "Nenhuma Disciplina e Conteúdo encontrado pelo id indicado",
             content = @Content(mediaType = MediaType.APPLICATION_JSON)
     )
 
-    public Response put(@Parameter(name = "id", required = true) @PathParam("id") Long id, @NotNull @Valid ConteudoAplicativoDTO conteudoAplicativoDTO) {
-        if (!Objects.equals(id, conteudoAplicativoDTO.getId())) {
-            throw new ServiceException("O id não corresponde ao Conteúdo e Aplicativo");
+    public Response put(@Parameter(name = "id", required = true) @PathParam("id") Long id, @NotNull @Valid DisciplinaConteudoDTO disciplinaConteudoDTO) {
+        if (!Objects.equals(id, disciplinaConteudoDTO.getId())) {
+            throw new ServiceException("O id não corresponde a Disciplina e ao Conteúdo");
         }
-        conteudoAplicativoService.update(conteudoAplicativoDTO);
-        return Response.ok(conteudoAplicativoDTO).build();
+        disciplinaConteudoService.update(disciplinaConteudoDTO);
+        return Response.ok(disciplinaConteudoDTO).build();
        // return Response.status(Response.Status.NO_CONTENT).build();
     }
     @DELETE
     @Path("/{id}")
     public void delete(@PathParam("id") Long id) {
-        conteudoAplicativoService.excluir(id);
+        disciplinaConteudoService.excluir(id);
     }
 }
 
