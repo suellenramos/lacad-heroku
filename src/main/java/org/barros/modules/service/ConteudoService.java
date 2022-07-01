@@ -35,12 +35,6 @@ public class ConteudoService {
 
     private final ConteudoRepository conteudoRepository;
 
-    @Inject
-    private DisciplinaRepository disciplinaRepository;
-
-    @Inject
-    private AplicativoRepository aplicativoRepository;
-
 
     public List<ConteudoDTO> findAll() {
         return this.conteudoMapper.toDTOList(conteudoRepository.findAll().list());
@@ -55,12 +49,6 @@ public class ConteudoService {
     public void save(@Valid ConteudoDTO conteudoDTO) {
         log.debug("Saving ConteudoDTO: {}", conteudoDTO);
         Conteudo conteudo = conteudoMapper.toModel(conteudoDTO);
-//        var ids = Stream.of(conteudoDTO.getDisciplinas().split(",")).map(ass -> Long.valueOf(ass.trim())).collect(Collectors.toList());
-//        var disciplinas = conteudoRepository.getEntityManager().createQuery("select s from Disciplina s where discId in(?1)", Disciplina.class).setParameter(1, ids).getResultStream().collect(Collectors.toList());
-//        conteudo.setDisciplinas(disciplinas);
-        var idsAplicativos = Stream.of(conteudoDTO.getAplicativos().split(",")).map(ass -> Long.valueOf(ass.trim())).collect(Collectors.toList());
-        var aplicativos = disciplinaRepository.getEntityManager().createQuery("select a from Aplicativo a where apliId in(?1)", Aplicativo.class).setParameter(1, idsAplicativos).getResultStream().collect(Collectors.toList());
-        conteudo.setAplicativos(aplicativos);
         conteudoRepository.persist(conteudo);
         conteudoMapper.updateDTOFromModel (conteudo, conteudoDTO);
     }

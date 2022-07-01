@@ -1,8 +1,6 @@
 package org.barros.modules.dto.response;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import lombok.Getter;
 
 import java.io.Serializable;
 
@@ -11,11 +9,6 @@ import java.io.Serializable;
 public class AplicativoDTO implements Serializable {
 
     private Long apliId;
-
-   // @JsonIgnore
-    private String conteudos;
-
-    private String professores;
 
     private String link;
 

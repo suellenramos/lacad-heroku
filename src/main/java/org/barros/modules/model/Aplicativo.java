@@ -24,11 +24,12 @@ public class Aplicativo implements Serializable {
     @Column(name = "apli_descricao")
     private String descricao;
 
-    @ManyToMany(mappedBy = "aplicativos")
-    private List<Conteudo> conteudos;
+    @OneToMany(mappedBy = "aplicativo")
+    private List<ConteudoAplicativo> conteudoAplicativos;
 
 //    @ManyToMany(mappedBy = "aplicativos")
 //    private List<Professor> professores;
+
 
     @OneToMany(mappedBy = "aplicativo")
     private List<Avaliacao> avaliacoes;

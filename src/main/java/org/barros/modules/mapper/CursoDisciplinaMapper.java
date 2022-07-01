@@ -25,7 +25,7 @@ public interface CursoDisciplinaMapper {
 
     void updateModelFromDTO(CursoDisciplinaDTO cursoDisciplinaDTO, @MappingTarget CursoDisciplina cursoDisciplina);
 
-    void updateDTOFromModel(CursoDisciplina CursoDisciplina, @MappingTarget CursoDisciplinaDTO cursoDisciplinaDTO);
+    void updateDTOFromModel(CursoDisciplina cursoDisciplina, @MappingTarget CursoDisciplinaDTO cursoDisciplinaDTO);
 }
 
 

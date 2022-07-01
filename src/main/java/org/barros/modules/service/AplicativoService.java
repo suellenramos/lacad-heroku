@@ -4,10 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.barros.modules.dto.response.AplicativoDTO;
-import org.barros.modules.dto.response.DisciplinaDTO;
 import org.barros.modules.exception.ServiceException;
 import org.barros.modules.mapper.AplicativoMapper;
-import org.barros.modules.mapper.DisciplinaMapper;
 import org.barros.modules.model.*;
 import org.barros.modules.repository.*;
 
@@ -49,12 +47,6 @@ public class AplicativoService {
     public void save(@Valid AplicativoDTO aplicativoDTO) {
         log.debug("Saving AplicativoDTO: {}", aplicativoDTO);
         Aplicativo aplicativo = aplicativoMapper.toModel(aplicativoDTO);
-        var ids = Stream.of(aplicativoDTO.getConteudos().split(",")).map(ass -> Long.valueOf(ass.trim())).collect(Collectors.toList());
-        var conteudos = aplicativoRepository.getEntityManager().createQuery("select c from Conteudo c where conteId in(?1)", Conteudo.class).setParameter(1, ids).getResultStream().collect(Collectors.toList());
-        aplicativo.setConteudos(conteudos);
-//        var idsProfessores = Stream.of(aplicativoDTO.getProfessores().split(",")).map(ass -> Long.valueOf(ass.trim())).collect(Collectors.toList());
-//        var professores = aplicativoRepository.getEntityManager().createQuery("select p from Aplicativo p where profId in(?1)", Professor.class).setParameter(1, idsProfessores).getResultStream().collect(Collectors.toList());
-//        aplicativo.setProfessores(professores);
         aplicativoRepository.persist(aplicativo);
         aplicativoMapper.updateDTOFromModel (aplicativo, aplicativoDTO);
     }

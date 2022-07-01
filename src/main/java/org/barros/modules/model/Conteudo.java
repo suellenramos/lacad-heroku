@@ -21,9 +21,6 @@ public class Conteudo implements Serializable {
 
     @Column(name = "conte_descricao")
     private String descricao;
-//
-//    @ManyToMany(mappedBy = "conteudos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    private List<Disciplina> disciplinas;
 
     @ManyToMany
     @JoinTable(name = "conteudo_aplicativo",
@@ -31,4 +28,9 @@ public class Conteudo implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "apli_id"))
     private List<Aplicativo> aplicativos;
 
+    @OneToMany(mappedBy = "conteudo")
+    private List<DisciplinaConteudo> disciplinaConteudos;
+
+    @OneToMany(mappedBy = "conteudo")
+    private List<ConteudoAplicativo> conteudoAplicativos;
 }
