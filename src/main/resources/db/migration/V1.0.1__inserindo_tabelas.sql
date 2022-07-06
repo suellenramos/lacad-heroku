@@ -10,24 +10,23 @@ CREATE TABLE public.curso_disciplina (
 
 CREATE TABLE public.disciplina_conteudo (
 	dc_id serial  primary key NOT NULL,
-	disc_id integer NOT NULL,
+	cd_id integer NOT NULL,
 	conte_id integer NOT NULL,
-	CONSTRAINT disciplina_conteudo_fk_1 FOREIGN KEY (disc_id) REFERENCES public.disciplina(disc_id),
+	CONSTRAINT disciplina_conteudo_fk_1 FOREIGN KEY (cd_id) REFERENCES public.curso_disciplina(cd_id),
 	CONSTRAINT disciplina_conteudo_fk FOREIGN KEY (conte_id) REFERENCES public.conteudo(conte_id)
 );
 
 CREATE TABLE public.conteudo_aplicativo (
 	ca_id serial primary key NOT NULL,
-	conte_id integer NOT NULL,
+	dc_id integer NOT NULL,
 	apli_id integer NOT NULL,
-	CONSTRAINT conteudo_aplicativo_fk FOREIGN KEY (conte_id) REFERENCES public.conteudo(conte_id),
+	CONSTRAINT conteudo_aplicativo_fk FOREIGN KEY (dc_id) REFERENCES public.disciplina_conteudo(dc_id),
 	CONSTRAINT conteudo_aplicativo_fk_1 FOREIGN KEY (apli_id) REFERENCES public.aplicativo(apli_id)
 );
 
-CREATE TABLE public.professor_aplicativo (
-	pa_id serial primary key NOT NULL,
-	prof_id integer NOT NULL,
-	apli_id integer NOT NULL,
-	CONSTRAINT professor_aplicativo_fk FOREIGN KEY (prof_id) REFERENCES public.professor(prof_id),
-	CONSTRAINT professor_aplicativo_fk_1 FOREIGN KEY (apli_id) REFERENCES public.aplicativo(apli_id)
+CREATE TABLE public.aplicativo_favorito (
+	ap_id serial primary key NOT NULL,
+	af_favorito boolean NULL,
+	ca_id integer NOT NULL,
+	CONSTRAINT aplicativo_favorito_fk FOREIGN KEY (ca_id) REFERENCES public.conteudo_aplicativo(ca_id)
 );

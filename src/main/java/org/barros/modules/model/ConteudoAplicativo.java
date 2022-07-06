@@ -21,10 +21,11 @@ public class ConteudoAplicativo implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "conte_id")
-    private   Conteudo conteudo;
+    @JoinColumn(name = "conteudoAplicativo")
+    private   DisciplinaConteudo disciplinaConteudo;
 
     @ManyToOne
     @JoinColumn(name = "apli_id")
     private   Aplicativo aplicativo;
+
 }

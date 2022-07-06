@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,10 +22,12 @@ public class DisciplinaConteudo implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "disc_id")
-    private   Disciplina disciplina;
-
+    @JoinColumn(name = "cd_id")
+    private   CursoDisciplina cursoDisciplina;
     @ManyToOne
     @JoinColumn(name = "conte_id")
     private   Conteudo conteudo;
+
+    @OneToMany(mappedBy = "disciplinaConteudo")
+    private List<ConteudoAplicativo> conteudoAplicativos ;
 }

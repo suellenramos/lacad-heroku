@@ -21,10 +21,8 @@ public class Disciplina implements Serializable {
     @Column(name = "disc_descricao")
     private String descricao;
 
-    @OneToMany(mappedBy = "disciplina")
-    private List<CursoDisciplina> cursoDisciplinas;
 
-    @OneToMany(mappedBy = "disciplina")
-    private List<DisciplinaConteudo> disciplinaConteudos ;
+//    @OneToMany(mappedBy = "disciplina")
+//    private List<DisciplinaConteudo> disciplinaConteudos ;
 
 }
