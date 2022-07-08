@@ -23,12 +23,12 @@ public class Avaliacao implements Serializable {
 
     @Column(name = "ava_comentarios")
     private String comentarios;
-
-    @ManyToOne
-    @JoinColumn(name = "prof_id")
-    private  Professor professor;
-
-    @ManyToOne
-    @JoinColumn(name = "apli_id")
-    private  Aplicativo aplicativo;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "prof_id")
+//    private  Professor professor;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "apli_id")
+//    private  Aplicativo aplicativo;
 }

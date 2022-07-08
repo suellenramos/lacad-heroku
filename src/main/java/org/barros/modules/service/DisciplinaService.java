@@ -29,53 +29,53 @@ import java.util.stream.Stream;
 @Slf4j
 @ApplicationScoped
 public class DisciplinaService {
-
-    private static final String DISCIPLINA_NAO_ENCONTRADA = "Disciplina não encontrada";
-
-    private final DisciplinaRepository disciplinaRepository;
-
-    private final DisciplinaMapper disciplinaMapper;
-
-    @Inject
-    private ProfessorRepository professorRepository;
-
-    public List<DisciplinaDTO> findAll() {
-        return this.disciplinaMapper.toDTOList(disciplinaRepository.findAll().list());
-    }
-
-    public Optional<DisciplinaDTO> findById(@NonNull Long id) {
-        return disciplinaRepository.findByIdOptional(id)
-                .map(disciplinaMapper::toDTO);
-    }
-
-    @Transactional
-    public void save(@Valid DisciplinaDTO disciplinaDTO) {
-        log.debug("Saving DisciplinaDTO: {}", disciplinaDTO);
-        Disciplina disciplina = disciplinaMapper.toModel(disciplinaDTO);
-        disciplinaRepository.persist(disciplina);
-        disciplinaMapper.updateDTOFromModel (disciplina, disciplinaDTO);
-    }
-
-    @Transactional
-    public void update(@Valid DisciplinaDTO disciplinaDTO  ) {
-        log.debug("Updating DisciplinaDTO: {}", disciplinaDTO);
-        if (Objects.isNull(disciplinaDTO.getDiscId())) {
-            throw new ServiceException("Id não encontrado");
-        }
-        Disciplina disciplina =
-                disciplinaRepository.findByIdOptional(disciplinaDTO.getDiscId())
-                .orElseThrow(() -> new ServiceException(" Disciplina  não econtrada pelo Id[%s]", disciplinaDTO.getDiscId()));
-        disciplinaMapper.updateModelFromDTO(disciplinaDTO, disciplina);
-        disciplinaRepository.persist(disciplina);
-        disciplinaMapper.updateDTOFromModel(disciplina, disciplinaDTO);
-    }
-
-    @Transactional
-    public void excluir(Long id){
-        var disciplina  = disciplinaRepository.findByIdOptional(id)
-                .orElseThrow(()-> new NotFoundException(DISCIPLINA_NAO_ENCONTRADA));
-        disciplinaRepository.delete(disciplina);
-    }
+//
+//    private static final String DISCIPLINA_NAO_ENCONTRADA = "Disciplina não encontrada";
+//
+//    private final DisciplinaRepository disciplinaRepository;
+//
+//    private final DisciplinaMapper disciplinaMapper;
+//
+//    @Inject
+//    private ProfessorRepository professorRepository;
+//
+//    public List<DisciplinaDTO> findAll() {
+//        return this.disciplinaMapper.toDTOList(disciplinaRepository.findAll().list());
+//    }
+//
+//    public Optional<DisciplinaDTO> findById(@NonNull Long id) {
+//        return disciplinaRepository.findByIdOptional(id)
+//                .map(disciplinaMapper::toDTO);
+//    }
+//
+//    @Transactional
+//    public void save(@Valid DisciplinaDTO disciplinaDTO) {
+//        log.debug("Saving DisciplinaDTO: {}", disciplinaDTO);
+//        Disciplina disciplina = disciplinaMapper.toModel(disciplinaDTO);
+//        disciplinaRepository.persist(disciplina);
+//        disciplinaMapper.updateDTOFromModel (disciplina, disciplinaDTO);
+//    }
+//
+//    @Transactional
+//    public void update(@Valid DisciplinaDTO disciplinaDTO  ) {
+//        log.debug("Updating DisciplinaDTO: {}", disciplinaDTO);
+//        if (Objects.isNull(disciplinaDTO.getDiscId())) {
+//            throw new ServiceException("Id não encontrado");
+//        }
+//        Disciplina disciplina =
+//                disciplinaRepository.findByIdOptional(disciplinaDTO.getDiscId())
+//                .orElseThrow(() -> new ServiceException(" Disciplina  não econtrada pelo Id[%s]", disciplinaDTO.getDiscId()));
+//        disciplinaMapper.updateModelFromDTO(disciplinaDTO, disciplina);
+//        disciplinaRepository.persist(disciplina);
+//        disciplinaMapper.updateDTOFromModel(disciplina, disciplinaDTO);
+//    }
+//
+//    @Transactional
+//    public void excluir(Long id){
+//        var disciplina  = disciplinaRepository.findByIdOptional(id)
+//                .orElseThrow(()-> new NotFoundException(DISCIPLINA_NAO_ENCONTRADA));
+//        disciplinaRepository.delete(disciplina);
+//    }
 }
 
 

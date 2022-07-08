@@ -6,7 +6,7 @@ import lombok.Getter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-@Getter
+
 @Data
 @Entity
 @Table(name = "curso", schema = "public")
@@ -22,6 +22,6 @@ public class Curso implements Serializable {
     @Column(name = "cur_descricao")
     private String descricao;
 
-    @OneToMany(mappedBy = "curso")
-    private List<CursoDisciplina> cursoDisciplinas;
+//    @OneToMany(mappedBy = "curso")
+//    private List<CursoDisciplina> cursoDisciplinas;
 }

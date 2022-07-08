@@ -13,20 +13,20 @@ import java.util.List;
 
 @Mapper(componentModel = "cdi")
 public interface AvaliacaoMapper {
-
-    List<AvaliacaoDTO> toDTOList(List<Avaliacao> avaliacaos);
-
-    @Mapping(target = "profId", expression = "java(avaliacao.getProfessor().getProfId())")
-    @Mapping(target = "apliId", expression = "java(avaliacao.getAplicativo().getApliId())")
-    AvaliacaoDTO toDTO(Avaliacao avaliacao);
-
-    @Mapping(target = "avaId", ignore = true)
-    @InheritInverseConfiguration(name = "toDTO")
-    Avaliacao toModel(AvaliacaoDTO avaliacaoDTO);
-
-    void updateModelFromDTO(AvaliacaoDTO avaliacaoDTO, @MappingTarget Avaliacao avaliacao);
-
-    void updateDTOFromModel(Avaliacao avaliacao, @MappingTarget AvaliacaoDTO avaliacaoDTO);
+//
+//    List<AvaliacaoDTO> toDTOList(List<Avaliacao> avaliacaos);
+//
+//    @Mapping(target = "profId", expression = "java(avaliacao.getProfessor().getProfId())")
+//    @Mapping(target = "apliId", expression = "java(avaliacao.getAplicativo().getApliId())")
+//    AvaliacaoDTO toDTO(Avaliacao avaliacao);
+//
+//    @Mapping(target = "avaId", ignore = true)
+//    @InheritInverseConfiguration(name = "toDTO")
+//    Avaliacao toModel(AvaliacaoDTO avaliacaoDTO);
+//
+//    void updateModelFromDTO(AvaliacaoDTO avaliacaoDTO, @MappingTarget Avaliacao avaliacao);
+//
+//    void updateDTOFromModel(Avaliacao avaliacao, @MappingTarget AvaliacaoDTO avaliacaoDTO);
 }
 
 

@@ -8,10 +8,10 @@ import java.io.Serializable;
 @Data
 public class ConteudoAplicativoDTO implements Serializable {
 
-    private Long id;
-
-    private Long conteId;
-
-    private  Long apliId;
+//    private Long id;
+//
+//    private Long conteId;
+//
+//    private  Long apliId;
 
 }

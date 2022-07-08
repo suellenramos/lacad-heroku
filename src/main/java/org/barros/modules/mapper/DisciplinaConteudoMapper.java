@@ -11,22 +11,22 @@ import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
-@Mapper(componentModel = "cdi")
+//@Mapper(componentModel = "cdi")
 public interface DisciplinaConteudoMapper {
-
-    List<DisciplinaConteudoDTO> toDTOList(List<DisciplinaConteudo> disciplinaConteudos);
-
-    @Mapping(target = "conteId", expression = "java(disciplinaConteudo.getConteudo().getConteId())")
-    @Mapping(target = "discId", expression = "java(disciplinaConteudo.getDisciplina().getDiscId())")
-    DisciplinaConteudoDTO toDTO(DisciplinaConteudo disciplinaConteudo);
-
-    @Mapping(target = "id", ignore = true)
-    @InheritInverseConfiguration(name = "toDTO")
-    DisciplinaConteudo toModel(DisciplinaConteudoDTO disciplinaConteudoDTO);
-
-    void updateModelFromDTO(DisciplinaConteudoDTO disciplinaConteudoDTO, @MappingTarget DisciplinaConteudo disciplinaConteudo);
-
-    void updateDTOFromModel(DisciplinaConteudo disciplinaConteudo, @MappingTarget DisciplinaConteudoDTO disciplinaConteudoDTO);
+//
+//    List<DisciplinaConteudoDTO> toDTOList(List<DisciplinaConteudo> disciplinaConteudos);
+//
+//    @Mapping(target = "conteId", expression = "java(disciplinaConteudo.getConteudo().getConteId())")
+//    @Mapping(target = "discId", expression = "java(disciplinaConteudo.getDisciplina().getDiscId())")
+//    DisciplinaConteudoDTO toDTO(DisciplinaConteudo disciplinaConteudo);
+//
+//    @Mapping(target = "id", ignore = true)
+//    @InheritInverseConfiguration(name = "toDTO")
+//    DisciplinaConteudo toModel(DisciplinaConteudoDTO disciplinaConteudoDTO);
+//
+//    void updateModelFromDTO(DisciplinaConteudoDTO disciplinaConteudoDTO, @MappingTarget DisciplinaConteudo disciplinaConteudo);
+//
+//    void updateDTOFromModel(DisciplinaConteudo disciplinaConteudo, @MappingTarget DisciplinaConteudoDTO disciplinaConteudoDTO);
 }
 
 

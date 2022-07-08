@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "conteudo", schema = "public")
+//@Table(name = "conteudo", schema = "public")
 public class Conteudo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -22,15 +22,15 @@ public class Conteudo implements Serializable {
     @Column(name = "conte_descricao")
     private String descricao;
 
-    @ManyToMany
-    @JoinTable(name = "conteudo_aplicativo",
-            joinColumns = @JoinColumn(name = "conte_id"),
-            inverseJoinColumns = @JoinColumn(name = "apli_id"))
-    private List<Aplicativo> aplicativos;
-
-    @OneToMany(mappedBy = "conteudo")
-    private List<DisciplinaConteudo> disciplinaConteudos;
-
-    @OneToMany(mappedBy = "conteudo")
-    private List<ConteudoAplicativo> conteudoAplicativos;
+//    @ManyToMany
+//    @JoinTable(name = "conteudo_aplicativo",
+//            joinColumns = @JoinColumn(name = "conte_id"),
+//            inverseJoinColumns = @JoinColumn(name = "apli_id"))
+//    private List<Aplicativo> aplicativos;
+//
+//    @OneToMany(mappedBy = "conteudo")
+//    private List<DisciplinaConteudo> disciplinaConteudos;
+//
+//    @OneToMany(mappedBy = "conteudo")
+//    private List<ConteudoAplicativo> conteudoAplicativos;
 }

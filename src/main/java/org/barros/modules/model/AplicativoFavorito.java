@@ -10,22 +10,21 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Entity
-@Table(name = "conteudo_aplicativo", schema = "public")
-public class ConteudoAplicativo implements Serializable {
+@Table(name = "aplicativo_favorito", schema = "public")
+public class AplicativoFavorito implements Serializable {
 
+    //Continuar
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ca_id")
+    @Column(name = "ap_id")
     private Long id;
-//
+
 //    @ManyToOne
-//    @JoinColumn(name = "ca_id")
-//    private   DisciplinaConteudo disciplinaConteudo;
-//
+//    @JoinColumn(name = "prof_id")
+//    private   Professor professor;
 //    @ManyToOne
 //    @JoinColumn(name = "apli_id")
 //    private   Aplicativo aplicativo;
-
 }

@@ -28,51 +28,51 @@ import java.util.stream.Stream;
 @Slf4j
 @ApplicationScoped
 public class ConteudoService {
-
-    private static final String CONTEUDO_NAO_ENCONTRADO = "Conteudo não encontrado";
-
-    private final ConteudoMapper conteudoMapper;
-
-    private final ConteudoRepository conteudoRepository;
-
-
-    public List<ConteudoDTO> findAll() {
-        return this.conteudoMapper.toDTOList(conteudoRepository.findAll().list());
-    }
-
-    public Optional<ConteudoDTO> findById(@NonNull Long id) {
-        return conteudoRepository.findByIdOptional(id)
-                .map(conteudoMapper::toDTO);
-    }
-
-    @Transactional
-    public void save(@Valid ConteudoDTO conteudoDTO) {
-        log.debug("Saving ConteudoDTO: {}", conteudoDTO);
-        Conteudo conteudo = conteudoMapper.toModel(conteudoDTO);
-        conteudoRepository.persist(conteudo);
-        conteudoMapper.updateDTOFromModel (conteudo, conteudoDTO);
-    }
-
-    @Transactional
-    public void update(@Valid ConteudoDTO conteudoDTO  ) {
-        log.debug("Updating ConteudoDTO: {}", conteudoDTO);
-        if (Objects.isNull(conteudoDTO.getConteId())) {
-            throw new ServiceException("Id não encontrado");
-        }
-        Conteudo conteudo =
-                conteudoRepository.findByIdOptional(conteudoDTO.getConteId())
-                .orElseThrow(() -> new ServiceException(" Conteudo  não econtrado pelo Id[%s]", conteudoDTO.getConteId()));
-        conteudoMapper.updateModelFromDTO(conteudoDTO, conteudo);
-        conteudoRepository.persist(conteudo);
-        conteudoMapper.updateDTOFromModel(conteudo, conteudoDTO);
-    }
-
-    @Transactional
-    public void excluir(Long id){
-        var conteudo  = conteudoRepository.findByIdOptional(id)
-                .orElseThrow(()-> new NotFoundException(CONTEUDO_NAO_ENCONTRADO));
-        conteudoRepository.delete(conteudo);
-    }
+//
+//    private static final String CONTEUDO_NAO_ENCONTRADO = "Conteudo não encontrado";
+//
+//    private final ConteudoMapper conteudoMapper;
+//
+//    private final ConteudoRepository conteudoRepository;
+//
+//
+//    public List<ConteudoDTO> findAll() {
+//        return this.conteudoMapper.toDTOList(conteudoRepository.findAll().list());
+//    }
+//
+//    public Optional<ConteudoDTO> findById(@NonNull Long id) {
+//        return conteudoRepository.findByIdOptional(id)
+//                .map(conteudoMapper::toDTO);
+//    }
+//
+//    @Transactional
+//    public void save(@Valid ConteudoDTO conteudoDTO) {
+//        log.debug("Saving ConteudoDTO: {}", conteudoDTO);
+//        Conteudo conteudo = conteudoMapper.toModel(conteudoDTO);
+//        conteudoRepository.persist(conteudo);
+//        conteudoMapper.updateDTOFromModel (conteudo, conteudoDTO);
+//    }
+//
+//    @Transactional
+//    public void update(@Valid ConteudoDTO conteudoDTO  ) {
+//        log.debug("Updating ConteudoDTO: {}", conteudoDTO);
+//        if (Objects.isNull(conteudoDTO.getConteId())) {
+//            throw new ServiceException("Id não encontrado");
+//        }
+//        Conteudo conteudo =
+//                conteudoRepository.findByIdOptional(conteudoDTO.getConteId())
+//                .orElseThrow(() -> new ServiceException(" Conteudo  não econtrado pelo Id[%s]", conteudoDTO.getConteId()));
+//        conteudoMapper.updateModelFromDTO(conteudoDTO, conteudo);
+//        conteudoRepository.persist(conteudo);
+//        conteudoMapper.updateDTOFromModel(conteudo, conteudoDTO);
+//    }
+//
+//    @Transactional
+//    public void excluir(Long id){
+//        var conteudo  = conteudoRepository.findByIdOptional(id)
+//                .orElseThrow(()-> new NotFoundException(CONTEUDO_NAO_ENCONTRADO));
+//        conteudoRepository.delete(conteudo);
+//    }
 }
 
 

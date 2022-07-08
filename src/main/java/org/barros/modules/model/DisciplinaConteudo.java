@@ -21,13 +21,14 @@ public class DisciplinaConteudo implements Serializable {
     @Column(name = "dc_id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "cd_id")
-    private   CursoDisciplina cursoDisciplina;
-    @ManyToOne
-    @JoinColumn(name = "conte_id")
-    private   Conteudo conteudo;
-
-    @OneToMany(mappedBy = "disciplinaConteudo")
-    private List<ConteudoAplicativo> conteudoAplicativos ;
+//    @ManyToOne
+//    @JoinColumn(name = "cd_id")
+//    private   CursoDisciplina cursoDisciplina;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "conte_id")
+//    private   Conteudo conteudo;
+//
+//    @OneToMany(mappedBy = "disciplinaConteudo")
+//    private List<ConteudoAplicativo> conteudoAplicativos ;
 }

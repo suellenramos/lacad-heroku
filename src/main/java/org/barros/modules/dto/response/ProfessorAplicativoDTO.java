@@ -5,13 +5,13 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-@Data
+//@Data
 public class ProfessorAplicativoDTO implements Serializable {
-
-    private Long id;
-
-    private Long profId;
-
-    private  Long apliId;
+//
+//    private Long id;
+//
+//    private Long profId;
+//
+//    private  Long apliId;
 
 }

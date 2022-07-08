@@ -1,10 +1,9 @@
 package org.barros.modules.model;
 
-import lombok.*;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Data
 @Entity
@@ -26,13 +25,10 @@ public class Professor implements Serializable {
 
     @Column(name = "prof_senha")
     private String senha;
-
-    @OneToMany(mappedBy = "professor")
-    private List<Avaliacao> avaliacoes;
-
-    @OneToMany(mappedBy = "professor")
-    private List<CursoDisciplina> cursoDisciplinas;
-
-    @OneToMany(mappedBy = "professor")
-    private List<ProfessorAplicativo> professorAplicativos;
+//
+//    @OneToMany(mappedBy = "professor")
+//    private List<Avaliacao> avaliacoes;
+//
+//    @OneToMany(mappedBy = "professor")
+//    private List<CursoDisciplina> cursoDisciplinas;
 }

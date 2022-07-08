@@ -24,59 +24,59 @@ import java.util.Optional;
 @Slf4j
 @ApplicationScoped
 public class DisciplinaConteudoService {
-
-    private static final String DISCIPLINA_CONTEUDO_NAO_ENCONTRADO = "Disciplina e Conteudo não encontrado";
-
-    private final DisciplinaConteudoService disciplinaConteudoService;
-    private final DisciplinaConteudoMapper disciplinaConteudoMapper;
-
-    @Inject
-    DisciplinaConteudoRepository disciplinaConteudoRepository;
-    @Inject
-    private DisciplinaRepository disciplinaRepository;
-
-    @Inject
-    private ConteudoRepository conteudoRepository;
-
-    public List<DisciplinaConteudoDTO> findAll() {
-        return this.disciplinaConteudoMapper.toDTOList(disciplinaConteudoRepository.findAll().list());
-    }
-
-    public Optional<DisciplinaConteudoDTO> findById(@NonNull Long id) {
-        return disciplinaConteudoRepository.findByIdOptional(id)
-                .map(disciplinaConteudoMapper::toDTO);
-    }
-
-    @Transactional
-    public void save(@Valid DisciplinaConteudoDTO disciplinaConteudoDTO) {
-        log.debug("Saving DisciplinaConteudoDTO: {}", disciplinaConteudoDTO);
-        DisciplinaConteudo disciplinaConteudo = disciplinaConteudoMapper.toModel(disciplinaConteudoDTO);
-        disciplinaConteudo.setConteudo(conteudoRepository.findById(disciplinaConteudoDTO.getConteId()));
-        disciplinaConteudo.setDisciplina(disciplinaRepository.findById(disciplinaConteudoDTO.getDiscId()));
-        disciplinaConteudoRepository.persist(disciplinaConteudo);
-        disciplinaConteudoMapper.updateDTOFromModel (disciplinaConteudo, disciplinaConteudoDTO);
-    }
-
-    @Transactional
-    public void update(@Valid DisciplinaConteudoDTO disciplinaConteudoDTO  ) {
-        log.debug("Updating DisciplinaConteudoDTO: {}", disciplinaConteudoDTO);
-        if (Objects.isNull(disciplinaConteudoDTO.getId())) {
-            throw new ServiceException("Id não encontrado");
-        }
-        DisciplinaConteudo disciplinaConteudo =
-                disciplinaConteudoRepository.findByIdOptional(disciplinaConteudoDTO.getId())
-                .orElseThrow(() -> new ServiceException(" Não foram encontrados Disciplinas e Cursos correspondente ao Id[%s]", disciplinaConteudoDTO.getId()));
-        disciplinaConteudoMapper.updateModelFromDTO(disciplinaConteudoDTO, disciplinaConteudo);
-        disciplinaConteudoRepository.persist(disciplinaConteudo);
-        disciplinaConteudoMapper.updateDTOFromModel(disciplinaConteudo, disciplinaConteudoDTO);
-    }
-
-    @Transactional
-    public void excluir(Long id){
-        var disciplinaConteudo  = disciplinaConteudoRepository.findByIdOptional(id)
-                .orElseThrow(()-> new NotFoundException(DISCIPLINA_CONTEUDO_NAO_ENCONTRADO));
-        disciplinaConteudoRepository.delete(disciplinaConteudo);
-    }
+//
+//    private static final String DISCIPLINA_CONTEUDO_NAO_ENCONTRADO = "Disciplina e Conteudo não encontrado";
+//
+//    private final DisciplinaConteudoService disciplinaConteudoService;
+//    private final DisciplinaConteudoMapper disciplinaConteudoMapper;
+//
+//    @Inject
+//    DisciplinaConteudoRepository disciplinaConteudoRepository;
+//    @Inject
+//    private DisciplinaRepository disciplinaRepository;
+//
+//    @Inject
+//    private ConteudoRepository conteudoRepository;
+//
+//    public List<DisciplinaConteudoDTO> findAll() {
+//        return this.disciplinaConteudoMapper.toDTOList(disciplinaConteudoRepository.findAll().list());
+//    }
+//
+//    public Optional<DisciplinaConteudoDTO> findById(@NonNull Long id) {
+//        return disciplinaConteudoRepository.findByIdOptional(id)
+//                .map(disciplinaConteudoMapper::toDTO);
+//    }
+//
+//    @Transactional
+//    public void save(@Valid DisciplinaConteudoDTO disciplinaConteudoDTO) {
+//        log.debug("Saving DisciplinaConteudoDTO: {}", disciplinaConteudoDTO);
+//        DisciplinaConteudo disciplinaConteudo = disciplinaConteudoMapper.toModel(disciplinaConteudoDTO);
+//        disciplinaConteudo.setConteudo(conteudoRepository.findById(disciplinaConteudoDTO.getConteId()));
+//        disciplinaConteudo.setDisciplina(disciplinaRepository.findById(disciplinaConteudoDTO.getDiscId()));
+//        disciplinaConteudoRepository.persist(disciplinaConteudo);
+//        disciplinaConteudoMapper.updateDTOFromModel (disciplinaConteudo, disciplinaConteudoDTO);
+//    }
+//
+//    @Transactional
+//    public void update(@Valid DisciplinaConteudoDTO disciplinaConteudoDTO  ) {
+//        log.debug("Updating DisciplinaConteudoDTO: {}", disciplinaConteudoDTO);
+//        if (Objects.isNull(disciplinaConteudoDTO.getId())) {
+//            throw new ServiceException("Id não encontrado");
+//        }
+//        DisciplinaConteudo disciplinaConteudo =
+//                disciplinaConteudoRepository.findByIdOptional(disciplinaConteudoDTO.getId())
+//                .orElseThrow(() -> new ServiceException(" Não foram encontrados Disciplinas e Cursos correspondente ao Id[%s]", disciplinaConteudoDTO.getId()));
+//        disciplinaConteudoMapper.updateModelFromDTO(disciplinaConteudoDTO, disciplinaConteudo);
+//        disciplinaConteudoRepository.persist(disciplinaConteudo);
+//        disciplinaConteudoMapper.updateDTOFromModel(disciplinaConteudo, disciplinaConteudoDTO);
+//    }
+//
+//    @Transactional
+//    public void excluir(Long id){
+//        var disciplinaConteudo  = disciplinaConteudoRepository.findByIdOptional(id)
+//                .orElseThrow(()-> new NotFoundException(DISCIPLINA_CONTEUDO_NAO_ENCONTRADO));
+//        disciplinaConteudoRepository.delete(disciplinaConteudo);
+//    }
 }
 
 

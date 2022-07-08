@@ -25,7 +25,7 @@ CREATE TABLE public.conteudo_aplicativo (
 );
 
 CREATE TABLE public.aplicativo_favorito (
-	ap_id serial primary key NOT NULL,
+	af_id serial primary key NOT NULL,
 	af_favorito boolean NULL,
 	ca_id integer NOT NULL,
 	CONSTRAINT aplicativo_favorito_fk FOREIGN KEY (ca_id) REFERENCES public.conteudo_aplicativo(ca_id)
