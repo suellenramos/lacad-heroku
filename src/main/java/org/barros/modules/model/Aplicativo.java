@@ -4,7 +4,9 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -32,4 +34,8 @@ public class Aplicativo implements Serializable {
 
     @OneToMany(mappedBy = "aplicativo")
     private List<Avaliacao> avaliacoes;
+
+    @OneToMany
+    @JoinColumn(name = "apli_id")
+    private Set<Aplicativo> aplicativos = new LinkedHashSet<>();
 }

@@ -29,6 +29,6 @@ public class ConteudoAplicativo implements Serializable {
     @JoinColumn(name = "apli_id")
     private   Aplicativo aplicativo;
 
-    @OneToMany(mappedBy = "conteudoAplicativo")
+    @OneToMany(mappedBy = "conteudoAplicativo", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<AplicativoFavorito> aplicativoFavoritos ;
 }

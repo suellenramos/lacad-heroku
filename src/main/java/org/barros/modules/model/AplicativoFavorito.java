@@ -13,7 +13,6 @@ import java.io.Serializable;
 @Table(name = "aplicativo_favorito", schema = "public")
 public class AplicativoFavorito implements Serializable {
 
-    //Continuar
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -28,7 +27,7 @@ public class AplicativoFavorito implements Serializable {
 //    @JoinColumn(name = "prof_id")
 //    private   Professor professor;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ca_id")
     private   ConteudoAplicativo conteudoAplicativo;
 }

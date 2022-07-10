@@ -15,7 +15,7 @@ public class Professor implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "prof_id")
+    @Column(name = "prof_id", nullable = false)
     private Long profId;
 
     @Column(name = "prof_nome")

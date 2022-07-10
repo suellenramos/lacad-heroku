@@ -5,7 +5,9 @@ import lombok.Getter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -24,4 +26,10 @@ public class Curso implements Serializable {
 
     @OneToMany(mappedBy = "curso")
     private List<CursoDisciplina> cursoDisciplinas;
+
+    @OneToMany
+    @JoinColumn(name = "cur_id")
+    private Set<Imagem> imagens = new LinkedHashSet<>();
+
 }
+
