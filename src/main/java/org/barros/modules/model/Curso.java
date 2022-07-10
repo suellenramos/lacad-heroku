@@ -22,6 +22,6 @@ public class Curso implements Serializable {
     @Column(name = "cur_descricao")
     private String descricao;
 
-//    @OneToMany(mappedBy = "curso")
-//    private List<CursoDisciplina> cursoDisciplinas;
+    @OneToMany(mappedBy = "curso")
+    private List<CursoDisciplina> cursoDisciplinas;
 }

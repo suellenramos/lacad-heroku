@@ -4,11 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.barros.modules.dto.response.CursoDisciplinaDTO;
-import org.barros.modules.dto.response.DisciplinaDTO;
 import org.barros.modules.exception.ServiceException;
 import org.barros.modules.mapper.CursoDisciplinaMapper;
 import org.barros.modules.model.CursoDisciplina;
-import org.barros.modules.model.Disciplina;
 import org.barros.modules.repository.CursoDisciplinaRepository;
 import org.barros.modules.repository.CursoRepository;
 import org.barros.modules.repository.DisciplinaRepository;
@@ -27,45 +25,45 @@ import java.util.Optional;
 @Slf4j
 @ApplicationScoped
 public class CursoDisciplinaService {
-//
-//    private static final String CURSO_DISCIPLINA_NAO_ENCONTRADA = "Curso e Disciplina não encontrada";
-//
-//    private final CursoDisciplinaService cursoDisciplinaService;
-//
-//    private final CursoDisciplinaMapper cursoDisciplinaMapper;
-//
-//    @Inject
-//    CursoDisciplinaRepository cursoDisciplinaRepository;
-//
-//    @Inject
-//    private CursoRepository cursoRepository;
-//
-//    @Inject
-//    private ProfessorRepository professorRepository;
-//
-//    @Inject
-//    private DisciplinaRepository disciplinaRepository;
-//
-//    public List<CursoDisciplinaDTO> findAll() {
-//        return this.cursoDisciplinaMapper.toDTOList(cursoDisciplinaRepository.findAll().list());
-//    }
-//
-//    public Optional<CursoDisciplinaDTO> findById(@NonNull Long id) {
-//        return cursoDisciplinaRepository.findByIdOptional(id)
-//                .map(cursoDisciplinaMapper::toDTO);
-//    }
-//
-//    @Transactional
-//    public void save(@Valid CursoDisciplinaDTO cursoDisciplinaDTO) {
-//        log.debug("Saving CursoDisciplinaDTO: {}", cursoDisciplinaDTO);
-//        CursoDisciplina cursoDisciplina = cursoDisciplinaMapper.toModel(cursoDisciplinaDTO);
-//        cursoDisciplina.setCurso(cursoRepository.findById(cursoDisciplinaDTO.getCurId()));
-//        cursoDisciplina.setDisciplina(disciplinaRepository.findById(cursoDisciplinaDTO.getDiscId()));
-//        cursoDisciplina.setProfessor(professorRepository.findById(cursoDisciplinaDTO.getProfId()));
-//        cursoDisciplinaRepository.persist(cursoDisciplina);
-//        cursoDisciplinaMapper.updateDTOFromModel (cursoDisciplina, cursoDisciplinaDTO);
-//    }
-//
+
+    private static final String CURSO_DISCIPLINA_NAO_ENCONTRADA = "Curso e Disciplina não encontrada";
+
+   // private final CursoDisciplinaService cursoDisciplinaService;
+
+    private final CursoDisciplinaMapper cursoDisciplinaMapper;
+
+
+    private final CursoDisciplinaRepository cursoDisciplinaRepository;
+
+    @Inject
+    private CursoRepository cursoRepository;
+
+    @Inject
+    private ProfessorRepository professorRepository;
+
+    @Inject
+    private DisciplinaRepository disciplinaRepository;
+
+    public List<CursoDisciplinaDTO> findAll() {
+        return this.cursoDisciplinaMapper.toDTOList(cursoDisciplinaRepository.findAll().list());
+    }
+
+    public Optional<CursoDisciplinaDTO> findById(@NonNull Long id) {
+        return cursoDisciplinaRepository.findByIdOptional(id)
+                .map(cursoDisciplinaMapper::toDTO);
+    }
+
+    @Transactional
+    public void save(@Valid CursoDisciplinaDTO cursoDisciplinaDTO) {
+        log.debug("Saving CursoDisciplinaDTO: {}", cursoDisciplinaDTO);
+        CursoDisciplina cursoDisciplina = cursoDisciplinaMapper.toModel(cursoDisciplinaDTO);
+        cursoDisciplina.setCurso(cursoRepository.findById(cursoDisciplinaDTO.getCurId()));
+        cursoDisciplina.setDisciplina(disciplinaRepository.findById(cursoDisciplinaDTO.getDiscId()));
+        cursoDisciplina.setProfessor(professorRepository.findById(cursoDisciplinaDTO.getProfId()));
+        cursoDisciplinaRepository.persist(cursoDisciplina);
+        cursoDisciplinaMapper.updateDTOFromModel (cursoDisciplina, cursoDisciplinaDTO);
+    }
+
 //    @Transactional
 //    public void update(@Valid CursoDisciplinaDTO cursoDisciplinaDTO) {
 //        log.debug("Updating CursoDisciplinaDTO: {}", cursoDisciplinaDTO);
@@ -79,13 +77,13 @@ public class CursoDisciplinaService {
 //        cursoDisciplinaRepository.persist(cursoDisciplina);
 //        cursoDisciplinaMapper.updateDTOFromModel(cursoDisciplina, cursoDisciplinaDTO);
 //    }
-//
-//    @Transactional
-//    public void excluir(Long id){
-//        var cursoDisciplina  = cursoDisciplinaRepository.findByIdOptional(id)
-//                .orElseThrow(()-> new NotFoundException(CURSO_DISCIPLINA_NAO_ENCONTRADA));
-//        cursoDisciplinaRepository.delete(cursoDisciplina);
-//    }
+
+    @Transactional
+    public void excluir(Long id){
+        var cursoDisciplina  = cursoDisciplinaRepository.findByIdOptional(id)
+                .orElseThrow(()-> new NotFoundException(CURSO_DISCIPLINA_NAO_ENCONTRADA));
+        cursoDisciplinaRepository.delete(cursoDisciplina);
+    }
 }
 
 

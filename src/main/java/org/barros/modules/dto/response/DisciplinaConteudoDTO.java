@@ -5,13 +5,13 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-//@Data
+@Data
 public class DisciplinaConteudoDTO implements Serializable {
-//
-//    private Long id;
-//
-//    private  Long discId;
-//
-//    private Long conteId;
+
+    private Long id;
+
+    private Long cdID;
+
+    private Long conteId;
 
 }

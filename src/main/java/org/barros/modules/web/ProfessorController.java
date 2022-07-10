@@ -24,7 +24,7 @@ import java.util.Objects;
 
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@Tag(name = "professor", description = "Operacoes Professores")
+@Tag(name = "professor", description = "Operacoes de Professores")
 //@RolesAllowed("LacadAdmin")
 //@SecurityRequirement(name = "jwt")
 @AllArgsConstructor

@@ -1,6 +1,7 @@
 package org.barros.modules.model;
 
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,8 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "curso_disciplina", schema = "public")
 public class CursoDisciplina implements Serializable {
@@ -21,17 +21,18 @@ public class CursoDisciplina implements Serializable {
     @Column(name = "cd_id")
     private Long id;
 
-//    @ManyToOne
-//    @JoinColumn(name = "disc_id")
-//    private   Disciplina disciplina;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "cur_id")
-//    private   Curso curso;
-//    @ManyToOne
-//    @JoinColumn(name = "prof_id")
-//    private   Professor professor;
-//
-//    @OneToMany(mappedBy = "cursoDisciplina")
-//    private List<DisciplinaConteudo> disciplinaConteudos ;
+    @ManyToOne
+    @JoinColumn(name = "disc_id")
+    private   Disciplina disciplina;
+
+    @ManyToOne
+    @JoinColumn(name = "cur_id")
+    private   Curso curso;
+
+    @ManyToOne
+    @JoinColumn(name = "prof_id")
+    private   Professor professor;
+
+    @OneToMany(mappedBy = "cursoDisciplina")
+    private List<DisciplinaConteudo> disciplinaConteudos ;
 }

@@ -6,14 +6,13 @@ import java.io.Serializable;
 @Data
 public class AvaliacaoDTO implements Serializable {
 
-//    private Long avaId;
-//
-//    private Long profId;
-//
-//    private Long apliId;
-//
-//    private String nota;
-//
-//    private String comentarios;
+    private Long avaId;
 
+    private Long profId;
+
+    private Long apliId;
+
+    private Integer nota;
+
+    private String comentarios;
 }

@@ -29,7 +29,7 @@ public class Aplicativo implements Serializable {
 //
 //    @OneToMany(mappedBy = "aplicativo")
 //    private List<ProfessorAplicativo> professorAplicativos;
-//
-//    @OneToMany(mappedBy = "aplicativo")
-//    private List<Avaliacao> avaliacoes;
+
+    @OneToMany(mappedBy = "aplicativo")
+    private List<Avaliacao> avaliacoes;
 }

@@ -36,67 +36,67 @@ import java.util.Objects;
 @Slf4j
 @Path("/v1/disciplinasConteudos")
 public class DisciplinaConteudoController {
-//
-//    private final DisciplinaConteudoService disciplinaConteudoService;
-//
-//    @GET
-//    @APIResponse(
-//            responseCode = "200",
-//            description = "Obtem todos as Disciplinas e Conteúdos",
-//            content = @Content(
-//                    mediaType = MediaType.APPLICATION_JSON,
-//                    schema = @Schema(type = SchemaType.ARRAY, implementation = DisciplinaConteudoDTO.class)
-//            )
-//    )
-//    public Response get() {
-//        return Response.ok(disciplinaConteudoService.findAll()).build();
-//    }
-//
-//    @GET
-//    @Path("/{id}")
-//    @APIResponse(
-//            responseCode = "200",
-//            description = "Obtem Disciplina e Conteúdos pelo Id",
-//            content = @Content(
-//                    mediaType = MediaType.APPLICATION_JSON,
-//                    schema = @Schema(type = SchemaType.OBJECT, implementation = DisciplinaConteudoDTO.class)
-//            )
-//    )
-//
-//    @APIResponse(
-//            responseCode = "404",
-//            description = "Disciplina e Conteúdo não encontrado pelo Id",
-//            content = @Content(mediaType = MediaType.APPLICATION_JSON)
-//    )
-//    public Response getById(@Parameter(name = "id", required = true) @PathParam("id") Long id) {
-//        return disciplinaConteudoService.findById(id)
-//                .map(disciplinaConteudoDTO -> Response.ok(disciplinaConteudoDTO).build())
-//                .orElse(Response.status(Response.Status.NOT_FOUND).build());
-//    }
-//    @POST
-//    @APIResponse(
-//            responseCode = "201",
-//            description = "Criação de vínculo entre Disciplina e Conteúdo",
-//            content = @Content(
-//                    mediaType = MediaType.APPLICATION_JSON,
-//                    schema = @Schema(type = SchemaType.OBJECT, implementation = DisciplinaConteudoDTO.class)
-//            )
-//    )
-//    @APIResponse(
-//            responseCode = "400",
-//            description = "Disciplina e Conteúdo Inválido",
-//            content = @Content(mediaType = MediaType.APPLICATION_JSON)
-//    )
-//    @APIResponse(
-//            responseCode = "400",
-//            description = "Já existe uma Disciplima e Conteúdo com esse Id",
-//            content = @Content(mediaType = MediaType.APPLICATION_JSON)
-//    )
-//    public Response post(@NotNull @Valid DisciplinaConteudoDTO disciplinaConteudoDTO, @Context UriInfo uriInfo) {
-//        disciplinaConteudoService.save(disciplinaConteudoDTO);
-//        URI uri = uriInfo.getAbsolutePathBuilder().path(Long.toString(disciplinaConteudoDTO.getId())).build();
-//        return Response.created(uri).entity(disciplinaConteudoDTO).build();
-//    }
+
+    private final DisciplinaConteudoService disciplinaConteudoService;
+
+    @GET
+    @APIResponse(
+            responseCode = "200",
+            description = "Obtem todos as Disciplinas e Conteúdos",
+            content = @Content(
+                    mediaType = MediaType.APPLICATION_JSON,
+                    schema = @Schema(type = SchemaType.ARRAY, implementation = DisciplinaConteudoDTO.class)
+            )
+    )
+    public Response get() {
+        return Response.ok(disciplinaConteudoService.findAll()).build();
+    }
+
+    @GET
+    @Path("/{id}")
+    @APIResponse(
+            responseCode = "200",
+            description = "Obtem Disciplina e Conteúdos pelo Id",
+            content = @Content(
+                    mediaType = MediaType.APPLICATION_JSON,
+                    schema = @Schema(type = SchemaType.OBJECT, implementation = DisciplinaConteudoDTO.class)
+            )
+    )
+
+    @APIResponse(
+            responseCode = "404",
+            description = "Disciplina e Conteúdo não encontrado pelo Id",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON)
+    )
+    public Response getById(@Parameter(name = "id", required = true) @PathParam("id") Long id) {
+        return disciplinaConteudoService.findById(id)
+                .map(disciplinaConteudoDTO -> Response.ok(disciplinaConteudoDTO).build())
+                .orElse(Response.status(Response.Status.NOT_FOUND).build());
+    }
+    @POST
+    @APIResponse(
+            responseCode = "201",
+            description = "Criação de vínculo entre Disciplina e Conteúdo",
+            content = @Content(
+                    mediaType = MediaType.APPLICATION_JSON,
+                    schema = @Schema(type = SchemaType.OBJECT, implementation = DisciplinaConteudoDTO.class)
+            )
+    )
+    @APIResponse(
+            responseCode = "400",
+            description = "Disciplina e Conteúdo Inválido",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON)
+    )
+    @APIResponse(
+            responseCode = "400",
+            description = "Já existe uma Disciplima e Conteúdo com esse Id",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON)
+    )
+    public Response post(@NotNull @Valid DisciplinaConteudoDTO disciplinaConteudoDTO, @Context UriInfo uriInfo) {
+        disciplinaConteudoService.save(disciplinaConteudoDTO);
+        URI uri = uriInfo.getAbsolutePathBuilder().path(Long.toString(disciplinaConteudoDTO.getId())).build();
+        return Response.created(uri).entity(disciplinaConteudoDTO).build();
+    }
 //    @PUT
 //    @Path("{id}")
 //    @APIResponse(
@@ -132,11 +132,11 @@ public class DisciplinaConteudoController {
 //        return Response.ok(disciplinaConteudoDTO).build();
 //       // return Response.status(Response.Status.NO_CONTENT).build();
 //    }
-//    @DELETE
-//    @Path("/{id}")
-//    public void delete(@PathParam("id") Long id) {
-//        disciplinaConteudoService.excluir(id);
-//    }
+    @DELETE
+    @Path("/{id}")
+    public void delete(@PathParam("id") Long id) {
+        disciplinaConteudoService.excluir(id);
+    }
 }
 
 

@@ -10,22 +10,20 @@ import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
-//@Mapper(componentModel = "cdi")
+@Mapper(componentModel = "cdi")
 public interface AplicativoMapper {
-//
-//    List<AplicativoDTO> toDTOList(List<Aplicativo> aplicativos);
-//
-//
-//    AplicativoDTO toDTO(Aplicativo aplicativo);
-//
-//    @InheritInverseConfiguration(name = "toDTO")
-//    @Mapping(target = "apliId", ignore = true)
-//    Aplicativo toModel(AplicativoDTO aplicativoDTO);
-//
-//
-//    void updateModelFromDTO(AplicativoDTO aplicativoDTO, @MappingTarget Aplicativo aplicativo);
-//
-//    void updateDTOFromModel(Aplicativo aplicativo, @MappingTarget AplicativoDTO aplicativoDTO);
+
+    List<AplicativoDTO> toDTOList(List<Aplicativo> aplicativos);
+
+    AplicativoDTO toDTO(Aplicativo aplicativo);
+
+    @InheritInverseConfiguration(name = "toDTO")
+    @Mapping(target = "apliId", ignore = true)
+    Aplicativo toModel(AplicativoDTO aplicativoDTO);
+
+    void updateModelFromDTO(AplicativoDTO aplicativoDTO, @MappingTarget Aplicativo aplicativo);
+
+    void updateDTOFromModel(Aplicativo aplicativo, @MappingTarget AplicativoDTO aplicativoDTO);
 }
 
 

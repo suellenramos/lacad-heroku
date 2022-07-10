@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,13 +20,15 @@ public class ConteudoAplicativo implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ca_id")
     private Long id;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "ca_id")
-//    private   DisciplinaConteudo disciplinaConteudo;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "apli_id")
-//    private   Aplicativo aplicativo;
 
+    @ManyToOne
+    @JoinColumn(name = "dc_id")
+    private   DisciplinaConteudo disciplinaConteudo;
+
+    @ManyToOne
+    @JoinColumn(name = "apli_id")
+    private   Aplicativo aplicativo;
+
+    @OneToMany(mappedBy = "conteudoAplicativo")
+    private List<AplicativoFavorito> aplicativoFavoritos ;
 }

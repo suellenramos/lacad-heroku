@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Data
 public class ConteudoDTO implements Serializable {
 
-//    private Long conteId;
-//
-//    private String descricao;
+    private Long conteId;
+
+    private String descricao;
 }

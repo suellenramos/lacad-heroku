@@ -6,11 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.barros.modules.dto.response.DisciplinaDTO;
 import org.barros.modules.exception.ServiceException;
 import org.barros.modules.mapper.DisciplinaMapper;
-import org.barros.modules.model.Conteudo;
-import org.barros.modules.model.Curso;
 import org.barros.modules.model.Disciplina;
-import org.barros.modules.repository.ConteudoRepository;
-import org.barros.modules.repository.CursoRepository;
 import org.barros.modules.repository.DisciplinaRepository;
 import org.barros.modules.repository.ProfessorRepository;
 
@@ -22,60 +18,58 @@ import javax.ws.rs.NotFoundException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @AllArgsConstructor
 @Slf4j
 @ApplicationScoped
 public class DisciplinaService {
-//
-//    private static final String DISCIPLINA_NAO_ENCONTRADA = "Disciplina não encontrada";
-//
-//    private final DisciplinaRepository disciplinaRepository;
-//
-//    private final DisciplinaMapper disciplinaMapper;
+
+    private static final String DISCIPLINA_NAO_ENCONTRADA = "Disciplina não encontrada";
+
+    private final DisciplinaRepository disciplinaRepository;
+
+    private final DisciplinaMapper disciplinaMapper;
 //
 //    @Inject
 //    private ProfessorRepository professorRepository;
-//
-//    public List<DisciplinaDTO> findAll() {
-//        return this.disciplinaMapper.toDTOList(disciplinaRepository.findAll().list());
-//    }
-//
-//    public Optional<DisciplinaDTO> findById(@NonNull Long id) {
-//        return disciplinaRepository.findByIdOptional(id)
-//                .map(disciplinaMapper::toDTO);
-//    }
-//
-//    @Transactional
-//    public void save(@Valid DisciplinaDTO disciplinaDTO) {
-//        log.debug("Saving DisciplinaDTO: {}", disciplinaDTO);
-//        Disciplina disciplina = disciplinaMapper.toModel(disciplinaDTO);
-//        disciplinaRepository.persist(disciplina);
-//        disciplinaMapper.updateDTOFromModel (disciplina, disciplinaDTO);
-//    }
-//
-//    @Transactional
-//    public void update(@Valid DisciplinaDTO disciplinaDTO  ) {
-//        log.debug("Updating DisciplinaDTO: {}", disciplinaDTO);
-//        if (Objects.isNull(disciplinaDTO.getDiscId())) {
-//            throw new ServiceException("Id não encontrado");
-//        }
-//        Disciplina disciplina =
-//                disciplinaRepository.findByIdOptional(disciplinaDTO.getDiscId())
-//                .orElseThrow(() -> new ServiceException(" Disciplina  não econtrada pelo Id[%s]", disciplinaDTO.getDiscId()));
-//        disciplinaMapper.updateModelFromDTO(disciplinaDTO, disciplina);
-//        disciplinaRepository.persist(disciplina);
-//        disciplinaMapper.updateDTOFromModel(disciplina, disciplinaDTO);
-//    }
-//
-//    @Transactional
-//    public void excluir(Long id){
-//        var disciplina  = disciplinaRepository.findByIdOptional(id)
-//                .orElseThrow(()-> new NotFoundException(DISCIPLINA_NAO_ENCONTRADA));
-//        disciplinaRepository.delete(disciplina);
-//    }
+
+    public List<DisciplinaDTO> findAll() {
+        return this.disciplinaMapper.toDTOList(disciplinaRepository.findAll().list());
+    }
+
+    public Optional<DisciplinaDTO> findById(@NonNull Long id) {
+        return disciplinaRepository.findByIdOptional(id)
+                .map(disciplinaMapper::toDTO);
+    }
+
+    @Transactional
+    public void save(@Valid DisciplinaDTO disciplinaDTO) {
+        log.debug("Saving DisciplinaDTO: {}", disciplinaDTO);
+        Disciplina disciplina = disciplinaMapper.toModel(disciplinaDTO);
+        disciplinaRepository.persist(disciplina);
+        disciplinaMapper.updateDTOFromModel (disciplina, disciplinaDTO);
+    }
+
+    @Transactional
+    public void update(@Valid DisciplinaDTO disciplinaDTO  ) {
+        log.debug("Updating DisciplinaDTO: {}", disciplinaDTO);
+        if (Objects.isNull(disciplinaDTO.getDiscId())) {
+            throw new ServiceException("Id não encontrado");
+        }
+        Disciplina disciplina =
+                disciplinaRepository.findByIdOptional(disciplinaDTO.getDiscId())
+                .orElseThrow(() -> new ServiceException(" Disciplina  não econtrada pelo Id[%s]", disciplinaDTO.getDiscId()));
+        disciplinaMapper.updateModelFromDTO(disciplinaDTO, disciplina);
+        disciplinaRepository.persist(disciplina);
+        disciplinaMapper.updateDTOFromModel(disciplina, disciplinaDTO);
+    }
+
+    @Transactional
+    public void excluir(Long id){
+        var disciplina  = disciplinaRepository.findByIdOptional(id)
+                .orElseThrow(()-> new NotFoundException(DISCIPLINA_NAO_ENCONTRADA));
+        disciplinaRepository.delete(disciplina);
+    }
 }
 
 

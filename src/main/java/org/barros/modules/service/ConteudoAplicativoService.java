@@ -22,40 +22,40 @@ import java.util.Optional;
 @Slf4j
 @ApplicationScoped
 public class ConteudoAplicativoService {
-//
-//    private static final String CONTEUDO_APLICATIVO_NAO_ENCONTRADO = "Conteudo e Aplicativo não encontrado";
-//
-//    private final ConteudoAplicativoService conteudoAplicativoService;
-//
-//    private final ConteudoAplicativoMapper conteudoAplicativoMapper;
-//
-//    @Inject
-//    ConteudoAplicativoRepository conteudoAplicativoRepository;
-//    @Inject
-//    private ConteudoRepository conteudoRepository;
-//
-//    @Inject
-//    private AplicativoRepository aplicativoRepository;
-//
-//    public List<ConteudoAplicativoDTO> findAll() {
-//        return this.conteudoAplicativoMapper.toDTOList(conteudoAplicativoRepository.findAll().list());
-//    }
-//
-//    public Optional<ConteudoAplicativoDTO> findById(@NonNull Long id) {
-//        return conteudoAplicativoRepository.findByIdOptional(id)
-//                .map(conteudoAplicativoMapper::toDTO);
-//    }
-//
-//    @Transactional
-//    public void save(@Valid ConteudoAplicativoDTO conteudoAplicativoDTO) {
-//        log.debug("Saving ConteudoAplicativoDTO: {}", conteudoAplicativoDTO);
-//        ConteudoAplicativo conteudoAplicativo = conteudoAplicativoMapper.toModel(conteudoAplicativoDTO);
-//        conteudoAplicativo.setConteudo(conteudoRepository.findById(conteudoAplicativoDTO.getConteId()));
-//        conteudoAplicativo.setAplicativo(aplicativoRepository.findById(conteudoAplicativoDTO.getApliId()));
-//        conteudoAplicativoRepository.persist(conteudoAplicativo);
-//        conteudoAplicativoMapper.updateDTOFromModel (conteudoAplicativo, conteudoAplicativoDTO);
-//    }
-//
+
+    private static final String CONTEUDO_APLICATIVO_NAO_ENCONTRADO = "Conteudo e Aplicativo não encontrado";
+
+
+    private final ConteudoAplicativoMapper conteudoAplicativoMapper;
+
+    private final ConteudoAplicativoRepository conteudoAplicativoRepository;
+
+
+    @Inject
+    private AplicativoRepository aplicativoRepository;
+
+    @Inject
+    private DisciplinaConteudoRepository disciplinaConteudoRepository;
+
+    public List<ConteudoAplicativoDTO> findAll() {
+        return this.conteudoAplicativoMapper.toDTOList(conteudoAplicativoRepository.findAll().list());
+    }
+
+    public Optional<ConteudoAplicativoDTO> findById(@NonNull Long id) {
+        return conteudoAplicativoRepository.findByIdOptional(id)
+                .map(conteudoAplicativoMapper::toDTO);
+    }
+
+    @Transactional
+    public void save(@Valid ConteudoAplicativoDTO conteudoAplicativoDTO) {
+        log.debug("Saving ConteudoAplicativoDTO: {}", conteudoAplicativoDTO);
+        ConteudoAplicativo conteudoAplicativo = conteudoAplicativoMapper.toModel(conteudoAplicativoDTO);
+        conteudoAplicativo.setDisciplinaConteudo(disciplinaConteudoRepository.findById(conteudoAplicativoDTO.getDcID()));
+        conteudoAplicativo.setAplicativo(aplicativoRepository.findById(conteudoAplicativoDTO.getApliId()));
+        conteudoAplicativoRepository.persist(conteudoAplicativo);
+        conteudoAplicativoMapper.updateDTOFromModel (conteudoAplicativo, conteudoAplicativoDTO);
+    }
+
 //    @Transactional
 //    public void update(@Valid ConteudoAplicativoDTO conteudoAplicativoDTO) {
 //        log.debug("Updating ConteudoAPLICATIVODTO: {}", conteudoAplicativoDTO);
@@ -69,13 +69,13 @@ public class ConteudoAplicativoService {
 //        conteudoAplicativoRepository.persist(conteudoAplicativo);
 //        conteudoAplicativoMapper.updateDTOFromModel(conteudoAplicativo, conteudoAplicativoDTO);
 //    }
-//
-//    @Transactional
-//    public void excluir(Long id){
-//        var conteudoAplicativo  = conteudoAplicativoRepository.findByIdOptional(id)
-//                .orElseThrow(()-> new NotFoundException(CONTEUDO_APLICATIVO_NAO_ENCONTRADO));
-//        conteudoAplicativoRepository.delete(conteudoAplicativo);
-//    }
+
+    @Transactional
+    public void excluir(Long id){
+        var conteudoAplicativo  = conteudoAplicativoRepository.findByIdOptional(id)
+                .orElseThrow(()-> new NotFoundException(CONTEUDO_APLICATIVO_NAO_ENCONTRADO));
+        conteudoAplicativoRepository.delete(conteudoAplicativo);
+    }
 }
 
 

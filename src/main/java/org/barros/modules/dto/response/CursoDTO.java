@@ -4,11 +4,11 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-//@Data
+@Data
 public class CursoDTO implements Serializable {
-//
-//    private Long curId;
-//
-//    private String descricao;
-//
+
+    private Long curId;
+
+    private String descricao;
+
 }
