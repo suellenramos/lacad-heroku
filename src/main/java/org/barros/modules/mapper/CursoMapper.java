@@ -1,7 +1,6 @@
 package org.barros.modules.mapper;
 
 import org.barros.modules.dto.response.CursoDTO;
-import org.barros.modules.dto.response.ProfessorDTO;
 import org.barros.modules.model.Curso;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -15,7 +14,6 @@ public interface CursoMapper {
 
     List<CursoDTO> toDTOList(List<Curso> cursos);
 
-   // @Mapping(target = "discId", expression = "java(curso.getCursoDisciplinas().getDiscId())")
     CursoDTO toDTO(Curso curso);
 
     @Mapping(target = "curId", ignore = true)

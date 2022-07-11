@@ -20,17 +20,9 @@ public class Imagem implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long imId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cur_id")
-    private Curso curso;
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "disc_id")
-//    private Disciplina disciplina;
-//
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "apli_id")
-//    private Aplicativo aplicativo;
+    @OneToOne
+    @JoinColumn(name = "apli_id")
+    private Aplicativo aplicativo;
 
     @Column(name = "im_data")
     private LocalDate imData;

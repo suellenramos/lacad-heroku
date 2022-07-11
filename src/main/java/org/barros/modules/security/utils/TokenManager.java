@@ -21,7 +21,7 @@ public class TokenManager {
         var auth = AuthResponseDto.builder();
         long currentTimeInSecs = currentTimeInSecs();
 
-        var claimsBuilder = Jwt.issuer("http://www.pjc.mt.gov.br/")
+        var claimsBuilder = Jwt.issuer("http://www.lacad.com.br/")
                 .issuedAt(currentTimeInSecs)
                 .expiresAt(currentTimeInSecs + refreshTokenExpiration)
                 .claim("userId", user.getId())

@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface IImagemService {
 
-    IdDto uploadFoto(Long cursoId, ImagemRequestDTO imagemRequestDTO);
+    IdDto uploadFoto(Long aplicativoId, ImagemRequestDTO imagemRequestDTO);
 
-    List<ImagemResponseDTO> buscarFotos(Long cursoId);
+    ImagemResponseDTO buscarFotoByAplicativo(Long aplicativoId);
 
     ImagemResponseDTO buscarFoto(Long fotoId);
 }

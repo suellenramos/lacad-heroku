@@ -2,18 +2,26 @@ package org.barros.modules.web;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.barros.modules.core.IdDto;
+import org.barros.modules.dto.request.ImagemRequestDTO;
 import org.barros.modules.dto.response.AplicativoDTO;
-import org.barros.modules.dto.response.ProfessorDTO;
+import org.barros.modules.dto.response.ImagemResponseDTO;
 import org.barros.modules.exception.ServiceException;
+import org.barros.modules.security.utils.Roles;
 import org.barros.modules.service.AplicativoService;
-import org.barros.modules.service.ProfessorService;
+import org.barros.modules.service.IImagemService;
+import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
+import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
+import javax.annotation.security.RolesAllowed;
+import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
@@ -22,6 +30,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
+import java.util.List;
 import java.util.Objects;
 
 @Consumes(MediaType.APPLICATION_JSON)
@@ -36,6 +45,9 @@ public class AplicativoController {
 
     private final AplicativoService aplicativoService;
 
+    @Inject
+    IImagemService iImagemService;
+
     @GET
     @APIResponse(
             responseCode = "200",
@@ -45,6 +57,7 @@ public class AplicativoController {
                     schema = @Schema(type = SchemaType.ARRAY, implementation = AplicativoDTO.class)
             )
     )
+   // @RolesAllowed({Roles.ESCRITA, Roles.LEITURA})
     public Response get() {
         return Response.ok(aplicativoService.findAll()).build();
     }
@@ -65,6 +78,7 @@ public class AplicativoController {
             description = "Aplicativo não encontrado pelo Id",
             content = @Content(mediaType = MediaType.APPLICATION_JSON)
     )
+   // @RolesAllowed({Roles.ESCRITA, Roles.LEITURA})
     public Response getById(@Parameter(name = "id", required = true) @PathParam("id") Long id) {
         return aplicativoService.findById(id)
                 .map(aplicativoDTO -> Response.ok(aplicativoDTO).build())
@@ -90,11 +104,39 @@ public class AplicativoController {
             description = "Já existe um Aplicativo com esse Id",
             content = @Content(mediaType = MediaType.APPLICATION_JSON)
     )
+    //@RolesAllowed({Roles.ESCRITA})
     public Response post(@NotNull @Valid AplicativoDTO aplicativoDTO, @Context UriInfo uriInfo) {
         aplicativoService.save(aplicativoDTO);
         URI uri = uriInfo.getAbsolutePathBuilder().path(Long.toString(aplicativoDTO.getApliId())).build();
         return Response.created(uri).entity(aplicativoDTO).build();
     }
+
+    @POST
+    @Path("/{aplicativoId}/fotos")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @RequestBody(content = @Content(mediaType = MediaType.MULTIPART_FORM_DATA, schema = @Schema(implementation = ImagemRequestDTO.class)))
+    @APIResponse(content = {@Content(schema = @Schema(implementation = IdDto.class))}, responseCode = "201")
+  //  @RolesAllowed({Roles.ESCRITA})
+    public Response uploadFoto(@PathParam("aplicativoId") Long aplicativoId, @Parameter(hidden = true) MultipartFormDataInput input) {
+        return Response.created(null).entity(iImagemService.uploadFoto(aplicativoId, new ImagemRequestDTO(input))).build();
+    }
+
+    @GET
+    @Path("/{aplicativoId}/fotos")
+    @Operation(summary = "Buscar Fotos", description = "Busca as fotos dos Aplicativos")
+  //  @RolesAllowed({Roles.ESCRITA, Roles.LEITURA})
+    public ImagemResponseDTO buscarFotos(@PathParam("aplicativoId") Long aplicativoId) {
+        return iImagemService.buscarFotoByAplicativo(aplicativoId);
+    }
+
+    @GET
+    @Path("/fotos/{fotoId}")
+    @Operation(summary = "Buscar Foto", description = "Busca a foto de Aplicativo de acordo com o Id")
+  //  @RolesAllowed({Roles.ESCRITA, Roles.LEITURA})
+    public ImagemResponseDTO buscarFoto(@PathParam("fotoId") Long fotoId) {
+        return iImagemService.buscarFoto(fotoId);
+    }
+
 
     @PUT
     @Path("{id}")
@@ -123,6 +165,7 @@ public class AplicativoController {
             content = @Content(mediaType = MediaType.APPLICATION_JSON)
     )
 
+  //  @RolesAllowed({Roles.ESCRITA})
     public Response put(@Parameter(name = "id", required = true) @PathParam("id") Long id, @NotNull @Valid AplicativoDTO aplicativoDTO) {
         if (!Objects.equals(id, aplicativoDTO.getApliId())) {
             throw new ServiceException("O id não corresponde ao Aplicativo");
@@ -134,6 +177,7 @@ public class AplicativoController {
 
     @DELETE
     @Path("/{id}")
+  //  @RolesAllowed({Roles.ESCRITA})
     public void delete(@PathParam("id") Long id) {
         aplicativoService.excluir(id);
     }

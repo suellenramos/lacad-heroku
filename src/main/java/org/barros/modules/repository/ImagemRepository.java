@@ -7,4 +7,6 @@ import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class ImagemRepository implements PanacheRepository<Imagem> {
+
+
 }

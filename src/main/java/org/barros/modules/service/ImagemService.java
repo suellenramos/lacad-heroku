@@ -5,6 +5,7 @@ import org.barros.modules.core.IdDto;
 import org.barros.modules.dto.request.ImagemRequestDTO;
 import org.barros.modules.dto.response.ImagemResponseDTO;
 import org.barros.modules.model.Imagem;
+import org.barros.modules.repository.AplicativoRepository;
 import org.barros.modules.repository.CursoRepository;
 import org.barros.modules.repository.ImagemRepository;
 import org.barros.modules.s3.MinioSendFile;
@@ -31,14 +32,14 @@ public class ImagemService implements IImagemService {
     MinioService minioService;
 
     @Inject
-    CursoRepository cursoRepository;
+    AplicativoRepository aplicativoRepository;
 
     @ConfigProperty(name = "minio.bucket-name")
     String bucketName;
 
     @Transactional
     @Override
-    public IdDto uploadFoto(Long cursoId, ImagemRequestDTO imagemRequestDTO) {
+    public IdDto uploadFoto(Long aplicativoId, ImagemRequestDTO imagemRequestDTO) {
         if (imagemRequestDTO.getFoto() == null)
             throw new ValidationException("Foto não informada");
         var extensao = imagemRequestDTO.getFileName().substring(imagemRequestDTO.getFileName().indexOf("."));
@@ -52,17 +53,16 @@ public class ImagemService implements IImagemService {
         Imagem imagem = new Imagem();
         imagem.setImBucket(bucketName);
         imagem.setImHash(imagemRequestDTO.getFileName());
-        imagem.setCurso(cursoRepository.findByIdOptional(cursoId).orElseThrow(() -> new NotFoundException("Curso não encontrado")));
+        imagem.setAplicativo(aplicativoRepository.findByIdOptional(aplicativoId).orElseThrow(() -> new NotFoundException("Aplicativo não encontrado")));
         imagemRepository.persist(imagem);
         return new IdDto(imagem.getImId());
     }
 
     @Override
-    public List<ImagemResponseDTO> buscarFotos(Long cursoId) {
-        List<ImagemResponseDTO> fotos = new ArrayList<>();
-        var curso = cursoRepository.findByIdOptional(cursoId).orElseThrow(() -> new NotFoundException("Curso não encontrado!"));
-        curso.getImagens().forEach(foto -> fotos.add(minioService.buscarArquivo(foto.getImBucket(), foto.getImHash())));
-        return fotos;
+    public ImagemResponseDTO buscarFotoByAplicativo(Long aplicativoId) {
+        var aplicativo = aplicativoRepository.findByIdOptional(aplicativoId).orElseThrow(() -> new NotFoundException("Aplicativo não encontrado!"));
+        var imagem =  imagemRepository.find("aplicativo.apliId = ?1", aplicativoId).singleResult();
+        return   minioService.buscarArquivo(imagem.getImBucket(), imagem.getImHash());
     }
 
     @Override
