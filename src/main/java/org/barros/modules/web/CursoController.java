@@ -7,6 +7,7 @@ import org.barros.modules.dto.request.ImagemRequestDTO;
 import org.barros.modules.dto.response.CursoDTO;
 import org.barros.modules.dto.response.ImagemResponseDTO;
 import org.barros.modules.exception.ServiceException;
+import org.barros.modules.security.utils.Roles;
 import org.barros.modules.service.CursoService;
 import org.barros.modules.service.IImagemService;
 import org.eclipse.microprofile.openapi.annotations.Operation;
@@ -56,6 +57,7 @@ public class CursoController {
                     schema = @Schema(type = SchemaType.ARRAY, implementation = CursoDTO.class)
             )
     )
+    @RolesAllowed({Roles.ESCRITA, Roles.LEITURA})
     public Response get() {
         return Response.ok(cursoService.findAll()).build();
     }
@@ -76,6 +78,7 @@ public class CursoController {
             description = "Curso não encontrado pelo Id",
             content = @Content(mediaType = MediaType.APPLICATION_JSON)
     )
+    @RolesAllowed({Roles.ESCRITA, Roles.LEITURA})
     public Response getById(@Parameter(name = "id", required = true) @PathParam("id") Long id) {
         return cursoService.findById(id)
                 .map(cursoDTO -> Response.ok(cursoDTO).build())
@@ -91,6 +94,7 @@ public class CursoController {
             description = "Já existe um Curso com esse Id",
             content = @Content(mediaType = MediaType.APPLICATION_JSON)
     )
+    @RolesAllowed({Roles.ESCRITA})
     public Response post(@NotNull @Valid CursoDTO cursoDTO, @Context UriInfo uriInfo) {
         cursoService.saveCurso(cursoDTO);
         URI uri = uriInfo.getAbsolutePathBuilder().path(Long.toString(cursoDTO.getCurId())).build();
@@ -102,7 +106,7 @@ public class CursoController {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @RequestBody(content = @Content(mediaType = MediaType.MULTIPART_FORM_DATA, schema = @Schema(implementation = ImagemRequestDTO.class)))
     @APIResponse(content = {@Content(schema = @Schema(implementation = IdDto.class))}, responseCode = "201")
-    //@RolesAllowed({Roles.ESCRITA})
+    @RolesAllowed({Roles.ESCRITA})
     public Response uploadFoto(@PathParam("cursoId") Long cursoId, @Parameter(hidden = true) MultipartFormDataInput input) {
         return Response.created(null).entity(iImagemService.uploadFoto(cursoId, new ImagemRequestDTO(input))).build();
     }
@@ -110,7 +114,7 @@ public class CursoController {
     @GET
     @Path("/{cursoId}/fotos")
     @Operation(summary = "Buscar Fotos", description = "Busca as fotos do Curso")
-   // @RolesAllowed({Roles.ESCRITA, Roles.LEITURA})
+    @RolesAllowed({Roles.ESCRITA, Roles.LEITURA})
     public List<ImagemResponseDTO> buscarFotos(@PathParam("cursoId") Long cursoId) {
         return iImagemService.buscarFotos(cursoId);
     }
@@ -118,7 +122,7 @@ public class CursoController {
     @GET
     @Path("/fotos/{fotoId}")
     @Operation(summary = "Buscar Foto", description = "Busca a foto do Curso de acordo com o Id")
-  //  @RolesAllowed({Roles.ESCRITA, Roles.LEITURA})
+    @RolesAllowed({Roles.ESCRITA, Roles.LEITURA})
     public ImagemResponseDTO buscarFoto(@PathParam("fotoId") Long fotoId) {
         return iImagemService.buscarFoto(fotoId);
     }
@@ -141,6 +145,7 @@ public class CursoController {
     )
 
     @Operation(summary = "Editar Curso", description = "Edita os dados do Curso")
+    @RolesAllowed({Roles.ESCRITA})
     public Response put(@Parameter(name = "id", required = true) @PathParam("id") Long id, @NotNull @Valid CursoDTO cursoDTO) {
         if (!Objects.equals(id, cursoDTO.getCurId())) {
             throw new ServiceException("O id não corresponde ao Curso");
@@ -154,6 +159,7 @@ public class CursoController {
     @Path("/{id}")
     @Operation(summary = "Excluir Pessoa", description = "Exclui os dados do Curso")
     @APIResponse(responseCode = "204", description = "Registro excluído com sucesso")
+    @RolesAllowed({Roles.ESCRITA})
     public void delete(@PathParam("id") Long id) {
         cursoService.excluir(id);
     }
