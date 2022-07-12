@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.barros.modules.dto.response.CursoDTO;
 import org.barros.modules.exception.ServiceException;
-import org.barros.modules.security.utils.Roles;
 import org.barros.modules.service.CursoService;
 import org.barros.modules.service.IImagemService;
 import org.eclipse.microprofile.openapi.annotations.Operation;
@@ -19,7 +18,6 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.mapstruct.Context;
 
 
-import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.*;
@@ -27,7 +25,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
-import java.util.List;
 import java.util.Objects;
 
 
@@ -55,7 +52,6 @@ public class CursoController {
                     schema = @Schema(type = SchemaType.ARRAY, implementation = CursoDTO.class)
             )
     )
-    @RolesAllowed({Roles.ESCRITA, Roles.LEITURA})
     public Response get() {
         return Response.ok(cursoService.findAll()).build();
     }
@@ -76,7 +72,6 @@ public class CursoController {
             description = "Curso não encontrado pelo Id",
             content = @Content(mediaType = MediaType.APPLICATION_JSON)
     )
-    @RolesAllowed({Roles.ESCRITA, Roles.LEITURA})
     public Response getById(@Parameter(name = "id", required = true) @PathParam("id") Long id) {
         return cursoService.findById(id)
                 .map(cursoDTO -> Response.ok(cursoDTO).build())
@@ -92,7 +87,6 @@ public class CursoController {
             description = "Já existe um Curso com esse Id",
             content = @Content(mediaType = MediaType.APPLICATION_JSON)
     )
-    @RolesAllowed({Roles.ESCRITA})
     public Response post(@NotNull @Valid CursoDTO cursoDTO, @Context UriInfo uriInfo) {
         cursoService.saveCurso(cursoDTO);
         URI uri = uriInfo.getAbsolutePathBuilder().path(Long.toString(cursoDTO.getCurId())).build();
@@ -117,7 +111,6 @@ public class CursoController {
     )
 
     @Operation(summary = "Editar Curso", description = "Edita os dados do Curso")
-    @RolesAllowed({Roles.ESCRITA})
     public Response put(@Parameter(name = "id", required = true) @PathParam("id") Long id, @NotNull @Valid CursoDTO cursoDTO) {
         if (!Objects.equals(id, cursoDTO.getCurId())) {
             throw new ServiceException("O id não corresponde ao Curso");
@@ -131,7 +124,6 @@ public class CursoController {
     @Path("/{id}")
     @Operation(summary = "Excluir Pessoa", description = "Exclui os dados do Curso")
     @APIResponse(responseCode = "204", description = "Registro excluído com sucesso")
-    @RolesAllowed({Roles.ESCRITA})
     public void delete(@PathParam("id") Long id) {
         cursoService.excluir(id);
     }

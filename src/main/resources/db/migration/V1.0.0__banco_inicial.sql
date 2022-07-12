@@ -5,7 +5,6 @@ CREATE TABLE public.professor(
 	prof_nome varchar(150) NOT NULL,
 	prof_email varchar(255) NOT NULL,
 	prof_senha varchar(12) NOT NULL
-
 );
 
 CREATE TABLE public.curso(
