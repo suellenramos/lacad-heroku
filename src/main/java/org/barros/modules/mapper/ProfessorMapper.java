@@ -20,6 +20,11 @@ public interface ProfessorMapper {
     void updateModelFromDTO(ProfessorDTO professorDTO, @MappingTarget Professor professor);
 
     void updateDTOFromModel(Professor professor, @MappingTarget ProfessorDTO professorDTO);
+
+    void insert(ProfessorDTO professorDTO);
+    Professor findByNomeAndSenha(String login, String senha);
+
+    List<ProfessorDTO> listaProfessores();
 }
 
 

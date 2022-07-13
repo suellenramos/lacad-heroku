@@ -12,7 +12,7 @@ public interface IProfessorService {
 
     Professor findByNomeAndSenha(String login, String senha);
 
-    List<ProfessorDTO> listaPessoas();
+    List<ProfessorDTO> listaProfessores();
 }
 
 

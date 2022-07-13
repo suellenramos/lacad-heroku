@@ -14,7 +14,7 @@ INSERT INTO public.perfil (perf_id,perf_nome,perf_descricao,perf_ativo)
 
 
 INSERT INTO public.professor
-(prof_id, prof_nome, prof_data_hora_cadastro, prof_email, prof_ativo, prof_senha)
+(prof_id, prof_nome, prof_data_hora_cadastro, prof_email, prof_ativo, prof_password)
 VALUES (1, 'Suellen', '2021-04-08 00:00:00.000','suellen.barrosramos@gmail.com', true, 'dQNjUIMorJb8Ubj2+wVGYp6eAeYkdekqAcnYp+aRq5w='),
 (2, 'Samara', '2021-04-08 00:00:00.000', 'sam@gmail.com', true, 'dQNjUIMorJb8Ubj2+wVGYp6eAeYkdekqAcnYp+aRq5w=');
 

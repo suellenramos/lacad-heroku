@@ -8,8 +8,10 @@ import org.barros.modules.exception.ServiceException;
 import org.barros.modules.mapper.ProfessorMapper;
 import org.barros.modules.model.Professor;
 import org.barros.modules.repository.ProfessorRepository;
+import org.barros.modules.security.service.PBKDF2Encoder;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.ws.rs.NotFoundException;
@@ -20,13 +22,36 @@ import java.util.Optional;
 @AllArgsConstructor
 @Slf4j
 @ApplicationScoped
-public class ProfessorService {
+public class ProfessorService implements IProfessorService {
 
     private static final String PROFESSOR_NAO_ENCONTRADO = "Professor não encontrado";
 
     private final ProfessorRepository professorRepository;
 
     private final ProfessorMapper professorMapper;
+
+    @Inject
+    PBKDF2Encoder passwordEncoder;
+
+    @Override
+    @Transactional
+    public void insert(ProfessorDTO professorDTO) {
+
+        Professor professor = professorMapper.to( professorDTO );
+        professor.setPassword(passwordEncoder.encode(professorDTO.getPassword()));
+        Professor.persist(professor);
+    }
+
+    @Override
+    public Professor findByNomeAndSenha(String login, String senha) {
+        return null;
+    }
+
+    @Override
+    public List<ProfessorDTO> listaProfessores() {
+        return null;
+    }
+
 
     public List<ProfessorDTO> findAll() {
         return this.professorMapper.toDTOList(professorRepository.findAll().list());

@@ -5,6 +5,7 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -25,15 +26,16 @@ public class Professor implements Serializable {
     @Column(name = "prof_nome")
     private String nome;
 
+    @CreationTimestamp
+    @Column(name = "prof_data_hora_cadastro")
+    private LocalDateTime dataInsercao = LocalDateTime.now();
+
     @Column(name = "prof_email")
+    @Email
     private String email;
 
     @Column(name = "prof_password")
     private String password;
-
-    @CreationTimestamp
-    @Column(name = "prof_data_hora_cadastro")
-    private LocalDateTime dataInsercao = LocalDateTime.now();
 
     @Column(name = "prof_ativo")
     private Boolean ativo = true;
@@ -43,8 +45,7 @@ public class Professor implements Serializable {
 
     @OneToMany(mappedBy = "professor")
     private List<CursoDisciplina> cursoDisciplinas;
-
-    @JsonIgnoreProperties({"pessoas"})
+    @JsonIgnoreProperties({"professores"})
     @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "PESSOA_PERFIL",

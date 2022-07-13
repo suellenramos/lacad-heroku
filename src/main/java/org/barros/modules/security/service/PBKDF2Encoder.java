@@ -11,11 +11,11 @@ import java.util.Base64;
 
 @RequestScoped
 public class PBKDF2Encoder {
-	
+
 	@ConfigProperty(name = "com.quarkusjwt.password.secret")  private String secret;
 	@ConfigProperty(name = "com.quarkusjwt.password.iteration")  private Integer iteration;
 	@ConfigProperty(name = "com.quarkusjwt.password.keylength")  private Integer keylength;
-	
+
 	/**
 	 * More info (https://www.owasp.org/index.php/Hashing_Java) 404 :(
 	 * @param cs password

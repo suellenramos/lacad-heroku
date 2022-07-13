@@ -1,17 +1,23 @@
 package org.barros.modules.web;
 
+import io.quarkus.security.Authenticated;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.barros.modules.dto.response.ProfessorDTO;
 import org.barros.modules.exception.ServiceException;
+import org.barros.modules.model.Professor;
+import org.barros.modules.service.IProfessorService;
 import org.barros.modules.service.ProfessorService;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
+import javax.annotation.security.RolesAllowed;
+import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
@@ -20,19 +26,34 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
+import java.util.List;
 import java.util.Objects;
 
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @Tag(name = "professor", description = "Operacoes de Professores")
 //@RolesAllowed("LacadAdmin")
-//@SecurityRequirement(name = "jwt")
+@SecurityRequirement(name = "jwt")
 @AllArgsConstructor
 @Slf4j
 @Path("/v1/professores")
 public class ProfessorController {
 
     private final ProfessorService professorService;
+
+    @Inject
+    IProfessorService iProfessorService;
+
+    @GET
+    @Authenticated
+    public List<ProfessorDTO> buscarTodosProfessores(){
+        return iProfessorService.listaProfessores();
+    }
+
+    @POST @RolesAllowed("professorUPDATE")
+    public void inserir(ProfessorDTO professorDTO){
+        iProfessorService.insert(professorDTO);
+    }
 
     @GET
     @APIResponse(
