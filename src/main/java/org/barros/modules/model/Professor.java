@@ -1,6 +1,7 @@
 package org.barros.modules.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -14,7 +15,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "professor", schema = "public")
-public class Professor implements Serializable {
+public class Professor implements Serializable  {
 
     private static final long serialVersionUID = 1L;
 
@@ -48,8 +49,8 @@ public class Professor implements Serializable {
     @JsonIgnoreProperties({"professores"})
     @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "PESSOA_PERFIL",
-            joinColumns = @JoinColumn(name = "PES_ID"),
+            name = "PROFESSOR_PERFIL",
+            joinColumns = @JoinColumn(name = "PROF_ID"),
             inverseJoinColumns = @JoinColumn(name = "PERF_ID")
     )
     private List<Perfil> perfils = new ArrayList<Perfil>();

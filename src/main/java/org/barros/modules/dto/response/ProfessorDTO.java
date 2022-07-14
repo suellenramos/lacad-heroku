@@ -5,9 +5,10 @@ import lombok.*;
 import java.io.Serializable;
 
 @Data
+@AllArgsConstructor
 public class ProfessorDTO implements Serializable {
 
-    private Long profId;
+    //private Long profId;
 
     private String nome;
 
