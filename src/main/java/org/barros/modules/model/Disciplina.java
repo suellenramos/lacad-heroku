@@ -26,8 +26,8 @@ public class Disciplina implements Serializable {
     @OneToMany(mappedBy = "disciplina")
     private List<CursoDisciplina> cursoDisciplinas ;
 
-    @OneToMany
-    @JoinColumn(name = "disc_id")
-    private Set<Disciplina> disciplinas = new LinkedHashSet<>();
+//    @OneToMany
+//    @JoinColumn(name = "disc_id")
+//    private Set<Disciplina> disciplinas = new LinkedHashSet<>();
 
 }

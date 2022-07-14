@@ -11,4 +11,5 @@ public class CursoDTO implements Serializable {
 
     private String descricao;
 
+    private Boolean ativo = true;
 }

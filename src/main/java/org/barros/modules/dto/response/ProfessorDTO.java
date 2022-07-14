@@ -6,9 +6,10 @@ import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class ProfessorDTO implements Serializable {
 
-    //private Long profId;
+    private Long profId;
 
     private String nome;
 

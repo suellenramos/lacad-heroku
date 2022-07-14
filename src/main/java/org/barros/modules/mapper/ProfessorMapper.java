@@ -11,18 +11,18 @@ public interface ProfessorMapper {
 
     List<ProfessorDTO> toDTOList(List<Professor> professores);
 
-    //ProfessorDTO toDTO(Professor professor);
+    ProfessorDTO toDTO(Professor professor);
 
     @Mapping(target = "profId", ignore = true)
-   // @InheritInverseConfiguration(name = "toDTO")
+    @InheritInverseConfiguration(name = "toDTO")
     Professor toModel(ProfessorDTO professorDTO);
 
-//    void updateModelFromDTO(ProfessorDTO professorDTO, @MappingTarget Professor professor);
-//
-//    void updateDTOFromModel(Professor professor, @MappingTarget ProfessorDTO professorDTO);
+    void updateModelFromDTO(ProfessorDTO professorDTO, @MappingTarget Professor professor);
 
-    ProfessorDTO toResource(Professor professor);
-    Professor toResource(ProfessorDTO professorDTO);
+    void updateDTOFromModel(Professor professor, @MappingTarget ProfessorDTO professorDTO);
+
+//    ProfessorDTO toResource(Professor professor);
+//    Professor toResource(ProfessorDTO professorDTO);
 }
 
 

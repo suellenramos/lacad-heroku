@@ -38,7 +38,7 @@ public class CursoService {
     }
 
     @Transactional
-    public void saveCurso(@Valid CursoDTO cursoDTO) {
+    public void save(@Valid CursoDTO cursoDTO) {
         log.debug("Saving CursoDTO: {}", cursoDTO);
         Curso curso = cursoMapper.toModel(cursoDTO);
         cursoRepository.persist(curso);
