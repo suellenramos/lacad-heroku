@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.barros.modules.core.IdDto;
 import org.barros.modules.dto.request.ImagemRequestDTO;
 import org.barros.modules.dto.response.AplicativoDTO;
+import org.barros.modules.dto.response.CursoDTO;
 import org.barros.modules.dto.response.ImagemResponseDTO;
 import org.barros.modules.exception.ServiceException;
 import org.barros.modules.service.AplicativoService;
@@ -16,6 +17,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
@@ -33,9 +35,8 @@ import java.util.Objects;
 
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@Tag(name = "aplicativo", description = "Operações de Aplicativos")
-//@RolesAllowed("LacadAdmin")
-//@SecurityRequirement(name = "jwt")
+@Tag(name = "Aplicativo", description = "Endpoint(s) relacionado(s) a manipulação de Aplicativos")
+@SecurityRequirement(name = "jwt")
 @AllArgsConstructor
 @Slf4j
 @Path("/v1/aplicativos")
@@ -47,34 +48,19 @@ public class AplicativoController {
     IImagemService iImagemService;
 
     @GET
-    @APIResponse(
-            responseCode = "200",
-            description = "Obtem todos os Aplicativos",
-            content = @Content(
-                    mediaType = MediaType.APPLICATION_JSON,
-                    schema = @Schema(type = SchemaType.ARRAY, implementation = AplicativoDTO.class)
-            )
-    )
+    @APIResponse(responseCode = "200", description = "Obtem todos os Aplicativos", content = @Content(mediaType = MediaType.APPLICATION_JSON,
+            schema = @Schema(type = SchemaType.ARRAY, implementation = AplicativoDTO.class)))
+    @Operation(summary = "Buscar Aplicativos", description = "Obtem todos os Aplicativos")
     public Response get() {
         return Response.ok(aplicativoService.findAll()).build();
     }
 
     @GET
     @Path("/{id}")
-    @APIResponse(
-            responseCode = "200",
-            description = "Obtem Aplicativo pelo Id",
-            content = @Content(
-                    mediaType = MediaType.APPLICATION_JSON,
-                    schema = @Schema(type = SchemaType.OBJECT, implementation = AplicativoDTO.class)
-            )
-    )
-
-    @APIResponse(
-            responseCode = "404",
-            description = "Aplicativo não encontrado pelo Id",
-            content = @Content(mediaType = MediaType.APPLICATION_JSON)
-    )
+    @APIResponse(responseCode = "200", description = "Obtem Aplicativo pelo Id", content = @Content(mediaType = MediaType.APPLICATION_JSON,
+            schema = @Schema(type = SchemaType.OBJECT, implementation = AplicativoDTO.class)))
+    @APIResponse(responseCode = "404", description = "Aplicativo não encontrado pelo Id", content = @Content(mediaType = MediaType.APPLICATION_JSON))
+    @Operation(summary = "Buscar Aplicativo por Id", description = "Busca Aplicativo por Id")
     public Response getById(@Parameter(name = "id", required = true) @PathParam("id") Long id) {
         return aplicativoService.findById(id)
                 .map(aplicativoDTO -> Response.ok(aplicativoDTO).build())
@@ -82,24 +68,9 @@ public class AplicativoController {
     }
 
     @POST
-    @APIResponse(
-            responseCode = "201",
-            description = "Criar Aplicativos",
-            content = @Content(
-                    mediaType = MediaType.APPLICATION_JSON,
-                    schema = @Schema(type = SchemaType.OBJECT, implementation = AplicativoDTO.class)
-            )
-    )
-    @APIResponse(
-            responseCode = "400",
-            description = "Aplicativo Inválido",
-            content = @Content(mediaType = MediaType.APPLICATION_JSON)
-    )
-    @APIResponse(
-            responseCode = "400",
-            description = "Já existe um Aplicativo com esse Id",
-            content = @Content(mediaType = MediaType.APPLICATION_JSON)
-    )
+    @Operation(summary = "Salvar Aplicativo", description = "Cria uma novo Aplicativo")
+    @APIResponse(responseCode = "201", description = "Aplicativo salvo", content = @Content(schema = @Schema(implementation = AplicativoDTO.class)))
+    @APIResponse(responseCode = "400", description = "Já existe um Aplicativo com esse Id", content = @Content(mediaType = MediaType.APPLICATION_JSON))
     public Response post(@NotNull @Valid AplicativoDTO aplicativoDTO, @Context UriInfo uriInfo) {
         aplicativoService.save(aplicativoDTO);
         URI uri = uriInfo.getAbsolutePathBuilder().path(Long.toString(aplicativoDTO.getApliId())).build();
@@ -132,34 +103,13 @@ public class AplicativoController {
 
     @PUT
     @Path("{id}")
-    @APIResponse(
-            responseCode = "204",
-            description = "Aplicativo Atualizado",
-            content = @Content(
-                    mediaType = MediaType.APPLICATION_JSON,
-                    schema = @Schema(type = SchemaType.OBJECT, implementation = AplicativoDTO.class)
-            )
-    )
-
-    @APIResponse(
-            responseCode = "400",
-            description = "Não foi encontrado Id para o Aplicativo requerido",
-            content = @Content(mediaType = MediaType.APPLICATION_JSON)
-    )
-    @APIResponse(
-            responseCode = "400",
-            description = "O id não corresponde ao Aplicativo requerido",
-            content = @Content(mediaType = MediaType.APPLICATION_JSON)
-    )
-    @APIResponse(
-            responseCode = "404",
-            description = "Nenhum Aplicativo encontrado pelo id indicado",
-            content = @Content(mediaType = MediaType.APPLICATION_JSON)
-    )
-
+    @APIResponse(responseCode = "204", description = "Aplicativo Atualizado", content = @Content(mediaType = MediaType.APPLICATION_JSON,
+            schema = @Schema(type = SchemaType.OBJECT, implementation = AplicativoDTO.class)))
+    @APIResponse(responseCode = "400", description = "Não foi encontrado Id para o Aplicativo requerido", content = @Content(mediaType = MediaType.APPLICATION_JSON))
+    @Operation(summary = "Atualizar Aplicativo", description = "Atualiza os dados do Aplicativo")
     public Response put(@Parameter(name = "id", required = true) @PathParam("id") Long id, @NotNull @Valid AplicativoDTO aplicativoDTO) {
         if (!Objects.equals(id, aplicativoDTO.getApliId())) {
-            throw new ServiceException("O id não corresponde ao Aplicativo");
+            throw new ServiceException("O id correspondente também deverá ser passado no parâmetro");
         }
         aplicativoService.update(aplicativoDTO);
         return Response.ok(aplicativoDTO).build();
@@ -168,7 +118,8 @@ public class AplicativoController {
 
     @DELETE
     @Path("/{id}")
-  //  @RolesAllowed({Roles.ESCRITA})
+    @Operation(summary = "Excluir Aplicativo", description = "Exclui os dados do Aplicativo")
+    @APIResponse(responseCode = "204", description = "Registro excluído com sucesso")
     public void delete(@PathParam("id") Long id) {
         aplicativoService.excluir(id);
     }

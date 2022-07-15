@@ -26,12 +26,15 @@ public class Aplicativo implements Serializable {
     @Column(name = "apli_descricao")
     private String descricao;
 
+    @Column(name = "apli_ativo")
+    private Boolean ativo = true;
+
     @OneToMany(mappedBy = "aplicativo")
     private List<Avaliacao> avaliacoes;
 
-    @OneToMany
-    @JoinColumn(name = "aplicativo")
-    private Set<ConteudoAplicativo> conteudoAplicativos = new LinkedHashSet<>();
+//    @OneToMany
+//    @JoinColumn(name = "aplicativo")
+//    private Set<ConteudoAplicativo> conteudoAplicativos = new LinkedHashSet<>();
 
     @OneToOne(mappedBy = "aplicativo")
     private Imagem imagem;

@@ -22,7 +22,7 @@ public class Conteudo implements Serializable {
     @Column(name = "conte_descricao")
     private String descricao;
 
-    @Column(name = "cur_ativo")
+    @Column(name = "conte_ativo")
     private Boolean ativo = true;
 
 //    @ManyToMany

@@ -46,6 +46,7 @@ public class Professor implements Serializable  {
 
     @OneToMany(mappedBy = "professor")
     private List<CursoDisciplina> cursoDisciplinas;
+
     @JsonIgnoreProperties({"professores"})
     @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(

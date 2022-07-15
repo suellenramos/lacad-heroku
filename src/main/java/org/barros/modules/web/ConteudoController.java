@@ -74,7 +74,7 @@ public class ConteudoController {
     @Operation(summary = "Atualizar Conteúdo", description = "Atualiza os dados do Conteúdo")
     public Response put(@Parameter(name = "id", required = true) @PathParam("id") Long id, @NotNull @Valid ConteudoDTO conteudoDTO) {
         if (!Objects.equals(id, conteudoDTO.getConteId())) {
-            throw new ServiceException("O id não corresponde ao Conteudo");
+            throw new ServiceException("O id correspondente também deverá ser passado no parâmetro");
         }
         conteudoService.update(conteudoDTO);
         return Response.ok(conteudoDTO).build();

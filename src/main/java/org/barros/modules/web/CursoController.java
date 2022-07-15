@@ -6,7 +6,6 @@ import javax.validation.constraints.NotNull;
 import org.barros.modules.dto.response.CursoDTO;
 import org.barros.modules.exception.ServiceException;
 import org.barros.modules.service.CursoService;
-import org.barros.modules.service.IImagemService;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
@@ -85,7 +84,7 @@ public class CursoController {
 
     @DELETE
     @Path("/{id}")
-    @Operation(summary = "Excluir Curso", description = "Exclui os dados do Curso")
+    @Operation(summary = "Excluir Aplicativo", description = "Exclui os dados do Aplicativo")
     @APIResponse(responseCode = "204", description = "Registro excluído com sucesso")
     public void delete(@PathParam("id") Long id) {
         cursoService.excluir(id);

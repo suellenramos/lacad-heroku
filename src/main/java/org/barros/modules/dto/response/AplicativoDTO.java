@@ -2,6 +2,7 @@ package org.barros.modules.dto.response;
 
 import lombok.Data;
 
+import javax.persistence.Column;
 import java.io.Serializable;
 
 
@@ -13,4 +14,6 @@ public class AplicativoDTO implements Serializable {
     private String link;
 
     private String descricao;
+
+    private Boolean ativo = true;
 }
