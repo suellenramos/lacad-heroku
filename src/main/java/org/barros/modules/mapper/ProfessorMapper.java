@@ -21,8 +21,6 @@ public interface ProfessorMapper {
 
     void updateDTOFromModel(Professor professor, @MappingTarget ProfessorDTO professorDTO);
 
-//    ProfessorDTO toResource(Professor professor);
-//    Professor toResource(ProfessorDTO professorDTO);
 }
 
 
