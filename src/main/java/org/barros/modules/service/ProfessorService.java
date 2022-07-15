@@ -1,10 +1,8 @@
 package org.barros.modules.service;
 
 import lombok.AllArgsConstructor;
-import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.barros.modules.dto.response.ProfessorDTO;
-import org.barros.modules.exception.ServiceException;
 import org.barros.modules.mapper.ProfessorMapper;
 import org.barros.modules.model.Professor;
 import org.barros.modules.repository.ProfessorRepository;
