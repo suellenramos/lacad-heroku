@@ -11,4 +11,6 @@ public class ConteudoDTO implements Serializable {
     private Long conteId;
 
     private String descricao;
+
+    private Boolean ativo = true;
 }

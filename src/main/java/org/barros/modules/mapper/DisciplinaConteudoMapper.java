@@ -14,7 +14,7 @@ public interface DisciplinaConteudoMapper {
 
     List<DisciplinaConteudoDTO> toDTOList(List<DisciplinaConteudo> disciplinaConteudos);
 
-    @Mapping(target = "conteId", expression = "java(disciplinaConteudo.getConteudo().getConteId())")
+   // @Mapping(target = "conteId", expression = "java(disciplinaConteudo.getConteudo().getConteId())")
     @Mapping(target = "cdID", expression = "java(disciplinaConteudo.getCursoDisciplina().getId())")
     DisciplinaConteudoDTO toDTO(DisciplinaConteudo disciplinaConteudo);
 

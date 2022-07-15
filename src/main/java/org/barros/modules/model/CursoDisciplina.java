@@ -33,6 +33,6 @@ public class CursoDisciplina implements Serializable {
     @JoinColumn(name = "prof_id")
     private   Professor professor;
 
-    @OneToMany(mappedBy = "cursoDisciplina")
-    private List<DisciplinaConteudo> disciplinaConteudos ;
+//    @OneToMany(mappedBy = "cursoDisciplina")
+//    private List<DisciplinaConteudo> disciplinaConteudos ;
 }

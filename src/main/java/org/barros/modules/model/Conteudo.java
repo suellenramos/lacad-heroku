@@ -22,14 +22,17 @@ public class Conteudo implements Serializable {
     @Column(name = "conte_descricao")
     private String descricao;
 
+    @Column(name = "cur_ativo")
+    private Boolean ativo = true;
+
 //    @ManyToMany
 //    @JoinTable(name = "conteudo_aplicativo",
 //            joinColumns = @JoinColumn(name = "conte_id"),
 //            inverseJoinColumns = @JoinColumn(name = "apli_id"))
 //    private List<Aplicativo> aplicativos;
 
-    @OneToMany(mappedBy = "conteudo")
-    private List<DisciplinaConteudo> disciplinaConteudos;
+//    @OneToMany(mappedBy = "conteudo")
+//    private List<DisciplinaConteudo> disciplinaConteudos;
 
 //    @OneToMany(mappedBy = "conteudo")
 //    private List<ConteudoAplicativo> conteudoAplicativos;

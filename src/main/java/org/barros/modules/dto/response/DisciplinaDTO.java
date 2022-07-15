@@ -10,4 +10,6 @@ public class DisciplinaDTO implements Serializable {
     private Long discId;
 
     private String descricao;
+
+    private Boolean ativo = true;
 }

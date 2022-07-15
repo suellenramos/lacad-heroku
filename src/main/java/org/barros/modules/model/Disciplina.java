@@ -23,8 +23,11 @@ public class Disciplina implements Serializable {
     @Column(name = "disc_descricao")
     private String descricao;
 
-    @OneToMany(mappedBy = "disciplina")
-    private List<CursoDisciplina> cursoDisciplinas ;
+    @Column(name = "disc_ativo")
+    private Boolean ativo = true;
+
+//    @OneToMany(mappedBy = "disciplina")
+//    private List<CursoDisciplina> cursoDisciplinas ;
 
 //    @OneToMany
 //    @JoinColumn(name = "disc_id")

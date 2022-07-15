@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.barros.modules.dto.response.DisciplinaConteudoDTO;
-import org.barros.modules.exception.ServiceException;
 import org.barros.modules.mapper.DisciplinaConteudoMapper;
 import org.barros.modules.model.DisciplinaConteudo;
 import org.barros.modules.repository.*;
@@ -49,7 +48,7 @@ public class DisciplinaConteudoService {
     public void save(@Valid DisciplinaConteudoDTO disciplinaConteudoDTO) {
         log.debug("Saving DisciplinaConteudoDTO: {}", disciplinaConteudoDTO);
         DisciplinaConteudo disciplinaConteudo = disciplinaConteudoMapper.toModel(disciplinaConteudoDTO);
-        disciplinaConteudo.setConteudo(conteudoRepository.findById(disciplinaConteudoDTO.getConteId()));
+      //  disciplinaConteudo.setConteudo(conteudoRepository.findById(disciplinaConteudoDTO.getConteId()));
         disciplinaConteudo.setCursoDisciplina(cursoDisciplinaRepository.findById(disciplinaConteudoDTO.getCdID()));
         disciplinaConteudoRepository.persist(disciplinaConteudo);
         disciplinaConteudoMapper.updateDTOFromModel (disciplinaConteudo, disciplinaConteudoDTO);

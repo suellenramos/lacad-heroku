@@ -39,9 +39,6 @@ public class CursoController {
 
     private final CursoService cursoService;
 
-    @Inject
-    IImagemService iImagemService;
-
     @GET
     @APIResponse(responseCode = "200", description = "Obtem todos os Cursos", content = @Content(mediaType = MediaType.APPLICATION_JSON,
                     schema = @Schema(type = SchemaType.ARRAY, implementation = CursoDTO.class)))
@@ -80,7 +77,7 @@ public class CursoController {
     @Operation(summary = "Atualizar Curso", description = "Atualiza os dados do Curso")
     public Response put(@Parameter(name = "id", required = true) @PathParam("id") Long id, @NotNull @Valid CursoDTO cursoDTO) {
         if (!Objects.equals(id, cursoDTO.getCurId())) {
-            throw new ServiceException("O id não corresponde ao Curso");
+            throw new ServiceException("O id correspondente também deverá ser passado no parâmetro");
         }
         cursoService.update(cursoDTO);
         return Response.ok(cursoDTO).build();

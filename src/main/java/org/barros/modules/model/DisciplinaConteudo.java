@@ -25,9 +25,9 @@ public class DisciplinaConteudo implements Serializable {
     @JoinColumn(name = "cd_id")
     private   CursoDisciplina cursoDisciplina;
 
-    @ManyToOne
-    @JoinColumn(name = "conte_id")
-    private   Conteudo conteudo;
+//    @ManyToOne
+//    @JoinColumn(name = "conte_id")
+//    private   Conteudo conteudo;
 
     @OneToMany(mappedBy = "disciplinaConteudo")
     private List<ConteudoAplicativo> conteudoAplicativos ;
