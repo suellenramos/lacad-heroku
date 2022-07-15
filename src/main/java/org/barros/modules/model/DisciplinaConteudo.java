@@ -29,6 +29,4 @@ public class DisciplinaConteudo implements Serializable {
 //    @JoinColumn(name = "conte_id")
 //    private   Conteudo conteudo;
 
-    @OneToMany(mappedBy = "disciplinaConteudo")
-    private List<ConteudoAplicativo> conteudoAplicativos ;
 }

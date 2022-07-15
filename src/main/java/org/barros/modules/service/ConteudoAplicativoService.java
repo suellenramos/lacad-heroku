@@ -35,7 +35,7 @@ public class ConteudoAplicativoService {
     private AplicativoRepository aplicativoRepository;
 
     @Inject
-    private DisciplinaConteudoRepository disciplinaConteudoRepository;
+    private  ConteudoRepository conteudoRepository;
 
     public List<ConteudoAplicativoDTO> findAll() {
         return this.conteudoAplicativoMapper.toDTOList(conteudoAplicativoRepository.findAll().list());
@@ -50,25 +50,11 @@ public class ConteudoAplicativoService {
     public void save(@Valid ConteudoAplicativoDTO conteudoAplicativoDTO) {
         log.debug("Saving ConteudoAplicativoDTO: {}", conteudoAplicativoDTO);
         ConteudoAplicativo conteudoAplicativo = conteudoAplicativoMapper.toModel(conteudoAplicativoDTO);
-        conteudoAplicativo.setDisciplinaConteudo(disciplinaConteudoRepository.findById(conteudoAplicativoDTO.getDcID()));
+        conteudoAplicativo.setConteudo(conteudoRepository.findById(conteudoAplicativoDTO.getConteId()));
         conteudoAplicativo.setAplicativo(aplicativoRepository.findById(conteudoAplicativoDTO.getApliId()));
         conteudoAplicativoRepository.persist(conteudoAplicativo);
         conteudoAplicativoMapper.updateDTOFromModel (conteudoAplicativo, conteudoAplicativoDTO);
     }
-
-//    @Transactional
-//    public void update(@Valid ConteudoAplicativoDTO conteudoAplicativoDTO) {
-//        log.debug("Updating ConteudoAPLICATIVODTO: {}", conteudoAplicativoDTO);
-//        if (Objects.isNull(conteudoAplicativoDTO.getId())) {
-//            throw new ServiceException("Id não encontrado");
-//        }
-//        ConteudoAplicativo conteudoAplicativo =
-//                conteudoAplicativoRepository.findByIdOptional(conteudoAplicativoDTO.getId())
-//                .orElseThrow(() -> new ServiceException(" Não foram encontrados Conteúdos e Aplicativos correspondente ao Id[%s]", conteudoAplicativoDTO.getId()));
-//        conteudoAplicativoMapper.updateModelFromDTO(conteudoAplicativoDTO, conteudoAplicativo);
-//        conteudoAplicativoRepository.persist(conteudoAplicativo);
-//        conteudoAplicativoMapper.updateDTOFromModel(conteudoAplicativo, conteudoAplicativoDTO);
-//    }
 
     @Transactional
     public void excluir(Long id){

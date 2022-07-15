@@ -17,7 +17,6 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import javax.ws.rs.core.Context;
 
 
-import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

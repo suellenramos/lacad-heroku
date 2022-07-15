@@ -27,7 +27,7 @@ import java.util.Objects;
 
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@Tag(name = "Curso", description = "Endpoint(s) relacionado(s) a manipulação de Cursos")
+@Tag(name = "Avaliação", description = "Endpoint(s) relacionado(s) a manipulação de Cursos")
 @SecurityRequirement(name = "jwt")
 @AllArgsConstructor
 @Slf4j

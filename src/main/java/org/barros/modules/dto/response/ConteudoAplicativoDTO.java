@@ -10,8 +10,8 @@ public class ConteudoAplicativoDTO implements Serializable {
 
     private Long id;
 
-    private Long dcID;
-
     private  Long apliId;
+
+    private Long conteId;
 
 }

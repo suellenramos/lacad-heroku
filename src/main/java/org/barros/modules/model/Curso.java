@@ -1,10 +1,15 @@
 package org.barros.modules.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -24,8 +29,9 @@ public class Curso implements Serializable {
     @Column(name = "cur_ativo")
     private Boolean ativo = true;
 
-//    @OneToMany(mappedBy = "curso")
-//    private List<CursoDisciplina> cursoDisciplinas;
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "curso_disciplina", joinColumns = {@JoinColumn(name = "cur_id")}, inverseJoinColumns = {@JoinColumn(name = "disc_id")})
+    private Set<Disciplina> disciplinas = new LinkedHashSet<>();
 
 }
 

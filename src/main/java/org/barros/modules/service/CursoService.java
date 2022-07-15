@@ -8,9 +8,13 @@ import org.barros.modules.exception.NotFoundException;
 import org.barros.modules.exception.ServiceException;
 import org.barros.modules.mapper.CursoMapper;
 import org.barros.modules.model.Curso;
+import org.barros.modules.model.Professor;
 import org.barros.modules.repository.CursoRepository;
+import org.barros.modules.repository.ProfessorRepository;
+import org.hibernate.Hibernate;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;
@@ -28,6 +32,9 @@ public class CursoService {
 
     private final CursoMapper cursoMapper;
 
+    @Inject
+    ProfessorRepository professorRepository;
+
     public List<CursoDTO> findAll() {
         return this.cursoMapper.toDTOList(cursoRepository.findAll().list());
     }
@@ -42,7 +49,9 @@ public class CursoService {
         log.debug("Saving CursoDTO: {}", cursoDTO);
         Curso curso = cursoMapper.toModel(cursoDTO);
         cursoRepository.persist(curso);
-        cursoMapper.updateDTOFromModel(curso, cursoDTO);
+      Professor professor = professorRepository.findById(cursoDTO.getProfessor().getProfId());
+      professor.getCursos().add(curso);
+      professorRepository.persist(professor);
     }
 
     @Transactional

@@ -22,13 +22,15 @@ public class ConteudoAplicativo implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "dc_id")
-    private   DisciplinaConteudo disciplinaConteudo;
-
-    @ManyToOne
     @JoinColumn(name = "apli_id")
     private   Aplicativo aplicativo;
 
-    @OneToMany(mappedBy = "conteudoAplicativo", orphanRemoval = true, cascade = CascadeType.ALL)
-    private List<AplicativoFavorito> aplicativoFavoritos ;
+    @ManyToOne
+    @JoinColumn(name = "conte_id")
+    private   Conteudo conteudo;
+
+    @Column(name = "ca_favorito")
+    private Boolean ativo = true;
+
+
 }

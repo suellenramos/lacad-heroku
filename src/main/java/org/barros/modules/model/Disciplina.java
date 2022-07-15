@@ -1,6 +1,8 @@
 package org.barros.modules.model;
 
 import lombok.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -26,11 +28,13 @@ public class Disciplina implements Serializable {
     @Column(name = "disc_ativo")
     private Boolean ativo = true;
 
-//    @OneToMany(mappedBy = "disciplina")
-//    private List<CursoDisciplina> cursoDisciplinas ;
+    @ManyToMany(mappedBy = "disciplinas", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Professor> professores;
 
-//    @OneToMany
-//    @JoinColumn(name = "disc_id")
-//    private Set<Disciplina> disciplinas = new LinkedHashSet<>();
-
+    @ManyToMany(mappedBy = "disciplinas", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Curso> cursos;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "disciplina_conteudo", joinColumns = {@JoinColumn(name = "disc_id")}, inverseJoinColumns = {@JoinColumn(name = "conte_id")})
+    private Set<Conteudo> conteudos = new LinkedHashSet<>();
 }

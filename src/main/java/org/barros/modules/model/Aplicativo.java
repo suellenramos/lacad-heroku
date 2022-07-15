@@ -32,10 +32,10 @@ public class Aplicativo implements Serializable {
     @OneToMany(mappedBy = "aplicativo")
     private List<Avaliacao> avaliacoes;
 
-//    @OneToMany
-//    @JoinColumn(name = "aplicativo")
-//    private Set<ConteudoAplicativo> conteudoAplicativos = new LinkedHashSet<>();
+    @OneToMany
+    @JoinColumn(name = "aplicativo")
+    private Set<ConteudoAplicativo> conteudoAplicativos = new LinkedHashSet<>();
 
-    @OneToOne(mappedBy = "aplicativo")
+    @OneToOne(mappedBy = "aplicativo", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Imagem imagem;
 }

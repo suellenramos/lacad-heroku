@@ -15,8 +15,8 @@ public interface ConteudoAplicativoMapper {
 
     List<ConteudoAplicativoDTO> toDTOList(List<ConteudoAplicativo> conteudoAplicativos);
 
-    @Mapping(target = "dcID", expression = "java(conteudoAplicativo.getDisciplinaConteudo().getId())")
     @Mapping(target = "apliId", expression = "java(conteudoAplicativo.getAplicativo().getApliId())")
+    @Mapping(target = "conteId", expression = "java(conteudoAplicativo.getConteudo().getConteId())")
     ConteudoAplicativoDTO toDTO(ConteudoAplicativo conteudoAplicativo);
 
     @Mapping(target = "id", ignore = true)

@@ -1,7 +1,6 @@
 package org.barros.modules.model;
 
 import lombok.Data;
-import lombok.Getter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,15 +24,9 @@ public class Conteudo implements Serializable {
     @Column(name = "conte_ativo")
     private Boolean ativo = true;
 
-//    @ManyToMany
-//    @JoinTable(name = "conteudo_aplicativo",
-//            joinColumns = @JoinColumn(name = "conte_id"),
-//            inverseJoinColumns = @JoinColumn(name = "apli_id"))
-//    private List<Aplicativo> aplicativos;
+    @ManyToMany(mappedBy = "conteudos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Disciplina> disciplinas;
 
-//    @OneToMany(mappedBy = "conteudo")
-//    private List<DisciplinaConteudo> disciplinaConteudos;
-
-//    @OneToMany(mappedBy = "conteudo")
-//    private List<ConteudoAplicativo> conteudoAplicativos;
+    @OneToMany(mappedBy = "conteudo")
+    private List<ConteudoAplicativo> conteudoAplicativos;
 }

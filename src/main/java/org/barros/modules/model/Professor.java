@@ -1,16 +1,21 @@
 package org.barros.modules.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -44,17 +49,21 @@ public class Professor implements Serializable  {
     @OneToMany(mappedBy = "professor")
     private List<Avaliacao> avaliacoes;
 
-    @OneToMany(mappedBy = "professor")
-    private List<CursoDisciplina> cursoDisciplinas;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "professor_curso", joinColumns = {@JoinColumn(name = "prof_id")}, inverseJoinColumns = {@JoinColumn(name = "cur_id")})
+    private Set<Curso> cursos = new LinkedHashSet<>();
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "professor_disciplina", joinColumns = {@JoinColumn(name = "prof_id")}, inverseJoinColumns = {@JoinColumn(name = "disc_id")})
+    private Set<Disciplina> disciplinas = new LinkedHashSet<>();
     @JsonIgnoreProperties({"professores"})
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(
             name = "PROFESSOR_PERFIL",
             joinColumns = @JoinColumn(name = "PROF_ID"),
             inverseJoinColumns = @JoinColumn(name = "PERF_ID")
     )
     private List<Perfil> perfils = new ArrayList<Perfil>();
-
 
 }
