@@ -14,4 +14,6 @@ public class ConteudoAplicativoDTO implements Serializable {
 
     private Long conteId;
 
+    private Boolean ativo = true;
+
 }

@@ -11,7 +11,6 @@ import org.barros.modules.model.Curso;
 import org.barros.modules.model.Professor;
 import org.barros.modules.repository.CursoRepository;
 import org.barros.modules.repository.ProfessorRepository;
-import org.hibernate.Hibernate;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -49,9 +48,9 @@ public class CursoService {
         log.debug("Saving CursoDTO: {}", cursoDTO);
         Curso curso = cursoMapper.toModel(cursoDTO);
         cursoRepository.persist(curso);
-      Professor professor = professorRepository.findById(cursoDTO.getProfessor().getProfId());
-      professor.getCursos().add(curso);
-      professorRepository.persist(professor);
+        Professor professor = professorRepository.findById(cursoDTO.getProfessor().getProfId());
+        professor.getCursos().add(curso);
+        professorRepository.persist(professor);
     }
 
     @Transactional

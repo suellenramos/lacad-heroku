@@ -56,6 +56,7 @@ public class Professor implements Serializable  {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "professor_disciplina", joinColumns = {@JoinColumn(name = "prof_id")}, inverseJoinColumns = {@JoinColumn(name = "disc_id")})
     private Set<Disciplina> disciplinas = new LinkedHashSet<>();
+
     @JsonIgnoreProperties({"professores"})
     @OneToMany
     @LazyCollection(LazyCollectionOption.FALSE)

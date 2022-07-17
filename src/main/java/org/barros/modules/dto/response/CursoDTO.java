@@ -18,4 +18,6 @@ public class CursoDTO implements Serializable {
 
     private ProfessorDTO professor;
 
+    //private String profId;
+
 }

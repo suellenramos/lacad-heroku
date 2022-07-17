@@ -7,6 +7,7 @@ import org.barros.modules.dto.response.DisciplinaDTO;
 import org.barros.modules.exception.ServiceException;
 import org.barros.modules.mapper.DisciplinaMapper;
 import org.barros.modules.model.Disciplina;
+import org.barros.modules.model.Professor;
 import org.barros.modules.repository.DisciplinaRepository;
 import org.barros.modules.repository.ProfessorRepository;
 
@@ -29,9 +30,9 @@ public class DisciplinaService {
     private final DisciplinaRepository disciplinaRepository;
 
     private final DisciplinaMapper disciplinaMapper;
-//
-//    @Inject
-//    private ProfessorRepository professorRepository;
+
+    @Inject
+    private ProfessorRepository professorRepository;
 
     public List<DisciplinaDTO> findAll() {
         return this.disciplinaMapper.toDTOList(disciplinaRepository.findAll().list());
@@ -47,7 +48,12 @@ public class DisciplinaService {
         log.debug("Saving DisciplinaDTO: {}", disciplinaDTO);
         Disciplina disciplina = disciplinaMapper.toModel(disciplinaDTO);
         disciplinaRepository.persist(disciplina);
-        disciplinaMapper.updateDTOFromModel (disciplina, disciplinaDTO);
+        Professor professor = professorRepository.findById(disciplinaDTO.getProfessor().getProfId());
+        professor.getDisciplinas().add(disciplina);
+        professorRepository.persist(professor);
+
+//        disciplinaRepository.persist(disciplina);
+//        disciplinaMapper.updateDTOFromModel (disciplina, disciplinaDTO);
     }
 
     @Transactional

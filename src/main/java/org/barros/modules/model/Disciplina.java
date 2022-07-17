@@ -28,13 +28,11 @@ public class Disciplina implements Serializable {
     @Column(name = "disc_ativo")
     private Boolean ativo = true;
 
-    @ManyToMany(mappedBy = "disciplinas", cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Professor> professores;
-
     @ManyToMany(mappedBy = "disciplinas", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Curso> cursos;
-    @ManyToMany(cascade = CascadeType.ALL)
+
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "disciplina_conteudo", joinColumns = {@JoinColumn(name = "disc_id")}, inverseJoinColumns = {@JoinColumn(name = "conte_id")})
     private Set<Conteudo> conteudos = new LinkedHashSet<>();
+
 }

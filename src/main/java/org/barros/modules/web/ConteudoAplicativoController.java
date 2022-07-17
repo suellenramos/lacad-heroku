@@ -3,10 +3,6 @@ package org.barros.modules.web;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.barros.modules.dto.response.ConteudoAplicativoDTO;
-import org.barros.modules.dto.response.CursoDTO;
-import org.barros.modules.dto.response.DisciplinaConteudoDTO;
-import org.barros.modules.dto.response.ProfessorDTO;
-import org.barros.modules.exception.ServiceException;
 import org.barros.modules.service.ConteudoAplicativoService;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
@@ -17,7 +13,6 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
-import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
@@ -30,7 +25,7 @@ import java.util.Objects;
 
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@Tag(name = "Conteudo", description = "Endpoint(s) relacionado(s) a manipulação de Conteúdos")
+@Tag(name = "Conteudo e Aplicativo", description = "Endpoint(s) relacionado(s) a manipulação de Conteúdos")
 @SecurityRequirement(name = "jwt")
 @AllArgsConstructor
 @Slf4j
