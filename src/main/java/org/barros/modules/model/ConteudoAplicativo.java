@@ -30,7 +30,6 @@ public class ConteudoAplicativo implements Serializable {
     private   Conteudo conteudo;
 
     @Column(name = "ca_favorito")
-    private Boolean ativo = true;
-
+    private Boolean favorito = true;
 
 }

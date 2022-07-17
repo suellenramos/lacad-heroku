@@ -3,9 +3,11 @@ package org.barros.modules.service;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.barros.modules.dto.response.AvaliacaoDTO;
 import org.barros.modules.dto.response.ConteudoAplicativoDTO;
 import org.barros.modules.exception.ServiceException;
 import org.barros.modules.mapper.ConteudoAplicativoMapper;
+import org.barros.modules.model.Avaliacao;
 import org.barros.modules.model.ConteudoAplicativo;
 import org.barros.modules.repository.*;
 
@@ -54,6 +56,20 @@ public class ConteudoAplicativoService {
         conteudoAplicativo.setAplicativo(aplicativoRepository.findById(conteudoAplicativoDTO.getApliId()));
         conteudoAplicativoRepository.persist(conteudoAplicativo);
         conteudoAplicativoMapper.updateDTOFromModel (conteudoAplicativo, conteudoAplicativoDTO);
+    }
+
+    @Transactional
+    public void update(@Valid ConteudoAplicativoDTO conteudoAplicativoDTO ) {
+        log.debug("Updating ConteúdoAplicativoDTO: {}", conteudoAplicativoDTO);
+        if (Objects.isNull(conteudoAplicativoDTO.getId())) {
+            throw new ServiceException("Id não encontrado");
+        }
+        ConteudoAplicativo conteudoAplicativo =
+                conteudoAplicativoRepository.findByIdOptional(conteudoAplicativoDTO.getId())
+                        .orElseThrow(() -> new ServiceException(" Conteúdo e Aplicativo  não econtrado pelo Id[%s]", conteudoAplicativoDTO.getId()));
+        conteudoAplicativoMapper.updateModelFromDTO(conteudoAplicativoDTO, conteudoAplicativo);
+        conteudoAplicativoRepository.persist(conteudoAplicativo);
+        conteudoAplicativoMapper.updateDTOFromModel(conteudoAplicativo, conteudoAplicativoDTO);
     }
 
     @Transactional

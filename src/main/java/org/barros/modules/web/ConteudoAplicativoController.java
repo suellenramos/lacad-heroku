@@ -3,6 +3,7 @@ package org.barros.modules.web;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.barros.modules.dto.response.ConteudoAplicativoDTO;
+import org.barros.modules.exception.ServiceException;
 import org.barros.modules.service.ConteudoAplicativoService;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
@@ -61,6 +62,20 @@ public class ConteudoAplicativoController {
         conteudoAplicativoService.save(conteudoAplicativoDTO);
         URI uri = uriInfo.getAbsolutePathBuilder().path(Long.toString(conteudoAplicativoDTO.getId())).build();
         return Response.created(uri).entity(conteudoAplicativoDTO).build();
+    }
+
+    @PUT
+    @Path("{id}")
+    @APIResponse(responseCode = "204", description = "Conteúdo Aplicativo  Atualizado", content = @Content(mediaType = MediaType.APPLICATION_JSON,
+            schema = @Schema(type = SchemaType.OBJECT, implementation = ConteudoAplicativoDTO.class)))
+    @APIResponse(responseCode = "400", description = "Não foi encontrado Id para o Conteúdo Aplicativo requerido", content = @Content(mediaType = MediaType.APPLICATION_JSON))
+    @Operation(summary = "Atualizar Conteúdo Aplicativo", description = "Atualiza os dados do Conteúdo Aplicativo")
+    public Response put(@Parameter(name = "id", required = true) @PathParam("id") Long id, @NotNull @Valid ConteudoAplicativoDTO conteudoAplicativoDTO) {
+        if (!Objects.equals(id, conteudoAplicativoDTO.getId())) {
+            throw new ServiceException("O id correspondente também deverá ser passado no parâmetro");
+        }
+        conteudoAplicativoService.update(conteudoAplicativoDTO);
+        return Response.ok(conteudoAplicativoDTO).build();
     }
 
     @DELETE

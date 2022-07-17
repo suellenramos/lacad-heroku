@@ -65,9 +65,9 @@ public class AplicativoService {
 
     @Transactional
     public void excluir(Long id){
-        var aplcativo  = aplicativoRepository.findByIdOptional(id)
+        var aplicativo  = aplicativoRepository.findByIdOptional(id)
                 .orElseThrow(()-> new NotFoundException(APLICATIVO_NAO_ENCONTRADO));
-        aplicativoRepository.delete(aplcativo);
+        aplicativoRepository.delete(aplicativo);
     }
 }
 

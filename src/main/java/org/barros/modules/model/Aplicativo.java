@@ -32,8 +32,7 @@ public class Aplicativo implements Serializable {
     @OneToMany(mappedBy = "aplicativo")
     private List<Avaliacao> avaliacoes;
 
-    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
-    @JoinColumn(name = "aplicativo")
+    @OneToMany(mappedBy = "aplicativo")
     private Set<ConteudoAplicativo> conteudoAplicativos = new LinkedHashSet<>();
 
     @OneToOne(mappedBy = "aplicativo", cascade = CascadeType.REMOVE, orphanRemoval = true)
