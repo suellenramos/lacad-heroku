@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.barros.modules.core.IdDto;
 import org.barros.modules.dto.request.ImagemRequestDTO;
 import org.barros.modules.dto.response.AplicativoDTO;
-import org.barros.modules.dto.response.CursoDTO;
 import org.barros.modules.dto.response.ImagemResponseDTO;
 import org.barros.modules.exception.ServiceException;
 import org.barros.modules.service.AplicativoService;
@@ -30,7 +29,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
-import java.util.List;
 import java.util.Objects;
 
 @Consumes(MediaType.APPLICATION_JSON)

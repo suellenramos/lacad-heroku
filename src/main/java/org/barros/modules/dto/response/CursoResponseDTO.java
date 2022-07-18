@@ -1,12 +1,14 @@
 package org.barros.modules.dto.response;
 
 import lombok.Data;
+import org.barros.modules.dto.response.DisciplinaDTO;
+import org.barros.modules.dto.response.ProfessorDTO;
 
 import java.io.Serializable;
 import java.util.List;
 
 @Data
-public class CursoDTO implements Serializable {
+public class CursoResponseDTO implements Serializable {
 
     private Long curId;
 
@@ -16,7 +18,7 @@ public class CursoDTO implements Serializable {
 
     private List<DisciplinaDTO> disciplinas;
 
-    private ProfessorDTO professor;
+    private List <ProfessorDTO> professores;
 
     //private String profId;
 

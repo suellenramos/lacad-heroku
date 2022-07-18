@@ -3,7 +3,7 @@ package org.barros.modules.web;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import javax.validation.constraints.NotNull;
-import org.barros.modules.dto.response.CursoDTO;
+import org.barros.modules.dto.request.CursoDTO;
 import org.barros.modules.exception.ServiceException;
 import org.barros.modules.service.CursoService;
 import org.eclipse.microprofile.openapi.annotations.Operation;

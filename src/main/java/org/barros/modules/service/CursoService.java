@@ -3,7 +3,8 @@ package org.barros.modules.service;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.barros.modules.dto.response.CursoDTO;
+import org.barros.modules.dto.request.CursoDTO;
+import org.barros.modules.dto.response.CursoResponseDTO;
 import org.barros.modules.exception.NotFoundException;
 import org.barros.modules.exception.ServiceException;
 import org.barros.modules.mapper.CursoMapper;
@@ -34,7 +35,7 @@ public class CursoService {
     @Inject
     ProfessorRepository professorRepository;
 
-    public List<CursoDTO> findAll() {
+    public List<CursoResponseDTO> findAll() {
         return this.cursoMapper.toDTOList(cursoRepository.findAll().list());
     }
 
