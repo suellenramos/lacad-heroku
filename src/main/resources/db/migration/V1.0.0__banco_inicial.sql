@@ -67,7 +67,6 @@ CREATE TABLE public.conteudo_aplicativo (
 	ca_id seriaL primary key NOT NULL,
 	apli_id integer NULL,
 	conte_id integer NULL,
-	ca_favorito boolean NULL,
 	CONSTRAINT conteudo_aplicativo_fk FOREIGN KEY (apli_id) REFERENCES public.aplicativo(apli_id),
 	CONSTRAINT conteudo_aplicativo_fk_1 FOREIGN KEY (conte_id) REFERENCES public.conteudo(conte_id)
 );
@@ -91,6 +90,15 @@ CREATE TABLE public.avaliacao(
 
 ALTER TABLE public.avaliacao ADD CONSTRAINT avaliacao_fk0 FOREIGN KEY (prof_id) REFERENCES public.professor(prof_id);
 ALTER TABLE public.avaliacao ADD CONSTRAINT avaliacao_fk1 FOREIGN KEY (apli_id) REFERENCES public.aplicativo(apli_id);
+
+CREATE TABLE public.favorito(
+    favo_id serial primary key,
+    apli_id integer not null,
+    prof_id integer not null
+);
+ALTER TABLE public.favorito ADD CONSTRAINT favorito_fk0 FOREIGN KEY (prof_id) REFERENCES public.professor(prof_id);
+ALTER TABLE public.favorito ADD CONSTRAINT favorito_fk1 FOREIGN KEY (apli_id) REFERENCES public.aplicativo(apli_id);
+
 
 CREATE TABLE public.perfil (
 	perf_id  serial primary key NOT NULL,
