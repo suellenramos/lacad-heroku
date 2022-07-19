@@ -2,7 +2,8 @@ package org.barros.modules.web;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.barros.modules.dto.response.DisciplinaDTO;
+import org.barros.modules.dto.request.DisciplinaDTO;
+import org.barros.modules.dto.response.DisciplinaResponseDTO;
 import org.barros.modules.exception.ServiceException;
 import org.barros.modules.service.DisciplinaService;
 import org.eclipse.microprofile.openapi.annotations.Operation;
@@ -37,7 +38,7 @@ public class DisciplinaController {
 
     @GET
     @APIResponse(responseCode = "200", description = "Obtem todas as Disciplinas", content = @Content(
-            mediaType = MediaType.APPLICATION_JSON, schema = @Schema(type = SchemaType.ARRAY, implementation = DisciplinaDTO.class)))
+            mediaType = MediaType.APPLICATION_JSON, schema = @Schema(type = SchemaType.ARRAY, implementation = DisciplinaResponseDTO.class)))
     @Operation(summary = "Buscar Disciplinas", description = "Obtem todas as Disciplinas")
     public Response get() {
         return Response.ok(disciplinaService.findAll()).build();
@@ -46,7 +47,7 @@ public class DisciplinaController {
     @GET
     @Path("/{id}")
     @APIResponse(responseCode = "200", description = "Obtem Disciplina pelo Id", content = @Content(
-            mediaType = MediaType.APPLICATION_JSON, schema = @Schema(type = SchemaType.OBJECT, implementation = DisciplinaDTO.class)))
+            mediaType = MediaType.APPLICATION_JSON, schema = @Schema(type = SchemaType.OBJECT, implementation = DisciplinaResponseDTO.class)))
     @APIResponse(responseCode = "404", description = "Disciplina não encontrada pelo Id", content = @Content(mediaType = MediaType.APPLICATION_JSON))
     @Operation(summary = "Buscar Disciplina por Id", description = "Busca Disciplina por Id")
     public Response getById(@Parameter(name = "id", required = true) @PathParam("id") Long id) {

@@ -39,9 +39,9 @@ public class CursoService {
         return this.cursoMapper.toDTOList(cursoRepository.findAll().list());
     }
 
-    public Optional<CursoDTO> findById(@NonNull Long id) {
+    public Optional<CursoResponseDTO> findById(@NonNull Long id) {
         return cursoRepository.findByIdOptional(id)
-                .map(cursoMapper::toDTO);
+                .map(cursoMapper::toDTObyId);
     }
 
     @Transactional
@@ -49,6 +49,7 @@ public class CursoService {
         log.debug("Saving CursoDTO: {}", cursoDTO);
         Curso curso = cursoMapper.toModel(cursoDTO);
         cursoRepository.persist(curso);
+        cursoMapper.updateDTOFromModel (curso, cursoDTO);
         Professor professor = professorRepository.findById(cursoDTO.getProfessor().getProfId());
         professor.getCursos().add(curso);
         professorRepository.persist(professor);

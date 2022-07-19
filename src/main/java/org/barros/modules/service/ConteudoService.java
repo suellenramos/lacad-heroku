@@ -4,25 +4,18 @@ import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.barros.modules.dto.response.ConteudoDTO;
-import org.barros.modules.dto.response.DisciplinaDTO;
 import org.barros.modules.exception.ServiceException;
 import org.barros.modules.mapper.ConteudoMapper;
-import org.barros.modules.model.Aplicativo;
 import org.barros.modules.model.Conteudo;
-import org.barros.modules.model.Curso;
-import org.barros.modules.model.Disciplina;
 import org.barros.modules.repository.*;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.ws.rs.NotFoundException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @AllArgsConstructor
 @Slf4j

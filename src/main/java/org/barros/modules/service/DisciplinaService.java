@@ -3,7 +3,8 @@ package org.barros.modules.service;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.barros.modules.dto.response.DisciplinaDTO;
+import org.barros.modules.dto.request.DisciplinaDTO;
+import org.barros.modules.dto.response.DisciplinaResponseDTO;
 import org.barros.modules.exception.ServiceException;
 import org.barros.modules.mapper.DisciplinaMapper;
 import org.barros.modules.model.Disciplina;
@@ -34,13 +35,13 @@ public class DisciplinaService {
     @Inject
     private ProfessorRepository professorRepository;
 
-    public List<DisciplinaDTO> findAll() {
+    public List<DisciplinaResponseDTO> findAll() {
         return this.disciplinaMapper.toDTOList(disciplinaRepository.findAll().list());
     }
 
-    public Optional<DisciplinaDTO> findById(@NonNull Long id) {
+    public Optional<DisciplinaResponseDTO> findById(@NonNull Long id) {
         return disciplinaRepository.findByIdOptional(id)
-                .map(disciplinaMapper::toDTO);
+                .map(disciplinaMapper::toDTObyId);
     }
 
     @Transactional
@@ -48,6 +49,7 @@ public class DisciplinaService {
         log.debug("Saving DisciplinaDTO: {}", disciplinaDTO);
         Disciplina disciplina = disciplinaMapper.toModel(disciplinaDTO);
         disciplinaRepository.persist(disciplina);
+        disciplinaMapper.updateDTOFromModel (disciplina, disciplinaDTO);
         Professor professor = professorRepository.findById(disciplinaDTO.getProfessor().getProfId());
         professor.getDisciplinas().add(disciplina);
         professorRepository.persist(professor);

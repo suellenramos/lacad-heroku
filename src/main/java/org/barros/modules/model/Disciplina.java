@@ -31,6 +31,9 @@ public class Disciplina implements Serializable {
     @ManyToMany(mappedBy = "disciplinas", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Curso> cursos;
 
+    @ManyToMany(mappedBy = "disciplinas", cascade = CascadeType.ALL)
+    private List<Professor> professores;
+
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "disciplina_conteudo", joinColumns = {@JoinColumn(name = "disc_id")}, inverseJoinColumns = {@JoinColumn(name = "conte_id")})
     private Set<Conteudo> conteudos = new LinkedHashSet<>();

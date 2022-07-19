@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Data
-public class DisciplinaDTO implements Serializable {
+public class DisciplinaResponseDTO implements Serializable {
 
     private Long discId;
 
@@ -16,5 +16,5 @@ public class DisciplinaDTO implements Serializable {
 
     private List<ConteudoDTO> conteudos;
 
-    private ProfessorDTO professor;
+    private List <ProfessorDTO> professores;
 }

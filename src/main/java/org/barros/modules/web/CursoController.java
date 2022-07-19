@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import javax.validation.constraints.NotNull;
 import org.barros.modules.dto.request.CursoDTO;
+import org.barros.modules.dto.response.CursoResponseDTO;
 import org.barros.modules.exception.ServiceException;
 import org.barros.modules.service.CursoService;
 import org.eclipse.microprofile.openapi.annotations.Operation;
@@ -39,7 +40,7 @@ public class CursoController {
 
     @GET
     @APIResponse(responseCode = "200", description = "Obtem todos os Cursos", content = @Content(mediaType = MediaType.APPLICATION_JSON,
-                    schema = @Schema(type = SchemaType.ARRAY, implementation = CursoDTO.class)))
+                    schema = @Schema(type = SchemaType.ARRAY, implementation = CursoResponseDTO.class)))
     @Operation(summary = "Buscar Cursos", description = "Obtem todos os Cursos")
     public Response get() {
         return Response.ok(cursoService.findAll()).build();
@@ -48,7 +49,7 @@ public class CursoController {
     @GET
     @Path("/{id}")
     @APIResponse(responseCode = "200", description = "Obtem Curso pelo Id", content = @Content(mediaType = MediaType.APPLICATION_JSON,
-                    schema = @Schema(type = SchemaType.OBJECT, implementation = CursoDTO.class)))
+                    schema = @Schema(type = SchemaType.OBJECT, implementation = CursoResponseDTO.class)))
     @APIResponse(responseCode = "404", description = "Curso não encontrado pelo Id", content = @Content(mediaType = MediaType.APPLICATION_JSON))
     @Operation(summary = "Buscar Curso por Id", description = "Busca Curso por Id")
     public Response getById(@Parameter(name = "id", required = true) @PathParam("id") Long id) {

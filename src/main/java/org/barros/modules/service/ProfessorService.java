@@ -30,6 +30,7 @@ public class ProfessorService implements IProfessorService {
     private final ProfessorRepository professorRepository;
 
     private final ProfessorMapper professorMapper;
+
     @Inject
     PBKDF2Encoder passwordEncoder;
 

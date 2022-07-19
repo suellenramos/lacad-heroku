@@ -15,6 +15,8 @@ public interface CursoMapper {
 
     List<CursoResponseDTO> toDTOList(List<Curso> cursos);
 
+    CursoResponseDTO toDTObyId(Curso curso);
+
     CursoDTO toDTO(Curso curso);
 
     @Mapping(target = "curId", ignore = true)
