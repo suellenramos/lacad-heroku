@@ -65,5 +65,5 @@ public class Professor implements Serializable  {
             inverseJoinColumns = @JoinColumn(name = "PERF_ID")
     )
     private List<Perfil> perfils = new ArrayList<Perfil>();
-
+//TESTE
 }
