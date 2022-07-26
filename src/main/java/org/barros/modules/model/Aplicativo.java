@@ -37,4 +37,7 @@ public class Aplicativo implements Serializable {
 
     @OneToOne(mappedBy = "aplicativo", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Imagem imagem;
+
+    @OneToMany(mappedBy = "aplicativo")
+    private List<Favorito> favoritos;
 }

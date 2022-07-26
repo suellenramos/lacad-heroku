@@ -6,12 +6,11 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class ConteudoAplicativoDTO implements Serializable {
+public class FavoritoDTO implements Serializable {
 
-    private Long id;
+    private Long favoId;
 
     private  Long apliId;
 
-    private Long conteId;
-
+    private Long profId;
 }

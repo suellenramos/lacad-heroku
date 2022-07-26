@@ -29,7 +29,4 @@ public class ConteudoAplicativo implements Serializable {
     @JoinColumn(name = "conte_id")
     private   Conteudo conteudo;
 
-    @Column(name = "ca_favorito")
-    private Boolean favorito = true;
-
 }

@@ -22,11 +22,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
-import java.util.Objects;
 
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@Tag(name = "Conteudo e Aplicativo", description = "Endpoint(s) relacionado(s) a manipulação de Conteúdos")
+@Tag(name = "Conteudo e Aplicativo", description = "Endpoint(s) relacionado(s) a manipulação de Conteúdos e Aplicativos")
 @SecurityRequirement(name = "jwt")
 @AllArgsConstructor
 @Slf4j
@@ -62,20 +61,6 @@ public class ConteudoAplicativoController {
         conteudoAplicativoService.save(conteudoAplicativoDTO);
         URI uri = uriInfo.getAbsolutePathBuilder().path(Long.toString(conteudoAplicativoDTO.getId())).build();
         return Response.created(uri).entity(conteudoAplicativoDTO).build();
-    }
-
-    @PUT
-    @Path("{id}")
-    @APIResponse(responseCode = "204", description = "Conteúdo Aplicativo  Atualizado", content = @Content(mediaType = MediaType.APPLICATION_JSON,
-            schema = @Schema(type = SchemaType.OBJECT, implementation = ConteudoAplicativoDTO.class)))
-    @APIResponse(responseCode = "400", description = "Não foi encontrado Id para o Conteúdo Aplicativo requerido", content = @Content(mediaType = MediaType.APPLICATION_JSON))
-    @Operation(summary = "Atualizar Conteúdo Aplicativo", description = "Atualiza os dados do Conteúdo Aplicativo")
-    public Response put(@Parameter(name = "id", required = true) @PathParam("id") Long id, @NotNull @Valid ConteudoAplicativoDTO conteudoAplicativoDTO) {
-        if (!Objects.equals(id, conteudoAplicativoDTO.getId())) {
-            throw new ServiceException("O id correspondente também deverá ser passado no parâmetro");
-        }
-        conteudoAplicativoService.update(conteudoAplicativoDTO);
-        return Response.ok(conteudoAplicativoDTO).build();
     }
 
     @DELETE

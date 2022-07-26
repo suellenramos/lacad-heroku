@@ -59,20 +59,6 @@ public class ConteudoAplicativoService {
     }
 
     @Transactional
-    public void update(@Valid ConteudoAplicativoDTO conteudoAplicativoDTO ) {
-        log.debug("Updating ConteúdoAplicativoDTO: {}", conteudoAplicativoDTO);
-        if (Objects.isNull(conteudoAplicativoDTO.getId())) {
-            throw new ServiceException("Id não encontrado");
-        }
-        ConteudoAplicativo conteudoAplicativo =
-                conteudoAplicativoRepository.findByIdOptional(conteudoAplicativoDTO.getId())
-                        .orElseThrow(() -> new ServiceException(" Conteúdo e Aplicativo  não econtrado pelo Id[%s]", conteudoAplicativoDTO.getId()));
-        conteudoAplicativoMapper.updateModelFromDTO(conteudoAplicativoDTO, conteudoAplicativo);
-        conteudoAplicativoRepository.persist(conteudoAplicativo);
-        conteudoAplicativoMapper.updateDTOFromModel(conteudoAplicativo, conteudoAplicativoDTO);
-    }
-
-    @Transactional
     public void excluir(Long id){
         var conteudoAplicativo  = conteudoAplicativoRepository.findByIdOptional(id)
                 .orElseThrow(()-> new NotFoundException(CONTEUDO_APLICATIVO_NAO_ENCONTRADO));
