@@ -1,1 +1,1 @@
-web: java -Dquarkus.http.port=$PORT -Dquarkus.profile=dev $JAVA_OPTS -jar target/quarkus-app/quarkus-run.jar
+web: java -Dquarkus.http.port=$PORT -Dquarkus.profile=prod $JAVA_OPTS -jar target/quarkus-app/quarkus-run.jar
