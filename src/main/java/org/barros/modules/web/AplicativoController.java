@@ -33,7 +33,7 @@ import java.util.Objects;
 
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@Tag(name = "Aplicativo", description = "Endpoint(s) testando5 relacionado(s) a manipulação de Aplicativos")
+@Tag(name = "Aplicativo", description = "Endpoint(s) TESTANDO relacionado(s) a manipulação de Aplicativos")
 @SecurityRequirement(name = "jwt")
 @AllArgsConstructor
 @Slf4j
@@ -64,7 +64,7 @@ public class AplicativoController {
                 .map(aplicativoDTO -> Response.ok(aplicativoDTO).build())
                 .orElse(Response.status(Response.Status.NOT_FOUND).build());
     }
-///
+
     @POST
     @Operation(summary = "Salvar Aplicativo", description = "Cria uma novo Aplicativo")
     @APIResponse(responseCode = "201", description = "Aplicativo salvo", content = @Content(schema = @Schema(implementation = AplicativoDTO.class)))
