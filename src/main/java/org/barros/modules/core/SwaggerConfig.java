@@ -30,7 +30,7 @@ import javax.ws.rs.core.Application;
                 version = "1.0.1",
                 contact = @Contact(
                         name = "Controle de Usuários do Lacad API",
-                        url = "http://localhost:8082/q/swagger-ui/#/",
+                        url = "http://localhost:8083/q/swagger-ui/#/",
                         email = "suellen.barrosramos@gmail.com"),
                 license = @License(
                         name = "Apache 2.0",
