@@ -33,7 +33,7 @@ import java.util.Objects;
 
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@Tag(name = "Aplicativo", description = "Endpoint(s) TESTANDO relacionado(s) a manipulação de Aplicativos")
+@Tag(name = "Aplicativo", description = "Endpoint(s) TESTE relacionado(s) a manipulação de Aplicativos")
 @SecurityRequirement(name = "jwt")
 @AllArgsConstructor
 @Slf4j
