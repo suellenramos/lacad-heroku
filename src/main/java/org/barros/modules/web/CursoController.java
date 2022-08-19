@@ -1,5 +1,6 @@
 package org.barros.modules.web;
 
+import io.quarkus.security.Authenticated;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import javax.validation.constraints.NotNull;
@@ -34,6 +35,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Slf4j
 @Path("/v1/cursos")
+@Authenticated
 public class CursoController {
 
     private final CursoService cursoService;

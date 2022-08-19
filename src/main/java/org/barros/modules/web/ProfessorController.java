@@ -27,6 +27,7 @@ import java.util.Objects;
 @Tag(name = "Professor", description = "Endpoint(s) relacionado(s) a manipulação de Professores")
 @SecurityRequirement(name = "jwt")
 @Path("/v1/professores")
+@Authenticated
 public class ProfessorController {
 
     @Inject

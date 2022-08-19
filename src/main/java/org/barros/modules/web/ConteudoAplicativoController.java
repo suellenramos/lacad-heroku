@@ -1,5 +1,6 @@
 package org.barros.modules.web;
 
+import io.quarkus.security.Authenticated;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.barros.modules.dto.response.ConteudoAplicativoDTO;
@@ -30,6 +31,7 @@ import java.net.URI;
 @AllArgsConstructor
 @Slf4j
 @Path("/v1/conteudoAplicativos")
+@Authenticated
 public class ConteudoAplicativoController {
 
     private final ConteudoAplicativoService conteudoAplicativoService;

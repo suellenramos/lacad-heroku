@@ -1,5 +1,6 @@
 package org.barros.modules.web;
 
+import io.quarkus.security.Authenticated;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.barros.modules.dto.request.DisciplinaDTO;
@@ -32,6 +33,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Slf4j
 @Path("/v1/disciplinas")
+@Authenticated
 public class DisciplinaController {
 
     private final DisciplinaService disciplinaService;

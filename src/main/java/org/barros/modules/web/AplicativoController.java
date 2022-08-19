@@ -1,5 +1,6 @@
 package org.barros.modules.web;
 
+import io.quarkus.security.Authenticated;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.barros.modules.core.IdDto;
@@ -20,6 +21,7 @@ import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -38,6 +40,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Slf4j
 @Path("/v1/aplicativos")
+@Authenticated
 public class AplicativoController {
 
     private final AplicativoService aplicativoService;
@@ -118,6 +121,7 @@ public class AplicativoController {
     @Path("/{id}")
     @Operation(summary = "Excluir Aplicativo", description = "Exclui os dados do Aplicativo")
     @APIResponse(responseCode = "204", description = "Registro excluído com sucesso")
+    //@RolesAllowed({"professorSELECT", "professorUPDATE"})
     public void delete(@PathParam("id") Long id) {
         aplicativoService.excluir(id);
     }
