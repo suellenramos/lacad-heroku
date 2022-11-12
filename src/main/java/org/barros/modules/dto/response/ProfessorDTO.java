@@ -12,7 +12,7 @@ public class ProfessorDTO implements Serializable {
 
     private Long profId;
 
-    private String nome;
+    private String name;
 
     private String email;
 

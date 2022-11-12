@@ -29,7 +29,7 @@ public class AuthenticationService implements IAuthenticationService {
 
     @Override
     public Response authentication(AuthRequest authRequest) {
-        Professor professor = iProfessorService.findByNomeAndSenha(authRequest.getUsername(), passwordEncoder.encode(authRequest.getPassword()));
+        Professor professor = iProfessorService.findByNomeAndSenha(authRequest.getName(), passwordEncoder.encode(authRequest.getPassword()));
 
         if (professor != null) {
             try {
@@ -43,7 +43,7 @@ public class AuthenticationService implements IAuthenticationService {
                         }
                     }
                 }
-                return Response.ok(new AuthResponse(tokenUtils.generateToken(professor.getNome(), roles))).build();
+                return Response.ok(new AuthResponse(tokenUtils.generateToken(professor.getName(), roles))).build();
             } catch (Exception e) {
                 return Response.status(Response.Status.UNAUTHORIZED).build();
             }

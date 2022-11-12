@@ -29,7 +29,7 @@ public class Professor implements Serializable  {
     private Long profId;
 
     @Column(name = "prof_nome")
-    private String nome;
+    private String name;
 
     @CreationTimestamp
     @Column(name = "prof_data_hora_cadastro")
