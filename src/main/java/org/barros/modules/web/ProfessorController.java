@@ -59,17 +59,18 @@ public class ProfessorController {
                 .orElse(Response.status(Response.Status.NOT_FOUND).build());
     }
 
-    @PUT
-    @Path("{id}")
-    @Operation(summary = "Atualização de um Professor", description = "Cria um novo Professor ")
-    public Response put(@Parameter(name = "id", required = true) @PathParam("id") Long id, @NotNull @Valid ProfessorDTO professorDTO) {
-        if (!Objects.equals(id, professorDTO.getProfId())) {
-            throw new ServiceException("O id não corresponde ao Professor");
-        }
-        professorService.update(professorDTO);
-        return Response.ok(professorDTO).build();
-       // return Response.status(Response.Status.NO_CONTENT).build();
-    }
+
+//    @PUT
+//    @Path("{id}")
+//    @Operation(summary = "Atualização de um Professor", description = "Cria um novo Professor ")
+//    public Response put(@Parameter(name = "id", required = true) @PathParam("id") Long id, @NotNull @Valid ProfessorDTO professorDTO) {
+//        if (!Objects.equals(id, professorDTO.getProfId())) {
+//            throw new ServiceException("O id não corresponde ao Professor");
+//        }
+//        professorService.update(professorDTO);
+//        return Response.ok(professorDTO).build();
+//       // return Response.status(Response.Status.NO_CONTENT).build();
+  //  }
     @DELETE
     @Path("/{id}")
     @Operation(summary = "Remover Professor", description = "Remove um novo Professor ")
