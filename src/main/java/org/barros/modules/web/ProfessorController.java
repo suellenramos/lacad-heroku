@@ -71,12 +71,12 @@ public class ProfessorController {
 //        return Response.ok(professorDTO).build();
 //       // return Response.status(Response.Status.NO_CONTENT).build();
   //  }
-    @DELETE
-    @Path("/{id}")
-    @Operation(summary = "Remover Professor", description = "Remove um novo Professor ")
-    public void delete(@PathParam("id") Long id) {
-        professorService.excluir(id);
-    }
+//    @DELETE
+//    @Path("/{id}")
+//    @Operation(summary = "Remover Professor", description = "Remove um novo Professor ")
+//    public void delete(@PathParam("id") Long id) {
+//        professorService.excluir(id);
+//    }
 }
 
 
